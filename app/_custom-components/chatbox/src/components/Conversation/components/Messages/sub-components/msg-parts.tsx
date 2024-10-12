@@ -6,8 +6,9 @@ import { MdAccessTime, MdCheck, MdDoneAll } from "react-icons/md";
 import { format } from "date-fns";
 import {
   messageBoxStatusTypes,
-  MessageBoxType,
+  messageBoxType,
 } from "../../../../../utils/interfaces & types & constants";
+import { SiTicktick } from "react-icons/si";
 
 export const SystemComponent = ({ text }: { text: string }) => {
   const { theme } = useTheme();
@@ -28,7 +29,7 @@ export const SystemComponent = ({ text }: { text: string }) => {
   );
 };
 
-export const MessageBox: React.FC<MessageBoxType> = (props) => {
+export const MessageBox: React.FC<messageBoxType> = (props) => {
   const isRightAligned = props.position === "right";
   return (
     <div>
@@ -42,26 +43,26 @@ export const MessageBox: React.FC<MessageBoxType> = (props) => {
           {props.hideSeenAndStatus ? null : (
             <div
               className={
-                "flex items-center justify-end text-right opacity-50 text-[8px] right-[-4px] bottom-[-5px] gap-1 mt-2"
+                "flex items-center justify-end text-right opacity-50 right-[-4px] bottom-[-5px] gap-3 mt-2 text-[10px]"
               }
             >
               {format(props.date, "hh:mm")}
+              {props.hideStatus ? null : (
+                <span className="scale-[1.5]">
+                  {props.status === messageBoxStatusTypes.notReceived && (
+                    <MdAccessTime />
+                  )}
 
-              <span className="scale-[1.3]">
-                {props.status === messageBoxStatusTypes.notReceived && (
-                  <MdAccessTime />
-                )}
+                  {props.status === messageBoxStatusTypes.sent && <MdCheck />}
 
-                {props.status === messageBoxStatusTypes.sent && <MdCheck />}
-
-                {props.status === messageBoxStatusTypes.delivered && (
-                  <MdDoneAll />
-                )}
-
-                {props.status === messageBoxStatusTypes.read && (
-                  <MdDoneAll color="#4FC3F7" />
-                )}
-              </span>
+                  {props.status === messageBoxStatusTypes.delivered && (
+                    <MdDoneAll />
+                  )}
+                  {props.status === messageBoxStatusTypes.read && (
+                    <SiTicktick fill="green" className="scale-90" />
+                  )}
+                </span>
+              )}
             </div>
           )}
         </div>

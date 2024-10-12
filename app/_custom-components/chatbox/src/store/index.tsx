@@ -3,7 +3,7 @@
 import { type ReactNode, createContext, useContext, useRef } from "react";
 import { useStore } from "zustand";
 import { type chatBoxStore, createChatboxStore } from "./store";
-
+export * from "./data-dispatcher";
 export type chatboxStoreApi = ReturnType<typeof createChatboxStore>;
 export const ChatboxStoreContext = createContext<chatboxStoreApi | undefined>(
   undefined,

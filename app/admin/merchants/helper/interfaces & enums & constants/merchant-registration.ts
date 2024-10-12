@@ -3,6 +3,7 @@ import { Merchantdetails } from "@/lib/main/slices/user/user.slice";
 export interface newRegistrationDetails extends Merchantdetails {
   id: number;
   user: {
+    id: number;
     name: string;
   };
 }

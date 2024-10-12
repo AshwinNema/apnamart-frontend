@@ -1,9 +1,12 @@
 import React from "react";
 import { MdAccessTime, MdCheck, MdDoneAll } from "react-icons/md";
 import { format } from "date-fns";
-import { MessageBoxType } from "../../utils/interfaces & types & constants";
+import {
+  messageBoxStatusTypes,
+  messageBoxType,
+} from "../../utils/interfaces & types & constants";
 
-const MessageBox: React.FC<MessageBoxType> = (props) => {
+const MessageBox: React.FC<messageBoxType> = (props) => {
   const isRightAligned = props.position === "right";
   return (
     <div>
@@ -23,13 +26,19 @@ const MessageBox: React.FC<MessageBoxType> = (props) => {
               {format(props.date, "hh:mm")}
 
               <span className="scale-[1.3]">
-                {props.status === "waiting" && <MdAccessTime />}
+                {props.status === messageBoxStatusTypes.notReceived && (
+                  <MdAccessTime />
+                )}
 
-                {props.status === "sent" && <MdCheck />}
+                {props.status === messageBoxStatusTypes.sent && <MdCheck />}
 
-                {props.status === "received" && <MdDoneAll />}
+                {props.status === messageBoxStatusTypes.delivered && (
+                  <MdDoneAll />
+                )}
 
-                {props.status === "read" && <MdDoneAll color="#4FC3F7" />}
+                {props.status === messageBoxStatusTypes.read && (
+                  <MdDoneAll color="#4FC3F7" />
+                )}
               </span>
             </div>
           )}

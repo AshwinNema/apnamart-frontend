@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useContext } from "react";
+import { useRef, useState, useCallback, useContext, useEffect } from "react";
 import { Input } from "@nextui-org/react";
 import { FaRegSmile } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
@@ -7,9 +7,14 @@ import EmojiPicker, { pickerStateChanger } from "./emoji-picker";
 import { setNestedPath } from "@/app/_utils";
 import { addChatboxMsg, handleEmojiEvents, senderState } from "./utils";
 import { WidgetContext } from "@/app/_custom-components/chatbox";
+import { useChatboxStore } from "../../../../store";
+import { eventDispatcherTypes } from "../../../../utils";
 
 function Sender() {
   const senderInputContainer = useRef<HTMLDivElement | null>(null);
+  const addMessagesAtFront = useChatboxStore(
+    (state) => state.addMessagesAtFront,
+  );
   const [config, setConfig] = useState<senderState>({
     pickerOffset: 0,
     height: 0,
@@ -28,13 +33,24 @@ function Sender() {
   });
 
   const widgetProps = useContext(WidgetContext);
+  useEffect(() => {
+    if (!widgetProps?.eventDispatcher) return;
+    const subscription = widgetProps?.eventDispatcher?.subscribe((event) => {
+      if (event.type === eventDispatcherTypes.clearInput) {
+        setData("inputVal")("");
+      }
+    });
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [widgetProps?.eventDispatcher]);
   if (!widgetProps) return null;
-
+  const { eventDispatcher } = widgetProps;
   return (
     <>
       <EmojiPicker config={config} setConfig={setConfig} />
       <div ref={senderInputContainer}>
-        <div className="w-full absolute bottom-0">
+        <div className="w-full ">
           <Input
             className="bg-[transparent] mb-5"
             value={config.inputVal}
@@ -62,15 +78,14 @@ function Sender() {
                   const value = config.inputVal.trim();
                   if (!value) return;
                   if (widgetProps.customAddMsg) {
-                    widgetProps.customAddMsg(value, () =>
-                      setData("inputVal")(""),
-                    );
+                    widgetProps.customAddMsg(value);
                     return;
                   }
                   addChatboxMsg(
                     config.inputVal,
                     setData,
-                    widgetProps.stateConfig[1],
+                    addMessagesAtFront,
+                    eventDispatcher,
                   );
                 }}
                 className={`scale-y-[0.5] cursor-pointer ${
