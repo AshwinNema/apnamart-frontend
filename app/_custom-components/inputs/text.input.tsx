@@ -60,7 +60,10 @@ export const TextInput = ({
       isReadOnly={props.isReadOnly}
       type={type}
       endContent={<EndContent />}
-      onValueChange={setData}
+      onValueChange={(newVal) => {
+        if (type === "number" && `${Number(newVal)}` !== newVal) return;
+        setData(newVal);
+      }}
       label={config.label}
       className={`${className}`}
       placeholder={config.placeholder}

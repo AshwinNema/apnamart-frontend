@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Badge, Button } from "@nextui-org/react";
 import { IoClose } from "react-icons/io5";
 import { useChatboxStore } from "../../store";
 import { ChatIcon } from "../../assets";
@@ -9,9 +9,10 @@ type Props = {
 
 function Launcher({ toggle }: Props) {
   const showChat = useChatboxStore((state) => state.showChat);
+  const unreadMsgCount = useChatboxStore((state) => state.unreadMsgCount);
 
-  return (
-    <div className="absolute right-0 bottom-0">
+  const LauncherBtn = () => {
+    return (
       <Button
         size="lg"
         className="p-2"
@@ -23,6 +24,18 @@ function Launcher({ toggle }: Props) {
         {showChat && <IoClose className="scale-[2]" />}
         {!showChat && <ChatIcon />}
       </Button>
+    );
+  };
+
+  return (
+    <div className="absolute right-0 bottom-0">
+      {unreadMsgCount ? (
+        <Badge color="secondary" content={<>{unreadMsgCount}</>}>
+          <LauncherBtn />
+        </Badge>
+      ) : (
+        <LauncherBtn />
+      )}
     </div>
   );
 }

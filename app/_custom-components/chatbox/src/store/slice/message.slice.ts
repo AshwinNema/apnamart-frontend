@@ -1,46 +1,86 @@
 import { StateCreator } from "zustand";
-import { Message, MessagesState } from "../types";
 import { produce } from "immer";
-
-export interface messageState extends MessagesState {
-  addMessage: (details: Message) => void;
-  setBadgeCount: (count: number) => void;
-  addMsgsAndKey: (details: Message[], key: string) => void;
-  addMultipleMessages: (details: Message[]) => void;
+import {
+  assignDateKey,
+  messageBoxStatusTypes,
+  messagesState,
+} from "../../utils";
+// front = at the end of the array = push
+// back = at the beginning of the array = unshift
+export interface messageSlice extends messagesState {
+  updateMsgState: (details: Partial<messagesState>) => void;
+  addMessagesAtFront: (messages: messagesState["messages"]) => void;
+  addMessagesAtBack: (messages: messagesState["messages"]) => void;
+  markMsgsAsDelivered: (deliveryMap: { [key: string]: any }) => void;
+  markMsgAsRead: (id: number) => void;
 }
 
 const initialState = {
   messages: [],
-  badgeCount: 0,
-  dateMap: {},
+  unreadMsgCount: 0,
+  firstDayMap: {},
 };
 
 export const createMessageSlice: StateCreator<
-  messageState,
+  messageSlice,
   [],
   [],
-  messageState
+  messageSlice
 > = (set) => ({
   ...initialState,
-  addMessage: (details: Message) =>
+  updateMsgState: (details) => {
+    set(() => ({ ...details }));
+  },
+  addMessagesAtFront: (messages) => {
     set(
-      produce((state) => {
-        state.messages.push(details);
+      produce((state: messageSlice) => {
+        messages.forEach((message) => {
+          const { firstDayMap } = state;
+          assignDateKey(message.id, message.timestamp, firstDayMap);
+        });
+        state.messages.push(...messages);
+        return state;
       }),
-    ),
-  setBadgeCount: (badgeCount) => set(() => ({ badgeCount })),
-  addMsgsAndKey: (details: Message[], key: string) =>
+    );
+  },
+  addMessagesAtBack: (messages) => {
     set(
-      produce((state) => {
-        {
-          (state.dateMap[key] = true), state.messages.push(...details);
+      produce((state: messageSlice) => {
+        const newFirstId = messages?.[0]?.id || null;
+        const currentFirstId = state.messages?.[0]?.id || null;
+        if (newFirstId === currentFirstId) return state;
+        messages.forEach((message) => {
+          const { firstDayMap } = state;
+          assignDateKey(message.id, message.timestamp, firstDayMap);
+        });
+        state.messages.unshift(...messages);
+        return state;
+      }),
+    );
+  },
+  markMsgsAsDelivered: (deliveryMap) => {
+    set(
+      produce((state: messageSlice) => {
+        state.messages.forEach((msg) => {
+          const { id } = msg;
+          const isDelivered = deliveryMap[id];
+          if (!isDelivered) return;
+          msg.status = messageBoxStatusTypes.delivered;
+        });
+        return state;
+      }),
+    );
+  },
+  markMsgAsRead: (id) => {
+    set(
+      produce((state: messageSlice) => {
+        const msg = state.messages.find((msg) => msg.id === id);
+        if (msg) {
+          msg.status = messageBoxStatusTypes.read;
         }
+
+        return state;
       }),
-    ),
-  addMultipleMessages: (details: Message[]) =>
-    set(
-      produce((state) => {
-        state.messages.push(...details);
-      }),
-    ),
+    );
+  },
 });

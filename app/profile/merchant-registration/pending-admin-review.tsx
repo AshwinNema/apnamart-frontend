@@ -1,4 +1,4 @@
-import {  ChatIcon } from "@/app/_custom-components";
+import { ChatIcon } from "@/app/_custom-components";
 import { setKeyVal } from "@/app/_utils";
 import { Button, CardBody, CardHeader } from "@nextui-org/react";
 const PendingAdminReview = ({ setData }: { setData: setKeyVal }) => {

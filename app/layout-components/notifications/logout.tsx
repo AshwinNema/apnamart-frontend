@@ -5,6 +5,8 @@ import {
   clearUserStorage,
   getLocalStorageKey,
   storageAttributes,
+  removeSessionStorageKey,
+  sessionStorageAttributes,
 } from "@/app/_services";
 import { FcShop } from "react-icons/fc";
 import { appEndPoints } from "@/app/_utils/endpoints";
@@ -52,6 +54,9 @@ export default function Logout({ onClose }: { onClose: () => void }) {
         showToast: false,
       },
     ).finally(() => {
+      removeSessionStorageKey(
+        sessionStorageAttributes.pendingMerchantRegistration,
+      );
       clearUserStorage();
       dispatch(setUser(null));
       router.push("/");

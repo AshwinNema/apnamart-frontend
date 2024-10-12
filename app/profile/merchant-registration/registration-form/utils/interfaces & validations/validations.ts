@@ -20,7 +20,15 @@ export const pickUpAddressValidation = z.object({
   addressLine2: z.string().min(1, {
     message: "Area/ Colony/ State/ Province is required",
   }),
-  pinCode: z.coerce.number().int().min(100000).max(999999),
+  pinCode: z.coerce
+    .number()
+    .int()
+    .min(100000, {
+      message: "Please enter a valid Pin Code",
+    })
+    .max(999999, {
+      message: "Please enter a valid Pin Code",
+    }),
 });
 
 export const finalDetailsValidation = businessDetailsValidation

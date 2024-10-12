@@ -11,7 +11,7 @@ export const queryMerchantRegistration = (
     id?: number;
     page?: number;
     limit?: number;
-    registrationStatus?: merchantRegistrationStatus
+    registrationStatus?: merchantRegistrationStatus;
   },
   setConfig: Dispatch<SetStateAction<newRegistrationState>>,
 ) => {
@@ -51,8 +51,8 @@ export const approveMerchantRegistration = (
   )
     .then((res) => {
       if (!res) return;
-      onApprove && onApprove()
-      getData()
+      onApprove && onApprove();
+      getData();
     })
     .catch((err) => {
       console.log(err);

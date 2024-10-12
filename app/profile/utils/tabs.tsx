@@ -4,11 +4,7 @@ import { RiListSettingsLine } from "react-icons/ri";
 import BasicDetails from "../user-input-details";
 import { tabOption } from ".";
 import dynamic from "next/dynamic";
-import {
-  merchantRegistrationStatus,
-  UserInterface,
-  UserRole,
-} from "@/lib/main/slices/user/user.slice";
+import { UserInterface, UserRole } from "@/lib/main/slices/user/user.slice";
 import { ComponentSkeleton } from "@/app/_custom-components";
 import { tabKeys } from "@/lib/profile/slices/component-state.slice";
 import { LiaBusinessTimeSolid } from "react-icons/lia";

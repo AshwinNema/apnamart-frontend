@@ -3,13 +3,16 @@ import { loginConfig, modalTypes } from "../constants";
 import {
   HTTP_METHODS,
   makeDataRequest,
+  sessionStorageAttributes,
   setLocalStorageKey,
+  setSessionStorageKey,
   storageAttributes,
 } from "@/app/_services";
 import { errorToast, setKeyVal, appEndPoints } from "@/app/_utils";
 import { AppDispatch } from "@/lib/main/store";
 import { setUser } from "@/lib/main/slices/user/user.slice";
 import { handleAction } from "@/app/layout-components/notifications/new-user";
+import { checkMerchantRegistration } from "@/app/profile/utils";
 
 export interface MainModalBodyProps {
   config: loginConfig;
@@ -18,7 +21,7 @@ export interface MainModalBodyProps {
   onClose: () => void;
 }
 
-const processSuccessResponse = (
+export const processSuccessfulAuth = (
   response: any,
   onClose: () => void,
   dispatch: AppDispatch,
@@ -27,6 +30,7 @@ const processSuccessResponse = (
     return;
   }
   const { user, tokens, noInitialPassword, isNewUser } = response;
+  setSessionStorageKey(sessionStorageAttributes.userFetch, true);
   setLocalStorageKey(storageAttributes.user, user);
   setLocalStorageKey(storageAttributes.tokens, tokens);
   onClose();
@@ -39,7 +43,16 @@ const processSuccessResponse = (
       }),
     );
   }
+  if (!isNewUser) checkMerchantRegistration(user, dispatch);
   dispatch(setUser(user));
+};
+
+const processOtherAuthSuccessfulResponse = (
+  response: any,
+  onClose: () => void,
+  dispatch: AppDispatch,
+) => {
+  processSuccessfulAuth(response, onClose, dispatch);
 };
 
 export const googleSuccessResponse = (
@@ -64,7 +77,7 @@ export const googleSuccessResponse = (
     { showToastAndRedirect: false },
   )
     .then((response) => {
-      processSuccessResponse(response, onClose, dispatch);
+      processOtherAuthSuccessfulResponse(response, onClose, dispatch);
     })
     .catch((err) => {
       errorToast({ msg: err?.message });
@@ -76,7 +89,7 @@ export const onTwitterSuccess = (
   onClose: () => void,
   dispatch: AppDispatch,
 ) => {
-  processSuccessResponse(response, onClose, dispatch);
+  processOtherAuthSuccessfulResponse(response, onClose, dispatch);
 };
 
 export const onTwitterFailure = (err: Error) => {

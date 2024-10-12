@@ -1,10 +1,7 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { queryMerchantRegistration } from "./apis";
 import { newRegistrationState } from "../../helper";
-import {
-  MainTable,
-  SelectedMerchantRegistration,
-} from "./sub-components";
+import { MainTable, SelectedMerchantRegistration } from "./sub-components";
 import { merchantRegistrationStatus } from "@/lib/main/slices/user/user.slice";
 import { MainStateContext } from "./utils";
 
@@ -38,7 +35,7 @@ function NewMerchantRegistration() {
         value={{
           config,
           setConfig,
-          getData
+          getData,
         }}
       >
         <SelectedMerchantRegistration />

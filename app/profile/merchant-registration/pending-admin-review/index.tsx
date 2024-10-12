@@ -38,7 +38,6 @@ const PendingAdminReview = ({ setData }: { setData: setKeyVal }) => {
           >
             View Profile Details
           </Button>
-       
         </div>
       </CardBody>
     </>

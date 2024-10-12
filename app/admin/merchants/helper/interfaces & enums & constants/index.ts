@@ -1,2 +1,2 @@
 export * from "./tabs";
-export * from "./merchant-registration"
+export * from "./merchant-registration";

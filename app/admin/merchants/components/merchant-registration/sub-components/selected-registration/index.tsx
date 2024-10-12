@@ -70,6 +70,7 @@ export const SelectedMerchantRegistration = ({}: {}) => {
       </div>
       <MerchantAdminChatSupport
         merchantRegistrationId={config.selectedRegistrationDetails.id}
+        merchantId={config?.selectedRegistrationDetails?.user?.id}
       />
     </>
   );

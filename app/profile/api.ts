@@ -9,9 +9,8 @@ import {
 } from "../_services";
 import { appEndPoints } from "../_utils/endpoints";
 import { AppDispatch } from "@/lib/main/store";
-import { z } from "zod";
-import { checkMerchantRegistration } from "./utils";
-import { getZodErrMsg, passwordErrMsg, passwordRegex } from "../_utils";
+import { checkMerchantRegistration, getUpdateUserDetailsSchema } from "./utils";
+import { getZodErrMsg } from "../_utils";
 import {
   errorToast,
   successToast,
@@ -29,9 +28,7 @@ export const getUserProfile = (
   makeDataRequest(HTTP_METHODS.GET, appEndPoints.PROFILE, undefined, {
     getMerchantDetails,
   }).then((res) => {
-    if (!res) {
-      return;
-    }
+    if (!res) return;
     let user = getLocalStorageKey(storageAttributes.user) as UserInterface;
     user = { ...user, ...res };
     dispatch(setUser(user));
@@ -70,17 +67,7 @@ export const updateUserDetails = (
     appEndPoints.UPDATE_USER_PROFILE,
     details,
   ).then((res) => {
-    const schema =
-      type == tabKeys.settings
-        ? z.object({
-            password: z.string().regex(passwordRegex, {
-              message: passwordErrMsg,
-            }),
-          })
-        : z.object({
-            name: z.string(),
-            email: z.string().email(),
-          });
+    const schema = getUpdateUserDetailsSchema(type);
 
     const parsedData = schema.safeParse(details);
     if (parsedData?.error) {

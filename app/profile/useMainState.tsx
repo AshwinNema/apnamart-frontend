@@ -1,5 +1,12 @@
 import { getTabOptions, mainProfileState, tabOption } from "./utils";
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useSearchParams } from "next/navigation";
 import { useProfileDispatch, useProfileSelector } from "@/lib/profile/hooks";
 import { setTab, tabKeys } from "@/lib/profile/slices/component-state.slice";
@@ -26,6 +33,7 @@ const useMainState = (): [
   const dispatch = useProfileDispatch();
   const params = useSearchParams();
   const selectedTab = params.get("selectedTab");
+  const isSelectedTabLoaded = useRef(false);
   const tabOptions = useMemo(() => getTabOptions(user), [user]);
 
   useEffect(() => {
@@ -53,6 +61,8 @@ const useMainState = (): [
   }, [user?.address, dispatch]);
 
   useEffect(() => {
+    if (isSelectedTabLoaded.current) return;
+    isSelectedTabLoaded.current = true;
     selectedTab &&
       selectedTab !== tabKeys.profile &&
       tabOptions.find((item) => item.key === selectedTab) &&

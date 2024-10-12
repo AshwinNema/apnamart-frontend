@@ -2,10 +2,14 @@ import { Dispatch, MutableRefObject, SetStateAction } from "react";
 import { pickerStateChanger } from "./emoji-picker";
 import { setKeyVal } from "@/app/_utils";
 import { v4 } from "uuid";
-import { assignDateKey, chatBoxProps } from "@/app/_custom-components/chatbox";
-import { produce } from "immer";
-import { messageSenderType } from "../../../../store/types";
-import { messageBoxStatusTypes } from "../../../../utils/interfaces & types & constants";
+import {
+  messageSenderType,
+  messageBoxStatusTypes,
+  eventDispatcherTypes,
+  eventDispatcherValues,
+} from "../../../../utils";
+import { messageSlice } from "../../../../store/slice";
+import { Subject } from "rxjs";
 
 export interface senderState {
   pickerOffset: number;
@@ -50,24 +54,29 @@ export const handleEmojiEvents = (
 export const addChatboxMsg = (
   inputVal: string,
   setData: setKeyVal,
-  setConfig: chatBoxProps["stateConfig"][1],
+  setMsgs: messageSlice["addMessagesAtFront"],
+  eventDispatcher: Subject<eventDispatcherValues>,
 ) => {
   const value = inputVal.trim();
   if (!value) return;
   const id = v4();
   const timestamp = new Date();
+  eventDispatcher.next({
+    type: eventDispatcherTypes.scrollToBottom,
+    data: {
+      timer: 150,
+    },
+  });
+  setMsgs([
+    {
+      senderType: messageSenderType.client,
+      timestamp: timestamp,
+      status: messageBoxStatusTypes.sent,
+      id,
+      text: value,
+      hideStatusAndTime: false,
+    },
+  ]);
 
-  setConfig(
-    produce((draft) => {
-      assignDateKey(id, timestamp, draft.firstDayMap);
-      draft.messages.push({
-        senderType: messageSenderType.client,
-        timestamp,
-        status: messageBoxStatusTypes.sent,
-        id,
-        text: value,
-      });
-    }),
-  );
   setData("inputVal")("");
 };

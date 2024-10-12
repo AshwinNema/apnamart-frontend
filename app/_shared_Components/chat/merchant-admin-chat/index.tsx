@@ -1,59 +1,45 @@
-import {
-  Chatbox,
-  useChatDataManager,
-  prevMsgsHandler,
-  forwardMsgsHandler,
-} from "@/app/_custom-components";
-import { messageSenderType } from "@/app/_custom-components/chatbox/src/store/types";
-import { v4 } from "uuid";
+import { Chatbox } from "@/app/_custom-components";
 import { MdOutlineSupportAgent } from "react-icons/md";
-import { useEffect, useRef, useState } from "react";
-import * as _ from "lodash";
-import { messageBoxStatusTypes } from "@/app/_custom-components/chatbox/src/utils/interfaces & types & constants";
-import { transformChatMsgs } from "./helpers/transformer";
 import {
-  chatSupportConfig,
-  establishSocketConnection,
   sendChatMsg,
-} from "./helpers/socket-manager";
+  getInitialMsgs,
+  queryChatMsgs,
+  markMsgAsRead,
+} from "./helpers";
+
+import * as _ from "lodash";
+import useDataManager from "./hooks/useDataManager";
+import useReconnectSocket from "./hooks/useReconnectSocket";
 
 const MerchantAdminChatSupport = ({
   merchantRegistrationId,
+  merchantId,
 }: {
   merchantRegistrationId?: number;
+  merchantId?: number;
 }) => {
-  const socketRef = useRef<WebSocket | null>(null);
-  const [chatConfig, setChatConfig] = useChatDataManager();
-  const [config] = useState<chatSupportConfig>({
-    limit: 10,
-  });
-
-  useEffect(() => {
-    const finalConfig = structuredClone(config);
-    if (merchantRegistrationId)
-      finalConfig.merchantRegistrationId = merchantRegistrationId;
-    establishSocketConnection(finalConfig, socketRef, (data, messageType) => {
-      const chatMsgs = transformChatMsgs(data.data);
-      switch (messageType) {
-        case "forward":
-          forwardMsgsHandler(chatMsgs, setChatConfig, data.newMsg);
-          break;
-        case "backward":
-          prevMsgsHandler(chatMsgs, setChatConfig);
-          break;
-        default:
-          break;
-      }
-    });
-
-    return () => {
-      socketRef.current && socketRef.current.close();
-    };
-  }, [merchantRegistrationId]);
+  const [socketRef, dataDispatcher, config, setConfig] = useDataManager(
+    merchantRegistrationId,
+    merchantId,
+  );
+  const [reconnectSocket] = useReconnectSocket({ dataDispatcher, setConfig });
 
   return (
     <Chatbox
-      stateConfig={[chatConfig, setChatConfig]}
+      dataDispatcher={dataDispatcher}
+      getPrevMsgs={(firstMsgId, msgLength) => {
+        const allMsgsFetched = config.totalResults <= msgLength;
+        if (allMsgsFetched) return;
+
+        queryChatMsgs(
+          socketRef.current,
+          {
+            cursor: firstMsgId as number,
+            limit: config.limit,
+          },
+          reconnectSocket,
+        );
+      }}
       title={
         <div className="flex items-center gap-4 justify-center">
           <div className="flex flex-col">
@@ -65,23 +51,14 @@ const MerchantAdminChatSupport = ({
           </div>
         </div>
       }
+      markMsgAsRead={(id) => {
+        markMsgAsRead(socketRef.current, id as number, reconnectSocket);
+      }}
       subtitle=""
       resizable={true}
-      initialMessages={[
-        {
-          senderType: messageSenderType.response,
-          timestamp: new Date(),
-          status: messageBoxStatusTypes.read,
-          id: v4(),
-          hideStatusAndTime: true,
-          text: `👋 Hello! Welcome to Apnamart! We're here to help you with anything you need. If you have questions about our platform, your profile status, or anything else, just ask! 😊
-How can we assist you today?`,
-        },
-      ]}
-      customAddMsg={(msg, clearInput) => {
-        sendChatMsg(socketRef.current, msg)?.then(() => {
-          clearInput();
-        });
+      initialMessages={getInitialMsgs()}
+      customAddMsg={(msg) => {
+        sendChatMsg(socketRef.current, msg, reconnectSocket);
       }}
     />
   );

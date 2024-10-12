@@ -1,5 +1,4 @@
 import { ProfileDispatch } from "@/lib/profile/store";
-import { MainProfileStateContextInterface } from "../../utils";
 import {
   nextHandlerDetails,
   prevStepHandler,
@@ -8,6 +7,7 @@ import {
 } from ".";
 import { errorToast } from "@/app/_utils";
 import { setMerchantDetails } from "@/lib/profile/slices/merchant-details.slice";
+import { MainProfileStateContextInterface } from "@/app/profile/utils";
 
 // Cases:
 // 1. User is going backward from current tab,

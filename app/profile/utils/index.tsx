@@ -11,6 +11,8 @@ import { handleAction } from "../../layout-components/notifications/merchant-reg
 import { tabKeys } from "@/lib/profile/slices/component-state.slice";
 import { FileUploadWithPreview } from "file-upload-with-preview";
 import { createContext } from "react";
+import { z } from "zod";
+import { passwordErrMsg, passwordRegex } from "@/app/_utils";
 export * from "./tabs";
 
 export interface mainProfileState {
@@ -49,4 +51,17 @@ export const checkMerchantRegistration = (
     true,
   );
   dispatch(handleAction());
+};
+
+export const getUpdateUserDetailsSchema = (type: tabKeys) => {
+  return type == tabKeys.settings
+    ? z.object({
+        password: z.string().regex(passwordRegex, {
+          message: passwordErrMsg,
+        }),
+      })
+    : z.object({
+        name: z.string(),
+        email: z.string().email(),
+      });
 };
