@@ -6,7 +6,6 @@ import {
   NavbarItem,
   Button,
   useDisclosure,
-  Link,
 } from "@nextui-org/react";
 import ThemeSwitch from "../theme-switch";
 import LoginSignUpModal from "@/app/layout-components/login-signup";
