@@ -20,7 +20,7 @@ export function GlowingMarker() {
       </div>
 
       <div className={`relative animate-markerArrival`}>
-        <HiLocationMarker className={`fill-theme`} />
+        <HiLocationMarker className={`fill-mainTheme`} />
         <div
           className={`absolute scale-75 rounded-[50%] left-[35%] -bottom-[30%] bg-[black] z-0 h-1 w-1`}
         ></div>

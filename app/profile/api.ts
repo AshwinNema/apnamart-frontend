@@ -9,29 +9,35 @@ import {
 } from "../_services";
 import { appEndPoints } from "../_utils/endpoints";
 import { AppDispatch } from "@/lib/main/store";
-import { z } from "zod";
-import { tabKeys, userInputPage } from "./utils";
-import { getZodErrMsg, passwordErrMsg, passwordRegex } from "../_utils";
+import { checkMerchantRegistration, getUpdateUserDetailsSchema } from "./utils";
+import { getZodErrMsg } from "../_utils";
 import {
   errorToast,
   successToast,
   toastErrorIcons,
   toastSuccessIcons,
 } from "../_utils/toast";
+import { ProfileDispatch } from "@/lib/profile/store";
+import { setProfileUser } from "@/lib/profile/slices/user.slice";
+import { tabKeys } from "@/lib/profile/slices/component-state.slice";
 
-export const getUserProfile = (dispatch: AppDispatch) => {
-  makeDataRequest(HTTP_METHODS.GET, appEndPoints.PROFILE).then((res) => {
-    if (!res) {
-      return;
-    }
+export const getUserProfile = (
+  dispatch: AppDispatch,
+  getMerchantDetails: boolean,
+) => {
+  makeDataRequest(HTTP_METHODS.GET, appEndPoints.PROFILE, undefined, {
+    getMerchantDetails,
+  }).then((res) => {
+    if (!res) return;
     let user = getLocalStorageKey(storageAttributes.user) as UserInterface;
     user = { ...user, ...res };
     dispatch(setUser(user));
     setLocalStorageKey(storageAttributes.user, user);
+    checkMerchantRegistration(user, dispatch);
   });
 };
 
-export const uploadProfileImage = (file: File, dispatch: AppDispatch) => {
+export const uploadProfileImage = (file: File, dispatch: ProfileDispatch) => {
   makeUploadDataRequest(
     HTTP_METHODS.PUT,
     appEndPoints.UPLOAD_PROFILE_IMG,
@@ -45,32 +51,23 @@ export const uploadProfileImage = (file: File, dispatch: AppDispatch) => {
 
     let user = getLocalStorageKey(storageAttributes.user) as UserInterface;
     user = { ...user, ...res };
-    dispatch(setUser(user));
+    dispatch(setProfileUser(user));
     setLocalStorageKey(storageAttributes.user, user);
   });
 };
 
 export const updateUserDetails = (
   details: { password: string } | { name: string; email: string },
-  type: userInputPage,
-  dispatch: AppDispatch,
+  type: tabKeys,
+  dispatch: ProfileDispatch,
+  mainUserUpdate: (user: UserInterface) => void,
 ) => {
   makeDataRequest(
     HTTP_METHODS.PUT,
     appEndPoints.UPDATE_USER_PROFILE,
     details,
   ).then((res) => {
-    const schema =
-      type == tabKeys.settings
-        ? z.object({
-            password: z.string().regex(passwordRegex, {
-              message: passwordErrMsg,
-            }),
-          })
-        : z.object({
-            name: z.string(),
-            email: z.string().email(),
-          });
+    const schema = getUpdateUserDetailsSchema(type);
 
     const parsedData = schema.safeParse(details);
     if (parsedData?.error) {
@@ -84,11 +81,12 @@ export const updateUserDetails = (
     if (!res) return;
     let user = getLocalStorageKey(storageAttributes.user) as UserInterface;
     user = { ...user, ...res };
+    mainUserUpdate(user);
     successToast({
       msg: "User details updated successfully",
       iconType: toastSuccessIcons.rocket,
     });
-    dispatch(setUser(user));
+    dispatch(setProfileUser(user));
     setLocalStorageKey(storageAttributes.user, user);
   });
 };

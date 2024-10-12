@@ -40,12 +40,12 @@ export const TableActions = ({
   return (
     <>
       <div className="flex justify-end items-center gap-4">
-        <Tooltip color="primary" content={editTooltipText}>
+        <Tooltip showArrow={true} color="secondary" content={editTooltipText}>
           <span className="cursor-pointer">
             <FaRegEdit className="scale-[1.3]" onClick={onClick} />
           </span>
         </Tooltip>
-        <Tooltip color="danger" content={deleteToolTipText}>
+        <Tooltip showArrow={true} color="danger" content={deleteToolTipText}>
           <span className="cursor-pointer">
             <RiDeleteBin6Line
               onClick={onOpen}

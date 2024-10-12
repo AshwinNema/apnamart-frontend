@@ -10,18 +10,38 @@ import styles from "../../styles.module.css";
 import dynamic from "next/dynamic";
 
 export default function NotificationModal() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const { type, modalProps } = useAppSelector((state) => state.notifications);
   const dispatch = useAppDispatch();
   const Logout = dynamic(() => import("./logout"));
   const NewUserNotification = dynamic(() => import("./new-user"));
+  const MerchantRegistration = dynamic(() => import("./merchant-registration"));
+  const resetReduxState = () => dispatch(resetNotifications());
+
   useEffect(() => {
     if (!type) return;
     onOpen();
   }, [type]);
 
-  const resetReduxState = () => dispatch(resetNotifications());
+  useEffect(() => {
+    !isOpen && resetReduxState();
+  }, [isOpen]);
 
+  const CurrentNotificationModal = () => {
+    switch (type) {
+      case notificationTypes.newUser:
+        return <NewUserNotification onClose={onClose} />;
+
+      case notificationTypes.logout:
+        return <Logout onClose={onClose} />;
+
+      case notificationTypes.merchantRegistration:
+        return <MerchantRegistration onClose={onClose} />;
+
+      default:
+        return null;
+    }
+  };
   return (
     <Modal
       isOpen={isOpen}
@@ -34,24 +54,11 @@ export default function NotificationModal() {
       placement={`${modalProps?.placement}`}
       hideCloseButton={modalProps.hideCloseButton}
       isDismissable={modalProps.isDismissable}
-      onOpenChange={(isOpen) => {
-        if (!isOpen) resetReduxState();
+      onOpenChange={() => {
         onOpenChange();
       }}
     >
-      <ModalContent>
-        {(onClose) => (
-          <>
-            {type === notificationTypes.newUser ? (
-              <NewUserNotification onClose={onClose} />
-            ) : null}
-
-            {type === notificationTypes.logout ? (
-              <Logout onClose={onClose} />
-            ) : null}
-          </>
-        )}
-      </ModalContent>
+      <ModalContent>{() => <CurrentNotificationModal />}</ModalContent>
     </Modal>
   );
 }

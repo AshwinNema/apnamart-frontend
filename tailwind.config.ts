@@ -1,4 +1,13 @@
 import type { Config } from "tailwindcss";
+import {
+  chatBoxMsgTheme,
+  darkContainerTheme,
+  mainTheme,
+  successTheme,
+  warningTheme,
+  secondaryTheme,
+  dangerTheme,
+} from "./constants";
 const { nextui } = require("@nextui-org/react");
 
 const config: Config = {
@@ -16,10 +25,16 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "google-gradient":
           "linear-gradient(-120deg, #4285f4, #34a853, #fbbc05, #ea4335)",
+        chatBoxHeader: "linear-gradient(315deg, #182b3a 0%, #20a4f3 74%)",
       },
       colors: {
-        theme:
-          "hsl(var(--nextui-primary) / var(--nextui-primary-opacity, var(--tw-bg-opacity)))",
+        mainTheme,
+        successTheme,
+        warningTheme,
+        chatBoxMsgTheme,
+        darkContainerTheme,
+        secondaryTheme,
+        dangerTheme,
       },
       animation: {
         glow: "glow 1.5s linear 3s infinite",
@@ -41,6 +56,13 @@ const config: Config = {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+      },
+      boxShadow: {
+        chatConversationContainer: "0px 2px 10px 1px #b5b5b5",
+        systemComponentShadow: "1px 1px 1px 1px rgba(0, 0, 0, 0.2)",
+      },
+      fontSize: {
+        supSmall: "0.6rem",
       },
     },
   },

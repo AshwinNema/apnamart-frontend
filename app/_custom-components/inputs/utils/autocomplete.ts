@@ -13,27 +13,6 @@ import { ZodSchema } from "zod";
 import React from "react";
 import { HTTP_METHODS, makeDataRequest } from "@/app/_services";
 
-export const alternateTextCheck = (
-  alternateText: string | undefined,
-  value: string,
-  config: TextInputState,
-  setMultipleDataFunc: multiplePathSetter,
-) => {
-  if (alternateText) {
-    const update: keyVals[] = [
-      ["label", ""],
-      ["placeholder", ""],
-    ];
-
-    if (value || config.isFocussed) {
-      update[0][1] = alternateText;
-    } else {
-      update[1][1] = alternateText;
-    }
-    setMultipleDataFunc(update);
-  }
-};
-
 export const invalidTextInputCheck = (
   value: string,
   validationSchema: ZodSchema | undefined,

@@ -1,4 +1,3 @@
-import { GiShop } from "react-icons/gi";
 import {
   HTTP_METHODS,
   makeDataRequest,
@@ -6,8 +5,10 @@ import {
   clearUserStorage,
   getLocalStorageKey,
   storageAttributes,
+  removeSessionStorageKey,
+  sessionStorageAttributes,
 } from "@/app/_services";
-
+import { FcShop } from "react-icons/fc";
 import { appEndPoints } from "@/app/_utils/endpoints";
 import { useAppDispatch } from "@/lib/main/hooks";
 import {
@@ -19,6 +20,7 @@ import { setUser } from "@/lib/main/slices/user/user.slice";
 import { Button, ModalBody, ModalFooter, ModalHeader } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { TbLogout } from "react-icons/tb";
+
 export const handleAction = () =>
   setNotificationType({
     type: notificationTypes.logout,
@@ -52,6 +54,9 @@ export default function Logout({ onClose }: { onClose: () => void }) {
         showToast: false,
       },
     ).finally(() => {
+      removeSessionStorageKey(
+        sessionStorageAttributes.pendingMerchantRegistration,
+      );
       clearUserStorage();
       dispatch(setUser(null));
       router.push("/");
@@ -62,14 +67,11 @@ export default function Logout({ onClose }: { onClose: () => void }) {
     <>
       <ModalHeader className="text-4l font-bold font-serif flex flex-col">
         <div className="flex justify-center mb-3">
-          <GiShop className="scale-[2]" />
+          <FcShop className="scale-[2]" />
         </div>
         <div className="flex justify-center">Logout of Apnamart?</div>
       </ModalHeader>
-      <ModalBody>
-        You can always log back in at any time. If you just want to switch
-        accounts, you can do that by adding an existing account.
-      </ModalBody>
+      <ModalBody>You can always log back in at any time.</ModalBody>
       <ModalFooter>
         <div className="flex flex-col w-full">
           <Button

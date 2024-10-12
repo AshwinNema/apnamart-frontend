@@ -5,17 +5,11 @@ import {
   signUpValidationSchema,
 } from "./constants";
 import { appEndPoints } from "@/app/_utils/endpoints";
-import {
-  HTTP_METHODS,
-  makeDataRequest,
-  setLocalStorageKey,
-  storageAttributes,
-} from "@/app/_services";
+import { HTTP_METHODS, makeDataRequest } from "@/app/_services";
 import { getZodErrMsg } from "@/app/_utils";
-import { setUser } from "@/lib/main/slices/user/user.slice";
 import { AppDispatch } from "@/lib/main/store";
 import { errorToast, toastErrorIcons } from "@/app/_utils/toast";
-import { handleAction } from "@/app/layout-components/notifications/new-user";
+import { processSuccessfulAuth } from "./sub-components/util";
 
 export const loginSignUp = async (
   formData: loginConfig["formData"],
@@ -46,20 +40,15 @@ export const loginSignUp = async (
       { showToastAndRedirect: false },
     );
     if (!userData) return;
-    const { user, tokens } = userData;
-    setLocalStorageKey(storageAttributes.user, user);
-    setLocalStorageKey(storageAttributes.tokens, tokens);
-    onClose();
-    window.sessionStorage.setItem("isUserFetched", "true");
-    if (modalType === modalTypes.signUp) {
-      dispatch(
-        handleAction({
-          name: user.name,
-          role: formData.role,
-        }),
-      );
-    }
-    dispatch(setUser(user));
+    processSuccessfulAuth(
+      {
+        ...userData,
+        noInitialPassword: false,
+        isNewUser: modalType === modalTypes.signUp,
+      },
+      onClose,
+      dispatch,
+    );
   } catch (err: any) {
     errorToast({ msg: err?.message });
   }

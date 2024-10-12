@@ -12,10 +12,12 @@ import LoginSignUpModal from "@/app/layout-components/login-signup";
 import { modalTypes } from "@/app/layout-components/login-signup/constants";
 import { setNestedPath } from "@/app/_utils";
 import { useAppSelector } from "@/lib/main/hooks";
-import { GiShop } from "react-icons/gi";
+import { FcShop } from "react-icons/fc";
+
 import UserProfile from "../user-profile";
-import Link from "next/link";
+
 import { UserRoleMenu } from "../user-role-menu";
+import { SpinnerLink } from "@/app/_custom-components";
 
 export default function Header() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -45,12 +47,12 @@ export default function Header() {
         <NavbarBrand className="flex items-center gap-4">
           {user ? <UserRoleMenu /> : null}
 
-          <Link href="/">
-            <div className="flex gap-3">
-              <GiShop className="scale-[2]" />
+          <SpinnerLink color="foreground" href="/">
+            <div className="flex gap-3 items-center">
+              <FcShop className="scale-[2]" />
               <div className="font-bold font-serif">Apnamart</div>
             </div>
-          </Link>
+          </SpinnerLink>
         </NavbarBrand>
 
         <NavbarContent justify="end">

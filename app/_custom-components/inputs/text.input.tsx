@@ -1,91 +1,75 @@
 import { Input } from "@nextui-org/react";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { keyVals, setMultiplePaths, setNestedPath } from "@/app/_utils";
+import { useCallback, useState } from "react";
+import { setNestedPath } from "@/app/_utils";
 import { ClearIcon } from "@/app/_utils/icons & logos";
 import { TextInputProps, TextInputState } from "./interface";
-import { alternateTextCheck, invalidTextInputCheck } from "./utils";
+import { invalidTextInputCheck } from "./utils";
+import styles from "@/app/styles.module.css";
 
 export const TextInput = ({
   value,
   setData,
   validationSchema,
   Icon,
-  label,
-  placeholder,
   className = "",
   classNames,
-  alternateText,
   variant = "bordered",
   autoFocus = false,
   labelPlacement = "inside",
   fullWidth = false,
+  type = "text",
+  ...props
 }: TextInputProps) => {
   const [config, setConfig] = useState<TextInputState>({
     invalid: false,
     errorMsg: "",
-    label: label || "",
-    placeholder: `${placeholder ? placeholder : ""}`,
-    isFocussed: false,
+    label: props.label || "",
+    placeholder: `${props.placeholder ? props.placeholder : ""}`,
   });
-  const isInputClicked = useRef(false);
   const setDataFunc = useCallback(setNestedPath(setConfig), [setConfig]);
-  const setMultipleDataFunc = useCallback(setMultiplePaths(setConfig), [
-    setConfig,
-  ]);
-
-  useEffect(() => {
-    const clicked = () => {
-      if (isInputClicked.current) {
-        isInputClicked.current = false;
-        return;
-      }
-      setDataFunc("isFocussed")(false);
-    };
-    document.body.addEventListener("click", clicked);
-    alternateTextCheck(alternateText, value, config, setMultipleDataFunc);
-
-    return () => {
-      document.body.removeEventListener("click", clicked);
-    };
-  }, [alternateText, value, config.isFocussed]);
-
   const isInvalid = () =>
     invalidTextInputCheck(value, validationSchema, setDataFunc);
 
   const EndContent = () => {
-    return !!value ? <ClearIcon onClick={() => setData("")} /> : null;
+    return !!value && !props.isReadOnly ? (
+      <ClearIcon onClick={() => setData("")} />
+    ) : null;
   };
 
   return (
     <Input
-      classNames={classNames}
+      classNames={{
+        ...classNames,
+        input: [
+          ...[
+            classNames?.input,
+            type === "number" ? styles["numberInput"] : "",
+          ],
+        ],
+      }}
       autoFocus={autoFocus}
-      startContent={<>{Icon && <Icon />}</>}
+      startContent={Icon ? <Icon /> : null}
       value={value}
       isInvalid={config.invalid}
       color={config.invalid ? "danger" : "default"}
       labelPlacement={labelPlacement}
       errorMessage={`${config.errorMsg}`}
+      isRequired={props.isRequired}
       isClearable={false}
       fullWidth={fullWidth}
-      onClick={() => {
-        isInputClicked.current = true;
-      }}
-      onFocus={() => {
-        setDataFunc("isFocussed")(true);
-      }}
+      isReadOnly={props.isReadOnly}
+      type={type}
       endContent={<EndContent />}
-      onValueChange={setData}
+      onValueChange={(newVal) => {
+        if (type === "number" && `${Number(newVal)}` !== newVal) return;
+        setData(newVal);
+      }}
       label={config.label}
       className={`${className}`}
       placeholder={config.placeholder}
       variant={variant}
       onBlur={() => {
-        const updates: keyVals[] = [
-          ["invalid", isInvalid()],
-          ["isFocussed", false],
-        ];
-        setMultipleDataFunc(updates);
+        setDataFunc("invalid")(isInvalid());
       }}
     />
   );

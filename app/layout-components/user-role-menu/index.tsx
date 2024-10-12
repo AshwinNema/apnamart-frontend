@@ -12,14 +12,17 @@ import { setNestedPath } from "@/app/_utils";
 import { RxCross1 } from "react-icons/rx";
 import { usePathname, useRouter } from "next/navigation";
 import { rolePageDetails, roleWiseList } from "./constants";
+import { Spinner } from "@/app/_custom-components";
 
 export const UserRoleMenu = () => {
   const [config, setConfig] = useState<{
     itemList: rolePageDetails[];
     toggleIcon: boolean;
+    showSpinner: boolean;
   }>({
     itemList: [],
     toggleIcon: true,
+    showSpinner: false,
   });
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
   const user = useAppSelector((state) => state.user);
@@ -35,6 +38,10 @@ export const UserRoleMenu = () => {
     const list = roleWiseList[role] || [];
     setData("itemList")(list);
   }, [user?.role]);
+
+  useEffect(() => {
+    setData("showSpinner")(false);
+  }, [path]);
   if (!user || !config.itemList.length) return null;
 
   return (
@@ -63,6 +70,7 @@ export const UserRoleMenu = () => {
           items={config.itemList}
           onAction={(key) => {
             const route = key as string;
+            setData("showSpinner")(true);
             router.push(route);
           }}
           color="primary"
@@ -72,7 +80,7 @@ export const UserRoleMenu = () => {
             <DropdownItem
               startContent={item.icon}
               key={item.link}
-              className={`${path === item.link && "bg-theme"}`}
+              className={`${path === item.link && "bg-mainTheme"}`}
               variant={`${path === item.link ? "solid" : "faded"}`}
             >
               {item.label}
@@ -80,6 +88,7 @@ export const UserRoleMenu = () => {
           )}
         </DropdownMenu>
       </Dropdown>
+      {config.showSpinner && <Spinner />}
     </>
   );
 };

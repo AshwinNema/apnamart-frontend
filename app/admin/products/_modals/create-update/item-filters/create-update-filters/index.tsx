@@ -41,7 +41,7 @@ const CreateUpdateFilter = () => {
   return (
     <div className="mt-5">
       <TextInput
-        alternateText="Name"
+        label="Name"
         variant="underlined"
         className="mb-3"
         value={

@@ -1,14 +1,23 @@
-import { Image, Modal, ModalContent, useDisclosure } from "@nextui-org/react";
+import { Image } from "@nextui-org/react";
 import NextImage from "next/image";
 import { useAppSelector } from "@/lib/main/hooks";
 import { ReactNode, useEffect } from "react";
-import { CircularProgress } from "@nextui-org/progress";
 import { useRouter } from "next/navigation";
 import { UserRole } from "@/lib/main/slices/user/user.slice";
+import { Spinner } from "./loaders";
 export * from "./inputs";
 export * from "./leaflet";
 export * from "./drawer";
 export * from "./table";
+export * from "./loaders";
+export * from "./stepper";
+export * from "./buttons";
+export * from "./chatbox";
+export * from "./pagination";
+export * from "./custom-icons";
+
+export { default as CustomImagePreviewer } from "./image-previewer";
+
 export const ImageComponent = ({
   width,
   height,
@@ -34,29 +43,6 @@ export const ImageComponent = ({
       alt={alt}
       className={`${className || ""}`}
     />
-  );
-};
-
-export const Spinner = () => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
-  useEffect(() => {
-    onOpen();
-  }, [onOpen]);
-
-  return (
-    <Modal
-      isOpen={isOpen}
-      onOpenChange={onOpenChange}
-      isDismissable={false}
-      isKeyboardDismissDisabled={false}
-    >
-      <ModalContent className="bg-[transparent] shadow-none">
-        <div className="spinner-container bg-[transparent] flex items-center justify-center h-screen">
-          <CircularProgress />
-        </div>
-      </ModalContent>
-    </Modal>
   );
 };
 

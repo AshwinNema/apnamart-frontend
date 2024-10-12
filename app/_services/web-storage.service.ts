@@ -6,8 +6,19 @@ export enum storageAttributes {
   theme = "theme",
 }
 
+export enum sessionStorageAttributes {
+  userFetch = "isUserFetched",
+  pendingMerchantRegistration = "pendingMerchantRegistration",
+}
+
 export function getLocalStorageKey<T>(attribute: storageAttributes): T {
   return get(attribute);
+}
+
+export function getSessionStorageKey(attribute: sessionStorageAttributes) {
+  return JSON.parse(
+    window.sessionStorage.getItem(attribute) || JSON.stringify(null),
+  );
 }
 
 export const setLocalStorageKey = (
@@ -17,8 +28,19 @@ export const setLocalStorageKey = (
   set(attribute, value);
 };
 
+export const setSessionStorageKey = (
+  attribute: sessionStorageAttributes,
+  value: any,
+) => {
+  window.sessionStorage.setItem(attribute, JSON.stringify(value));
+};
+
 export const removeLocalStorageKey = (key: storageAttributes) => {
   remove(key);
+};
+
+export const removeSessionStorageKey = (key: sessionStorageAttributes) => {
+  window.sessionStorage.removeItem(key);
 };
 
 export const clearUserStorage = () => {

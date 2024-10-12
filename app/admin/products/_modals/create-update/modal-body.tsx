@@ -64,7 +64,7 @@ export const MainModalBody = () => {
           fullWidth={true}
           value={mainConfig.name}
           setData={setMainData("name")}
-          alternateText="Name"
+          label="Name"
         />
         <MainBodyAutoCompletes />
       </ModalBody>

@@ -2,13 +2,36 @@ import {
   getLocalStorageKey,
   storageAttributes,
 } from "@/app/_services/web-storage.service";
-import { addressType } from "@/app/profile/address/utils";
+import { addressType } from "@/lib/profile/slices/address-slice";
+
 import { createSlice } from "@reduxjs/toolkit";
 
 export enum UserRole {
   customer = "customer",
   admin = "admin",
   merchant = "merchant",
+}
+
+export enum merchantRegistrationStatus {
+  adminReview = "review_by_admin",
+  completed = "completed",
+}
+
+export interface Merchantdetails {
+  id?: number;
+  name: string;
+  description: string;
+  isMerchantBlocked: boolean;
+  registrationStatus: merchantRegistrationStatus | null;
+  latitude: number;
+  longtitude: number;
+  addressLine1: string;
+  addressLine2: string;
+  bankAcNo: string;
+  gstIn: string;
+  panCard: string;
+  pinCode: string;
+  photo: string;
 }
 
 export interface UserInterface {
@@ -33,6 +56,7 @@ export interface UserInterface {
   updatedAt: Date;
   isBlackListed: boolean;
   archive: boolean;
+  merchantDetails?: Merchantdetails | null;
 }
 
 export const userSlice = createSlice({

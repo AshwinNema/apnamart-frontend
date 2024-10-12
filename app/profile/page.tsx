@@ -1,112 +1,45 @@
 "use client";
 
-import { IconInput, ProtectedRoute } from "../_custom-components";
-import { Tabs, Tab, Badge, Avatar } from "@nextui-org/react";
-import { tabKeys, tabOption, tabOptions } from "./utils";
-import { useCallback, useEffect, useState } from "react";
-import { setNestedPath } from "../_utils";
-import { BsPlusCircleFill } from "react-icons/bs";
-import { getUserProfile, uploadProfileImage } from "./api";
-import { useAppDispatch, useAppSelector } from "@/lib/main/hooks";
-import { useSearchParams } from "next/navigation";
+import { ComponentSkeleton, ProtectedRoute } from "../_custom-components";
+import dynamic from "next/dynamic";
+import { StoreProvider } from "./storeProvider";
+import { useAppDispatch } from "@/lib/main/hooks";
+import { useEffect } from "react";
+import { getUserProfile } from "./api";
+import { createContext } from "react";
+import {
+  setUser,
+  UserInterface,
+  UserRole,
+} from "@/lib/main/slices/user/user.slice";
+import { getLocalStorageKey, storageAttributes } from "../_services";
 
-function Page() {
-  const user = useAppSelector((state) => state.user);
-  const [config, setConfig] = useState({
-    selectedTab: tabKeys.basicDetails,
-    user: { ...user } || {},
-  });
-  const setProperty = useCallback(setNestedPath(setConfig), [setConfig]);
-  const params = useSearchParams();
-  const selectedTab = params.get("selectedTab");
-  useEffect(() => {
-    if (!selectedTab) return;
-    if (selectedTab in tabKeys && selectedTab !== tabKeys.profile) {
-      setProperty("selectedTab")(selectedTab);
-    }
-  }, [selectedTab, setProperty]);
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    getUserProfile(dispatch);
-  }, [dispatch, setProperty]);
-
-  return (
-    <div className="mt-11">
-      <div className="flex ml-11 mb-11">
-        <Badge
-          className="bg-[transparent] border-0 cursor-pointer"
-          shape="circle"
-          content={
-            <>
-              <IconInput
-                Icon={BsPlusCircleFill}
-                accept="image/png, image/jpeg"
-                props={{
-                  className:
-                    "scale-[2] relative left-[1rem] bottom-[-1.5rem] cursor-pointer",
-                }}
-                callback={(file) => uploadProfileImage(file, dispatch)}
-              />
-            </>
-          }
-          placement="bottom-right"
-        >
-          <Avatar
-            radius="full"
-            size="lg"
-            className="scale-[2]"
-            src={`${user?.photo || ""}`}
-          />
-        </Badge>
-      </div>
-
-      <div>
-        <Tabs
-          color="primary"
-          variant="bordered"
-          aria-label="Options"
-          placement="start"
-          className=""
-          size="lg"
-          selectedKey={config.selectedTab}
-          onSelectionChange={(key) => {
-            if (key === tabKeys.profile) {
-              return;
-            }
-            if (config.selectedTab !== key) {
-              setProperty("selectedTab")(key);
-            }
-          }}
-        >
-          {tabOptions.map((tabOption: tabOption) => {
-            const { Content } = tabOption;
-            return (
-              <Tab
-                key={tabOption.key}
-                className={`min-h-16 w-full ${tabOption.additionalTabClass || ""}`}
-                title={tabOption.title}
-              >
-                <div className="-mt-[8rem]">
-                  <Content
-                    details={config.user}
-                    setDetails={(key: string) => setProperty(`user.${key}`)}
-                  />
-                </div>
-              </Tab>
-            );
-          })}
-        </Tabs>
-      </div>
-    </div>
-  );
-}
+export const MainProfileContext = createContext<
+  null | ((user: UserInterface) => void)
+>(null);
 
 export default function UserProfile() {
+  const UserProfile = dynamic(() => import("./main"), {
+    loading: () => <ComponentSkeleton />,
+    ssr: false,
+  });
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    const user: UserInterface = getLocalStorageKey(storageAttributes.user);
+    getUserProfile(dispatch, user?.role === UserRole.merchant);
+  }, [dispatch]);
+
+  const updateUserData = (user: UserInterface) => {
+    dispatch(setUser(user));
+  };
+
   return (
     <ProtectedRoute>
-      <Page />
+      <StoreProvider>
+        <MainProfileContext.Provider value={updateUserData}>
+          <UserProfile />
+        </MainProfileContext.Provider>
+      </StoreProvider>
     </ProtectedRoute>
   );
 }
