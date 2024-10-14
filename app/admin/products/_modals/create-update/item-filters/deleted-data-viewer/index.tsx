@@ -40,7 +40,8 @@ export const DeletedDataViewer = function <
             return (
               <Tooltip
                 key={option.id}
-                color="primary"
+                color="secondary"
+                showArrow={true}
                 content={
                   <div>
                     <div>

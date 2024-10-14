@@ -2,6 +2,7 @@ import {
   Dispatch,
   MutableRefObject,
   SetStateAction,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -26,7 +27,7 @@ const useModalMainState = (): [
 ] => {
   const [config, setConfig] = useState<MainModalState>(getMainDefaultState());
   const bodyRef = useRef<HTMLDivElement | null>(null);
-  const setData = setNestedPath(setConfig);
+  const setData = useCallback(setNestedPath(setConfig), [setConfig]);
   const isOpen = useProductSelector((state) => state.componentDetails.isOpen);
   const tab = useProductSelector((state) => state.componentDetails.tab);
   const modalDetails = useProductSelector(

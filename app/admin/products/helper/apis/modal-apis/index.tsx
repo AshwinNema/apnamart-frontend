@@ -3,7 +3,7 @@ import {
   HTTP_METHODS,
   makeDataRequest,
   params,
-} from "@/app/_services/fetch-service";
+} from "@/app/_services";
 import { appEndPoints, setVal } from "@/app/_utils";
 import { MainModalState } from "../../interfaces & enums";
 export * from "./create-update";

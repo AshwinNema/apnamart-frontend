@@ -1,9 +1,5 @@
 "use client";
-import {
-  HTTP_METHODS,
-  makeDataRequest,
-  params,
-} from "@/app/_services/fetch-service";
+import { HTTP_METHODS, makeDataRequest, params } from "@/app/_services";
 
 export function openPopup(dialogWidth: number, dialogHeight: number) {
   const left = Math.max(screen.width / 2 - dialogWidth / 2, 0);

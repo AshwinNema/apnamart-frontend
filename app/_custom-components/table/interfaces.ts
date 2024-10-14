@@ -1,4 +1,4 @@
-import { HTTP_METHODS } from "@/app/_services/fetch-service";
+import { HTTP_METHODS } from "@/app/_services";
 import React from "react";
 
 export interface columns {

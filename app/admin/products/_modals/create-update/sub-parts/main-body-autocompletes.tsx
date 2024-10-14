@@ -1,7 +1,7 @@
 import { AutoComplete } from "@/app/_custom-components";
 import { useProductSelector } from "@/lib/product/hooks";
 import { tabKeys } from "@/lib/product/slices/component-details.slice";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { MainModalContext } from "../../../helper";
 import { setMultiplePaths, setNestedPath } from "@/app/_utils";
 
@@ -11,7 +11,7 @@ export const MainBodyAutoCompletes = () => {
   if (!mainData) return null;
   const { config: mainConfig, setAllData } = mainData;
   const { categoryId, subCategoryId } = mainConfig;
-  const setData = setNestedPath(setAllData);
+  const setData = useCallback(setNestedPath(setAllData), [setAllData]);
   return (
     <>
       {tab !== tabKeys.category && (

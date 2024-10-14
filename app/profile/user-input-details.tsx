@@ -1,33 +1,35 @@
-import { Button, Card, CardBody, user } from "@nextui-org/react";
+import { Button, Card, CardBody } from "@nextui-org/react";
 import { PasswordInput, TextInput } from "@/app/_custom-components/inputs";
-import { UserInterface } from "@/lib/main/slices/user/user.slice";
-import { setKeyVal } from "../_utils";
 import { Avatar, AvatarIcon } from "@nextui-org/react";
 import { IoIosMail } from "react-icons/io";
 import { z } from "zod";
-import { tabKeys, userInputPage } from "./utils";
 import { IoSaveSharp } from "react-icons/io5";
 import * as _ from "lodash";
-import { useAppDispatch } from "@/lib/main/hooks";
 import { updateUserDetails } from "./api";
+import { useProfileDispatch, useProfileSelector } from "@/lib/profile/hooks";
+import { tabKeys } from "@/lib/profile/slices/component-state.slice";
+import { setUserDetails } from "@/lib/profile/slices/main-user-details.slice";
+import { useContext } from "react";
+import { MainProfileContext } from "./page";
 
-export default function BasicDetails({
-  details,
-  setDetails,
-  userInputPage,
-}: {
-  details: UserInterface;
-  setDetails: setKeyVal;
-  userInputPage: userInputPage;
-}) {
-  const dispatch = useAppDispatch();
+export default function BasicDetails({}: {}) {
+  const mainUserUpdate = useContext(MainProfileContext);
+
+  const dispatch = useProfileDispatch();
+  const tab = useProfileSelector((state) => state.componentState.tab);
+  const userDetails = useProfileSelector((state) => state.mainUserDetails);
+  if (!mainUserUpdate) return null;
+  const setDetails = (key: string) => (value: any) => {
+    dispatch(setUserDetails({ [key]: value }));
+  };
+
   return (
     <Card>
       <CardBody>
-        {userInputPage === tabKeys.basicDetails ? (
+        {tab === tabKeys.basicDetails ? (
           <>
             <TextInput
-              value={details.name}
+              value={userDetails.name}
               setData={setDetails("name")}
               Icon={() => (
                 <Avatar
@@ -41,7 +43,7 @@ export default function BasicDetails({
             />
 
             <TextInput
-              value={details.email}
+              value={userDetails.email}
               setData={setDetails("email")}
               validationSchema={z.string().email()}
               Icon={() => <IoIosMail className="scale-150 mt-5" />}
@@ -52,10 +54,10 @@ export default function BasicDetails({
           </>
         ) : null}
 
-        {userInputPage === tabKeys.settings ? (
+        {tab === tabKeys.settings ? (
           <>
             <PasswordInput
-              password={details.password}
+              password={userDetails.password}
               setData={setDetails("password")}
               placeholder="Enter your new password"
               label="Password"
@@ -71,12 +73,10 @@ export default function BasicDetails({
             variant="shadow"
             onPress={() => {
               const data = _.pick(
-                details,
-                userInputPage === tabKeys.settings
-                  ? ["password"]
-                  : ["name", "email"],
+                userDetails,
+                tab === tabKeys.settings ? ["password"] : ["name", "email"],
               );
-              updateUserDetails(data, userInputPage, dispatch);
+              updateUserDetails(data, tab, dispatch, mainUserUpdate);
             }}
             endContent={<IoSaveSharp />}
           >

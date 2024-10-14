@@ -1,4 +1,10 @@
-import { HTTP_METHODS, makeDataRequest } from "@/app/_services/fetch-service";
+import {
+  HTTP_METHODS,
+  makeDataRequest,
+  setLocalStorageKey,
+  storageAttributes,
+} from "@/app/_services";
+
 import { keyVals } from "@/app/_utils";
 import { appEndPoints } from "@/app/_utils/endpoints";
 import { addressPayload } from "./interfaces-enums-default vals-schemas";
@@ -7,18 +13,17 @@ import {
   successToast,
   toastSuccessIcons,
 } from "@/app/_utils/toast";
-import { setUser, UserInterface } from "@/lib/main/slices/user/user.slice";
-import { AppDispatch } from "@/lib/main/store";
-import {
-  setLocalStorageKey,
-  storageAttributes,
-} from "@/app/_services/local-storage.service";
+import { UserInterface } from "@/lib/main/slices/user/user.slice";
+import { ProfileDispatch } from "@/lib/profile/store";
+import { setProfileUser } from "@/lib/profile/slices/user.slice";
 
+// This function is also used in merchant details section
 export const getAddress = (
   latLng: { lat: number; lng: number },
   setMultiPaths: (keyVals: keyVals[]) => void,
+  loadAddress: boolean = true,
 ) => {
-  setMultiPaths([["isAddLoaded", false]]);
+  loadAddress && setMultiPaths([["isAddLoaded", false]]);
   makeDataRequest(
     HTTP_METHODS.GET,
     appEndPoints.GET_ADDRESS,
@@ -38,20 +43,20 @@ export const getAddress = (
       console.log(err);
     })
     .finally(() => {
-      setMultiPaths([["isAddLoaded", true]]);
+      loadAddress && setMultiPaths([["isAddLoaded", true]]);
     });
 };
 
 export const updateUserAddress = (
   payload: addressPayload,
   user: UserInterface,
-  dispatch: AppDispatch,
+  dispatch: ProfileDispatch,
 ) => {
   makeDataRequest(HTTP_METHODS.PUT, appEndPoints.UPDATE_USER_ADDRESS, payload)
     .then((res) => {
       if (!res) return;
       const updatedUser = { ...user, address: res };
-      dispatch(setUser(updatedUser));
+      dispatch(setProfileUser(updatedUser));
       setLocalStorageKey(storageAttributes.user, updatedUser);
       successToast({
         msg: "User address updated successfully",

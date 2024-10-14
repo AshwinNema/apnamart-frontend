@@ -7,7 +7,7 @@ import {
   tableDataDataElement,
   MainModalContext,
 } from "../../helper";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import MainBodyImg from "./sub-parts/main-body-img";
 import { useProductSelector } from "@/lib/product/hooks";
 import { MainBodyAutoCompletes } from "./sub-parts/main-body-autocompletes";
@@ -19,8 +19,8 @@ import { MainBodyAutoCompletes } from "./sub-parts/main-body-autocompletes";
 
 export const MainModalBody = () => {
   const [config, setConfig] = useState(getDefaultConfig());
-  const setData = setNestedPath(setConfig);
-  const setMultiData = setMultiplePaths(setConfig);
+  const setData = useCallback(setNestedPath(setConfig), [setConfig]);
+  const setMultiData = useCallback(setMultiplePaths(setConfig), [setConfig]);
   const mainData = useContext(MainModalContext);
   const isOpen = useProductSelector((state) => state.componentDetails.isOpen);
   const modalDetails = useProductSelector(
@@ -64,7 +64,7 @@ export const MainModalBody = () => {
           fullWidth={true}
           value={mainConfig.name}
           setData={setMainData("name")}
-          alternateText="Name"
+          label="Name"
         />
         <MainBodyAutoCompletes />
       </ModalBody>

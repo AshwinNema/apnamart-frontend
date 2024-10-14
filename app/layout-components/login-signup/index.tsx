@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Modal, ModalContent, ModalHeader } from "@nextui-org/react";
-import { Footer } from "./sub-components";
+import { Footer, MainFormBody } from "./sub-components";
 import { keyVals, setMultiplePaths, setNestedPath } from "@/app/_utils";
 import { defaultConfig, modalTypes, userRoles } from "./constants";
-import { MainFormBody } from "./sub-components";
 
 export default function LoginSignUpModal({
   isOpen,
@@ -18,9 +17,8 @@ export default function LoginSignUpModal({
 }) {
   const [config, setConfig] = useState(structuredClone(defaultConfig));
   const { formData } = config;
-  const setData = setNestedPath(setConfig);
-  const setMultipleData = setMultiplePaths(setConfig);
-
+  const setData = useCallback(setNestedPath(setConfig), [setConfig]);
+  const setMultipleData = useCallback(setMultiplePaths(setConfig), [setConfig]);
   useEffect(() => {
     if (!isOpen) {
       setConfig(structuredClone(defaultConfig));

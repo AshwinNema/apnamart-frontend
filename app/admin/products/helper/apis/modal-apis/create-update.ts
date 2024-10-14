@@ -2,7 +2,7 @@ import {
   HTTP_METHODS,
   makeDataRequest,
   makeUploadDataRequest,
-} from "@/app/_services/fetch-service";
+} from "@/app/_services";
 import { createUpdateParams } from "../../interfaces & enums";
 import * as _ from "lodash";
 import {

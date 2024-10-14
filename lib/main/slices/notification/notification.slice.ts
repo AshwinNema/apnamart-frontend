@@ -4,6 +4,7 @@ import * as _ from "lodash";
 export enum notificationTypes {
   newUser = "newUser",
   logout = "logout",
+  merchantRegistration = "merchantRegistration",
 }
 
 export interface modalPropsInterface {

@@ -1,4 +1,4 @@
-import { HTTP_METHODS, makeDataRequest } from "@/app/_services/fetch-service";
+import { HTTP_METHODS, makeDataRequest } from "@/app/_services";
 import {
   LayerCircle,
   featureGroupAreas,

@@ -2,7 +2,7 @@
 import { MainMap } from "@/app/_custom-components/leaflet";
 import { setNestedPath } from "@/app/_utils";
 import { Button } from "@nextui-org/react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import {
@@ -78,7 +78,7 @@ export default function DeliveryMap() {
   const [config, setConfig] = useState({
     saveMapState: false,
   });
-  const setData = setNestedPath(setConfig);
+  const setData = useCallback(setNestedPath(setConfig), [setConfig]);
   const deliveryMap = useMemo(() => {
     return (
       <MainMap

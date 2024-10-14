@@ -7,7 +7,7 @@ import {
   uploadRespHandling,
 } from "./helper";
 import { trackPromise } from "react-promise-tracker";
-import { clearUserStorage, redirect } from "../local-storage.service";
+import { clearUserStorage, redirect } from "../web-storage.service";
 
 export const makeUploadDataRequest = async (
   method: HTTP_METHODS,

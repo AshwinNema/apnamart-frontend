@@ -10,6 +10,7 @@ import ItemFilters from "./item-filters";
 import { tabKeys } from "@/lib/product/slices/component-details.slice";
 import { ItemToolTip } from "./sub-parts";
 import useModalMainState from "../../hooks/useModalMainState";
+import { useCallback } from "react";
 
 // This component has central state for the create and update of category, sub category and items.
 // For managing state of this component we have a hook useModalMainState. Here we also set the category and subcategory list and reset the modal state when modal is closed.
@@ -40,7 +41,7 @@ const CreateUpdateModal = ({
   const [config, setConfig, bodyRef] = useModalMainState();
   const tab = useProductSelector((state) => state.componentDetails.tab);
 
-  const setData = setNestedPath(setConfig);
+  const setData = useCallback(setNestedPath(setConfig), [setConfig]);
   const modalDetails = useProductSelector(
     (state) => state.modalDetails,
   ) as unknown as tableDataDataElement;

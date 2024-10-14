@@ -15,7 +15,8 @@ export const ItemToolTip = () => {
     <>
       {tab === tabKeys.items && (
         <Tooltip
-          color="primary"
+          color="secondary"
+          showArrow={true}
           content={`View ${config.bodyState === bodyState.itemFilters ? "main details" : "item filters"}`}
         >
           <span>

@@ -9,6 +9,7 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 import { tableProps } from "./interfaces";
+import { PaginationComponent } from "../pagination";
 export * from "./interfaces";
 export * from "./table-actions";
 
@@ -32,17 +33,11 @@ export const RenderTable = <T extends { id: string | number }>({
       bottomContent={
         <>
           {totalPages && page && setPage ? (
-            <div className="flex w-full justify-center">
-              <Pagination
-                isCompact
-                showControls
-                showShadow
-                color="primary"
-                page={page}
-                total={totalPages}
-                onChange={setPage}
-              />
-            </div>
+            <PaginationComponent
+              page={page}
+              totalPages={totalPages}
+              onChange={setPage}
+            />
           ) : null}
         </>
       }

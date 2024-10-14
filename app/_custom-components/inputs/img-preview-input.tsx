@@ -5,6 +5,7 @@ import {
 } from "file-upload-with-preview";
 import "file-upload-with-preview/dist/style.css";
 import { useEffect, useRef } from "react";
+import { ImgPreviewInputProps } from "./interface";
 
 export const ImgPreviewInput = ({
   setUpload,
@@ -13,14 +14,7 @@ export const ImgPreviewInput = ({
   imgChangeCallback,
   clearCallback,
   value,
-}: {
-  setUpload: (upload: FileUploadWithPreview) => void;
-  value?: FileUploadWithPreview | null;
-  dataUploadId: string;
-  options?: Options;
-  imgChangeCallback?: () => void;
-  clearCallback?: () => void;
-}) => {
+}: ImgPreviewInputProps) => {
   const imgPreviewRef = useRef<FileUploadWithPreview | null>(null);
   const imageAdded = (e: Event) => {
     imgChangeCallback && imgChangeCallback();
@@ -54,3 +48,5 @@ export const ImgPreviewInput = ({
     </div>
   );
 };
+
+export default ImgPreviewInput;

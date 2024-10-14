@@ -3,11 +3,7 @@ import { Button } from "@nextui-org/react";
 import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
 import { openPopup, polling } from "./dialog-utils";
-import {
-  HTTP_METHODS,
-  makeDataRequest,
-  params,
-} from "@/app/_services/fetch-service";
+import { HTTP_METHODS, makeDataRequest, params } from "@/app/_services";
 import { BsTwitterX } from "react-icons/bs";
 
 export default function TwitterLogin({

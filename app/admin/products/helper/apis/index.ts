@@ -1,4 +1,4 @@
-import { HTTP_METHODS, makeDataRequest } from "@/app/_services/fetch-service";
+import { HTTP_METHODS, makeDataRequest } from "@/app/_services";
 import { getDataQuery } from "../interfaces & enums";
 import { ProductDispatch } from "@/lib/product/store";
 import { updateTableData } from "@/lib/product/slices/table.slice";

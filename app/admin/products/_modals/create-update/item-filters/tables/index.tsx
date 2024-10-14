@@ -50,7 +50,7 @@ export const ItemTable = <T extends { id: string | number; name: string }>({
     page: 1,
     totalPages: 1,
   });
-  const setData = setNestedPath(setConfig);
+  const setData = useCallback(setNestedPath(setConfig), [setConfig]);
 
   return (
     <>

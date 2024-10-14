@@ -1,5 +1,6 @@
 import { setVal } from "@/app/_utils";
 import { InputSlots, SlotsToClasses } from "@nextui-org/react";
+import { FileUploadWithPreview, Options } from "file-upload-with-preview";
 import { ReactNode } from "react";
 import { ZodSchema } from "zod";
 export * from "./auto-complete.props";
@@ -12,12 +13,14 @@ export interface TextInputProps {
   label?: string;
   placeholder?: string;
   className?: string;
-  alternateText?: string;
   variant?: "bordered" | "flat" | "faded" | "underlined";
   autoFocus?: boolean;
   labelPlacement?: "outside" | "outside-left" | "inside";
   fullWidth?: boolean;
   classNames?: SlotsToClasses<InputSlots>;
+  isRequired?: boolean;
+  type?: string;
+  isReadOnly?: boolean;
 }
 
 export interface TextInputState {
@@ -25,7 +28,6 @@ export interface TextInputState {
   errorMsg: string;
   label: string;
   placeholder: string;
-  isFocussed: boolean;
 }
 
 export interface autoCompleteListItem {
@@ -54,4 +56,17 @@ export interface autoCompleteState {
   itemList: autoCompleteListItem[];
   inputValue: string;
   selectedKey: string | null;
+}
+
+// setUpload - For setting the upload outside the component,
+// value -  if the uploader is already present, then if any file is setted up there that file is being set to that file (in case of conditional rerendering)
+// dataUploadId - dat upload id for the upload
+
+export interface ImgPreviewInputProps {
+  setUpload: (upload: FileUploadWithPreview) => void;
+  value?: FileUploadWithPreview | null;
+  dataUploadId: string;
+  options?: Options;
+  imgChangeCallback?: () => void;
+  clearCallback?: () => void;
 }

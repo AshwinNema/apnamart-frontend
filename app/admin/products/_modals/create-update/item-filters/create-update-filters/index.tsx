@@ -1,6 +1,6 @@
 import { TextInput } from "@/app/_custom-components";
 import { setNestedPath } from "@/app/_utils";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import {
   createUpdateFilterState,
   itemFilterTabletem,
@@ -25,7 +25,7 @@ import { DeletedDataViewer } from "../deleted-data-viewer";
 
 const CreateUpdateFilter = () => {
   const [config, setConfig] = useState(getCreateUpdateItemConfig());
-  const setData = setNestedPath(setConfig);
+  const setData = useCallback(setNestedPath(setConfig), [setConfig]);
   const mainState = useContext(FilterContext);
   const centralState = useContext(MainModalContext);
   if (!mainState || !centralState) return null;
@@ -34,14 +34,14 @@ const CreateUpdateFilter = () => {
   // In case we are updating filter, this useEffect picks the data and updates the state
   useEffect(() => {
     if (mainConfig.updateFilterDetails) {
-      setConfig(mainConfig.updateFilterDetails)
-      setNestedPath(setMainConfig)("updateFilterDetails")(null)
-    };
+      setConfig(mainConfig.updateFilterDetails);
+      setNestedPath(setMainConfig)("updateFilterDetails")(null);
+    }
   }, [mainConfig.updateFilterDetails, setMainConfig]);
   return (
     <div className="mt-5">
       <TextInput
-        alternateText="Name"
+        label="Name"
         variant="underlined"
         className="mb-3"
         value={

@@ -1,15 +1,14 @@
 import { ModalBody } from "@nextui-org/react";
-import { loginConfig, modalTypes } from "../constants";
+import { modalTypes } from "../constants";
 import Roles from "./roles";
 import Form from "./form";
-import { setKeyVal } from "@/app/_utils";
 import { Divider } from "@nextui-org/react";
 import { useGoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { Button } from "@nextui-org/react";
 import { FcGoogle } from "react-icons/fc";
-
 import {
   googleSuccessResponse,
+  MainModalBodyProps,
   onTwitterFailure,
   onTwitterSuccess,
 } from "./util";
@@ -22,22 +21,19 @@ export default function MainFormBody({
   modalType,
   setData,
   onClose,
-}: {
-  config: loginConfig;
-  modalType: modalTypes | null;
-  setData: setKeyVal;
-  onClose: () => void;
-}) {
+}: MainModalBodyProps) {
   const dispatch = useAppDispatch();
   const { formData } = config;
   const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT as string;
-
   const GoogleButton = () => {
     const login = useGoogleLogin({
       onSuccess: (credentialResponse) =>
         googleSuccessResponse(
-          credentialResponse,
-          formData.role,
+          {
+            credentialResponse,
+            role: formData.role,
+            accessType: modalType,
+          },
           onClose,
           dispatch,
         ),
@@ -87,7 +83,10 @@ export default function MainFormBody({
               text={`${modalType === modalTypes.signUp ? "Sign Up" : "Login"} with Twitter`}
               loginUrl={appEndPoints.TWITTER_ACCESS_TOKEN}
               requestTokenUrl={appEndPoints.TWITTER_REQUEST_TOKEN}
-              additonalAcessParams={{ role: config.formData.role }}
+              additonalAcessParams={{
+                role: config.formData.role,
+                accessType: modalType !== null ? modalType : modalTypes.login,
+              }}
               onSuccess={(response) =>
                 onTwitterSuccess(response, onClose, dispatch)
               }

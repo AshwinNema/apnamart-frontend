@@ -1,4 +1,4 @@
-import { HTTP_METHODS } from "@/app/_services/fetch-service";
+import { HTTP_METHODS } from "@/app/_services";
 import { autoCompleteListItem } from ".";
 
 // This is complete documentation of autocomplete. There are following props that are passed in autocomplete:

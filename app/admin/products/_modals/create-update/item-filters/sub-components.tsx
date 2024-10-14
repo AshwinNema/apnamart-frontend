@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import {
   createUpdateFilterState,
   getItemFilterHeader,
@@ -11,7 +11,7 @@ export const Header = () => {
   const filterState = useContext(FilterContext);
   if (!filterState) return;
   const { mainConfig: config, setMainConfig: setConfig } = filterState;
-  const setData = setNestedPath(setConfig);
+  const setData = useCallback(setNestedPath(setConfig), [setConfig]);
   return (
     <div className="flex justify-between items-center">
       <div className="font-bold">{getItemFilterHeader(config)}</div>

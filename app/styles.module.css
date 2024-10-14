@@ -7,3 +7,25 @@
   display: grid;
   grid-template-columns: 6fr 1fr;
 }
+
+.merchant-registration-inputs {
+  display: grid;
+  grid-template-columns: 1fr 10fr;
+  align-items: center;
+}
+
+.numberInput::-webkit-outer-spin-button,
+.numberInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+.numberInput {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.merchant-registration-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
