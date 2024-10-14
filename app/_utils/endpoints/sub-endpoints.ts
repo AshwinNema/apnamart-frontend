@@ -55,4 +55,6 @@ export const merchant = {
   UPDATE_REGISTRATION_DETAILS: `${backendService}merchant/registration`,
   QUERY_MERCHANT_REGISTRATIONS: `${backendService}merchant/registration`,
   APPROVE_MERCHANT_REGISTRATION: `${backendService}merchant/registration/approve/`,
+  QUERY_MERCHANTS: `${backendService}merchant`,
+  BLOCK_UNBLOCK_MERCHANT: `${backendService}merchant/block-unblock`,
 };

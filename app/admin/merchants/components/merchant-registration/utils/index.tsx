@@ -1,3 +1,5 @@
+
+
 import { ReactNode } from "react";
 import { newRegistrationDetails, subDetails } from "../../../helper";
 import { GrLocation } from "react-icons/gr";
@@ -30,7 +32,7 @@ export const getTableRows = (
           }}
         >
           <GrView
-            onClick={() => onViewSubDetails("address details")}
+            onClick={() => onViewSubDetails(subDetails.addressDetails)}
             className="scale-[1.3] cursor-pointer"
           />
         </ToolTipBtn>
@@ -50,7 +52,7 @@ export const getTableRows = (
         }}
       >
         <GrLocation
-          onClick={() => onViewSubDetails("business location")}
+          onClick={() => onViewSubDetails(subDetails.businessLocation)}
           className="scale-[1.3]"
         />
       </ToolTipBtn>,

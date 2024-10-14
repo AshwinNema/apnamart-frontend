@@ -21,8 +21,9 @@ import { setProfileUser } from "@/lib/profile/slices/user.slice";
 export const getAddress = (
   latLng: { lat: number; lng: number },
   setMultiPaths: (keyVals: keyVals[]) => void,
+  loadAddress: boolean = true,
 ) => {
-  setMultiPaths([["isAddLoaded", false]]);
+  loadAddress && setMultiPaths([["isAddLoaded", false]]);
   makeDataRequest(
     HTTP_METHODS.GET,
     appEndPoints.GET_ADDRESS,
@@ -42,7 +43,7 @@ export const getAddress = (
       console.log(err);
     })
     .finally(() => {
-      setMultiPaths([["isAddLoaded", true]]);
+      loadAddress && setMultiPaths([["isAddLoaded", true]]);
     });
 };
 

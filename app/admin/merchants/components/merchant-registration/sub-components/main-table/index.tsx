@@ -1,13 +1,17 @@
 import { PaginationComponent } from "@/app/_custom-components";
-import { Fragment, useContext } from "react";
-import { MainStateContext } from "../../utils";
+import { Fragment } from "react";
 import { RegistrationDetailsCard } from "./registration-details-card";
 import { setNestedPath } from "@/app/_utils";
+import {
+  merchantRegistrationSubComponentProps,
+  newRegistrationDetails,
+} from "@/app/admin/merchants/helper";
 
-export const MainTable = () => {
-  const mainState = useContext(MainStateContext);
-  if (!mainState) return null;
-  const { config, setConfig, getData } = mainState;
+export const MainTable = ({
+  config,
+  setConfig,
+  getData,
+}: merchantRegistrationSubComponentProps<newRegistrationDetails>) => {
   const setData = setNestedPath(setConfig);
   if (config.selectedRegistrationDetails) return null;
   return (
@@ -21,6 +25,8 @@ export const MainTable = () => {
                 setSelectedCard={(details) => {
                   setData("selectedRegistrationDetails")(details);
                 }}
+                config={config}
+                getData={getData}
               />
             </Fragment>
           );

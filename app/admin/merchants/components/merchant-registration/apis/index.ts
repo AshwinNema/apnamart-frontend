@@ -1,19 +1,20 @@
 import { HTTP_METHODS, makeDataRequest } from "@/app/_services";
-import { appEndPoints, setKeyVal } from "@/app/_utils";
+import { appEndPoints } from "@/app/_utils";
 import { Dispatch, SetStateAction } from "react";
-import { newRegistrationDetails, newRegistrationState } from "../../../helper";
-import { produce } from "immer";
+import { newRegistrationState } from "../../../helper";
 import { merchantRegistrationStatus } from "@/lib/main/slices/user/user.slice";
 
-export const queryMerchantRegistration = (
+export const queryMerchantRegistration = <T extends object>(
   query: {
     name?: string;
     id?: number;
     page?: number;
     limit?: number;
     registrationStatus?: merchantRegistrationStatus;
+    isMerchantBlocked?: boolean;
   },
-  setConfig: Dispatch<SetStateAction<newRegistrationState>>,
+  setConfig?: Dispatch<SetStateAction<newRegistrationState<T>>>,
+  processData?: (res: any) => void,
 ) => {
   makeDataRequest(
     HTTP_METHODS.GET,
@@ -23,17 +24,24 @@ export const queryMerchantRegistration = (
   )
     .then((res) => {
       if (!res) return;
-      setConfig((prevConfig) => {
-        return {
-          ...prevConfig,
-          ...res,
-        };
-      });
+      setConfig &&
+        setConfig((prevConfig) => {
+          return {
+            ...prevConfig,
+            ...res,
+          };
+        });
+
+      processData && processData(res);
     })
     .catch((err) => {
       console.log(err);
     });
 };
+
+export type queryMerchantRegistrationParams = Parameters<
+  typeof queryMerchantRegistration
+>;
 
 export const approveMerchantRegistration = (
   id: number,

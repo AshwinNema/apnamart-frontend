@@ -10,13 +10,18 @@ import { ImageComponent } from "@/app/_custom-components";
 import styles from "@/app/styles.module.css";
 import { CiViewList } from "react-icons/ci";
 import { ApproveRegistrationBtn } from "..";
+import { merchantRegistrationSubComponentProps } from "@/app/admin/merchants/helper";
 
 export const RegistrationDetailsCard = ({
   details,
   setSelectedCard,
+  config,
+  getData,
 }: {
   details: newRegistrationDetails;
   setSelectedCard: (details: newRegistrationDetails) => void;
+  config: merchantRegistrationSubComponentProps<newRegistrationDetails>["config"];
+  getData: merchantRegistrationSubComponentProps<newRegistrationDetails>["getData"];
 }) => {
   return (
     <Card
@@ -57,7 +62,11 @@ export const RegistrationDetailsCard = ({
         >
           View Details
         </Button>
-        <ApproveRegistrationBtn details={details} />
+        <ApproveRegistrationBtn
+          details={details}
+          config={config}
+          getData={getData}
+        />
       </CardFooter>
     </Card>
   );
