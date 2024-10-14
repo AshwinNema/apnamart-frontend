@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { queryMerchantRegistration } from "./apis";
-import { newRegistrationState } from "../../helper";
+import { newRegistrationDetails, newRegistrationState } from "../../helper";
 import { MainTable, SelectedMerchantRegistration } from "./sub-components";
 import { merchantRegistrationStatus } from "@/lib/main/slices/user/user.slice";
-import { MainStateContext } from "./utils";
 
 function NewMerchantRegistration() {
-  const [config, setConfig] = useState<newRegistrationState>({
+  const [config, setConfig] = useState<
+    newRegistrationState<newRegistrationDetails>
+  >({
     page: 1,
     limit: 5,
     totalPages: 0,
@@ -31,16 +32,12 @@ function NewMerchantRegistration() {
 
   return (
     <div className="mb-3">
-      <MainStateContext.Provider
-        value={{
-          config,
-          setConfig,
-          getData,
-        }}
-      >
-        <SelectedMerchantRegistration />
-        <MainTable />
-      </MainStateContext.Provider>
+      <SelectedMerchantRegistration
+        config={config}
+        setConfig={setConfig}
+        getData={getData}
+      />
+      <MainTable config={config} setConfig={setConfig} getData={getData} />
     </div>
   );
 }

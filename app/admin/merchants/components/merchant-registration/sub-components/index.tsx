@@ -1,29 +1,33 @@
 import { Button } from "@nextui-org/react";
 import { FcApproval } from "react-icons/fc";
-import { newRegistrationDetails } from "../../../helper/interfaces & enums & constants/merchant-registration";
-import { Dispatch, SetStateAction, useContext } from "react";
+import {
+  merchantRegistrationSubComponentProps,
+  newRegistrationDetails,
+} from "../../../helper/interfaces & enums & constants/merchant-registration";
 import { merchantRegistrationStatus } from "@/lib/main/slices/user/user.slice";
 import { approveMerchantRegistration } from "../apis";
-import { MainStateContext } from "../utils";
 export * from "./main-table";
 export * from "./selected-registration";
 
-export const ApproveRegistrationBtn = ({
+export const ApproveRegistrationBtn = <
+  T extends object,
+  V extends { page: number },
+>({
   details,
   onApprove,
+  config,
+  getData,
 }: {
   details: newRegistrationDetails;
   onApprove?: () => void;
+  config: V;
+  getData: merchantRegistrationSubComponentProps<T>["getData"];
 }) => {
   if (details.registrationStatus !== merchantRegistrationStatus.adminReview) {
     return null;
   }
-  const mainState = useContext(MainStateContext);
-  if (!mainState) return null;
-  const {
-    getData,
-    config: { page },
-  } = mainState;
+
+  const { page } = config;
   return (
     <Button
       startContent={<FcApproval className="scale-[1.2]" />}

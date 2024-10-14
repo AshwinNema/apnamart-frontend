@@ -1,33 +1,54 @@
 import { BackIcon, ToolTipBtn } from "@/app/_custom-components";
 import { RegistrationDetails } from "./registration-details";
-import { useContext } from "react";
-import { setNestedPath } from "@/app/_utils";
 import { Button, Chip } from "@nextui-org/react";
 import { ApproveRegistrationBtn } from "..";
-import { MainStateContext } from "../../utils";
 import { produce } from "immer";
 import { merchantRegistrationStatus } from "@/lib/main/slices/user/user.slice";
 import { MdOutlinePending } from "react-icons/md";
 import { FcApproval } from "react-icons/fc";
-import MerchantAdminChatSupport from "@/app/_shared_Components/chat/merchant-admin-chat";
+import MerchantAdminChatSupport from "@/app/_shared-Components/chat/merchant-admin-chat";
+import {
+  getMerchantRegistrationStatusLabel,
+  newRegistrationDetails,
+  selectedRegistrationProps,
+} from "@/app/admin/merchants/helper";
 
-export const SelectedMerchantRegistration = ({}: {}) => {
-  const mainState = useContext(MainStateContext);
-  if (!mainState) return null;
-  const { config, setConfig } = mainState;
-  if (!config.selectedRegistrationDetails) return null;
+export const SelectedMerchantRegistration = <
+  T extends object,
+  V extends {
+    selectedRegistrationDetails: null | newRegistrationDetails;
+    page: number;
+  },
+>({
+  config,
+  setConfig,
+  getData,
+  goBackTooltipText = "Go back to Registration list",
+  goBackBtnText = "View All Registrations",
+}: selectedRegistrationProps<T, V>) => {
+  const details = config?.selectedRegistrationDetails;
+  if (!details) return null;
   const underAdminReview =
-    config?.selectedRegistrationDetails.registrationStatus ===
-    merchantRegistrationStatus.adminReview;
-  const goBack = () =>
-    setNestedPath(setConfig)("selectedRegistrationDetails")(null);
-  const currentStatus = underAdminReview ? "Under Review" : "Approved";
+    details.registrationStatus === merchantRegistrationStatus.adminReview;
+  const goBack = () => {
+    setConfig(
+      produce((draft: any) => {
+        draft.selectedRegistrationDetails = null;
+      }),
+    );
+  };
+
+  const currentStatus = getMerchantRegistrationStatusLabel(
+    details?.registrationStatus,
+    !!details?.isMerchantBlocked,
+  );
+  if (!config.selectedRegistrationDetails) return null;
   return (
     <>
       <div className="mb-4 flex justify-between">
         <ToolTipBtn
           toolTipProps={{
-            content: <p>Go back to Registration list</p>,
+            content: <p>{goBackTooltipText}</p>,
             color: "secondary",
           }}
           buttonProps={{
@@ -52,13 +73,13 @@ export const SelectedMerchantRegistration = ({}: {}) => {
 
       <div className="flex justify-between mt-6">
         <Button onPress={goBack} variant="ghost">
-          View All Registrations
+          {goBackBtnText}
         </Button>
         <ApproveRegistrationBtn
           details={config.selectedRegistrationDetails}
           onApprove={() => {
             setConfig(
-              produce((draft) => {
+              produce((draft: any) => {
                 if (draft.selectedRegistrationDetails) {
                   draft.selectedRegistrationDetails.registrationStatus =
                     merchantRegistrationStatus.completed;
@@ -66,6 +87,8 @@ export const SelectedMerchantRegistration = ({}: {}) => {
               }),
             );
           }}
+          config={config}
+          getData={getData}
         />
       </div>
       <MerchantAdminChatSupport

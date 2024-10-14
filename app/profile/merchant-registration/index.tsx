@@ -12,7 +12,7 @@ import {
 import { setKeyVal, setNestedPath } from "@/app/_utils";
 import RegistrationForm from "./registration-form";
 import PendingAdminReview from "./pending-admin-review";
-import MerchantAdminChatSupport from "../../_shared_Components/chat/merchant-admin-chat";
+import MerchantAdminChatSupport from "../../_shared-Components/chat/merchant-admin-chat";
 
 interface merchantRegistrationState {
   showReviewDetails: boolean;
