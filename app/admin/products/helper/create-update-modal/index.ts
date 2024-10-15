@@ -11,6 +11,7 @@ import { tabKeys } from "@/lib/product/slices/component-details.slice";
 export * from "./default-states";
 export * from "./handlers";
 export * from "./item-filters";
+import { produce } from "immer";
 export const setMainState = (
   modalDetails: tableDataDataElement,
   setConfig: Dispatch<SetStateAction<MainModalState>>,
@@ -21,24 +22,18 @@ export const setMainState = (
     allDetails.height = mainContainerRef.current.getBoundingClientRect().height;
   }
   if (modalDetails) {
-    const details = _.pick(modalDetails, [
-      "name",
-      "id",
-      "category",
-      "subCategory",
-    ]);
+    const details = _.pick(modalDetails, ["name", "id", "category"]);
     Object.assign(allDetails, {
       ...details,
       categoryId: details?.category?.id || null,
       categoryVal: details?.category?.name || "",
-      subCategoryId: details?.subCategory?.id || null,
-      subCategoryVal: details?.subCategory?.name || "",
     });
   }
-  setConfig((prevConfig) => {
-    Object.assign(prevConfig, allDetails);
-    return { ...prevConfig };
-  });
+  setConfig(
+    produce((draft) => {
+      Object.assign(draft, allDetails);
+    }),
+  );
 };
 
 export const getModalTitle = (
@@ -50,11 +45,7 @@ export const getModalTitle = (
     return "Create/Update Item Filters";
   }
   return `${modalDetails?.id ? "Update" : "Create"} ${
-    tab === tabKeys.category
-      ? "Category"
-      : tab === tabKeys.subCategory
-        ? "Sub Category"
-        : "Item"
+    tab === tabKeys.category ? "Category" : "Item"
   }`;
 };
 

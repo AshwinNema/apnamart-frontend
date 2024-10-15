@@ -49,28 +49,15 @@ const useModalMainState = (): [
   }, [tab, isOpen]);
 
   useEffect(() => {
-    if (tab !== tabKeys.items || !isOpen) return;
-    !config.categoryId && setData("subCategoryList")([]);
-    config.categoryId &&
-      getSearchList(
-        appEndPoints.SUB_CATEGORY_LIST,
-        setData("subCategoryList"),
-        {
-          categoryId: config.categoryId,
-        },
-        {
-          showLoader: false,
-        },
-      );
-  }, [config.categoryId, tab, isOpen]);
-
-  useEffect(() => {
     tab === tabKeys.items &&
       modalDetails?.id &&
       getItemFilters(modalDetails?.id, (list, filterMap) => {
+        const mainFilterItemId =
+          list.filter((item) => item.isMainFilter)[0]?.id || null;
         setMultiplePaths(setConfig)([
           ["filterItems", list],
           ["originalFilterItems", filterMap],
+          ["mainFilterItemId", mainFilterItemId],
         ]);
       });
   }, [modalDetails?.id, tab]);

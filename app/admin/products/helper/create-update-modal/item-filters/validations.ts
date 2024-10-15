@@ -31,13 +31,14 @@ export const itemFilterSchema = z.object({
       },
       { message: "All options must have a unique name" },
     ),
+  isMainFilter: z.boolean(),
 });
 
 export const validateFilter = (
   config: createUpdateItemState,
   filterItems: MainModalState["filterItems"],
 ) => {
-  const details = _.pick(config, ["name", "options"]);
+  const details = _.pick(config, ["name", "options", "isMainFilter"]);
 
   const duplicateName = filterItems.filter(
     (item) => item.id !== config.filterId && item.name === config.name,

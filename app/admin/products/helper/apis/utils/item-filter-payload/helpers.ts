@@ -2,6 +2,7 @@ import {
   modalCreateUpdatePayloadParams,
   modalCreateUpdatePayload,
   updateFilter,
+  MainModalState,
 } from "../../../interfaces & enums";
 import * as _ from "lodash";
 
@@ -9,6 +10,7 @@ import * as _ from "lodash";
 export const processNewFilterItem = (
   item: modalCreateUpdatePayloadParams["config"]["filterItems"][number],
   newFilters: modalCreateUpdatePayload["newFilters"],
+  mainFilterItemId: MainModalState["mainFilterItemId"],
 ) => {
   const options = item.options.map((option) => {
     const optionData = _.omit(option, ["id"]);
@@ -16,7 +18,8 @@ export const processNewFilterItem = (
   });
   const data = {
     options,
-    ..._.omit(item, ["id", "deletedOptions", "options"]),
+    ..._.omit(item, ["id", "deletedOptions", "options", "isMainFilter"]),
+    isMainFilter: mainFilterItemId === item.id,
   };
   newFilters?.push(data);
 };
@@ -25,6 +28,7 @@ export const processNewFilterItem = (
 export const getUpdateFilterItem = (
   item: modalCreateUpdatePayloadParams["config"]["filterItems"][number],
   originalFilterItems: modalCreateUpdatePayloadParams["config"]["originalFilterItems"],
+  mainFilterItemId: MainModalState["mainFilterItemId"],
 ): updateFilter => {
   const { id, name, options, deletedOptions } = item;
   const originalItem = originalFilterItems[id];
@@ -72,6 +76,7 @@ export const getUpdateFilterItem = (
 
   const updateItemPayload: updateFilter = {
     id: id as number,
+    isMainFilter: mainFilterItemId === id,
   };
 
   if (name != originalItem.name) {

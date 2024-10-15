@@ -1,5 +1,4 @@
 import {
-  Pagination,
   Table,
   TableBody,
   TableCell,

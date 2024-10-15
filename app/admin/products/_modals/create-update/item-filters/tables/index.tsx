@@ -1,9 +1,9 @@
-import { RenderTable, TableActions } from "@/app/_custom-components";
+import { RenderTable } from "@/app/_custom-components";
 import { setNestedPath } from "@/app/_utils";
 import { getItemTableCols, itemTableType } from "@/app/admin/products/helper";
 import React, { useCallback, useState } from "react";
-
-interface itemTableProps<T> {
+import { TableSubComponent } from "./sub-component";
+export interface itemTableProps<T> {
   tableType: itemTableType;
   onClick: (data: T) => void;
   onDelete: (closeModal: () => void, data: T) => void;
@@ -21,30 +21,15 @@ export const ItemTable = <T extends { id: string | number; name: string }>({
   onDelete,
 }: itemTableProps<T>) => {
   const renderCell = useCallback((data: T, columnKey: React.Key | null) => {
-    switch (columnKey) {
-      case "name":
-        return <div className="text-lg">{data.name}</div>;
-
-      case "actions":
-        const label =
-          tableType === itemTableType.main ? "Filter" : "Filter Option";
-        return (
-          <TableActions
-            onClick={() => {
-              onClick(data);
-            }}
-            onDelete={(closeModal) => {
-              onDelete(closeModal, data);
-            }}
-            deleteBtnText={`Delete ${label}`}
-            editTooltipText={`Edit ${label}`}
-            deleteToolTipText={`Delete ${label}`}
-          />
-        );
-
-      default:
-        return <></>;
-    }
+    return (
+      <TableSubComponent
+        data={data}
+        columnKey={columnKey}
+        onClick={onClick}
+        tableType={tableType}
+        onDelete={onDelete}
+      />
+    );
   }, []);
   const [config, setConfig] = useState({
     page: 1,
@@ -59,7 +44,7 @@ export const ItemTable = <T extends { id: string | number; name: string }>({
           <RenderTable
             ariaLabel="Data Table"
             isStriped={true}
-            columns={getItemTableCols()}
+            columns={getItemTableCols(tableType)}
             items={items}
             renderCell={renderCell}
             totalPages={config.totalPages}

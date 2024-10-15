@@ -26,8 +26,6 @@ export const getEmptyContent = (tab: tabKeys) => {
   return `No ${
     tab === tabKeys.category
       ? "categories"
-      : tab === tabKeys.subCategory
-        ? "sub categories"
-        : "items"
+      : "items"
   } found`;
 };
