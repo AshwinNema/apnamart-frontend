@@ -62,9 +62,7 @@ export default function TabContent() {
           Create{" "}
           {tab === tabKeys.category
             ? "Category"
-            : tab === tabKeys.subCategory
-              ? "Sub Category"
-              : "Item"}
+            : "Item"}
         </Button>
       </div>
       <CreateUpdateModal isOpen={isOpen} onOpenChange={onOpenChange} />

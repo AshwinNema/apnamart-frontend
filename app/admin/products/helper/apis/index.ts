@@ -25,27 +25,17 @@ export const queryTableData = (
           id: number;
           name: string;
           photo: string;
-          subCategory: {
+          category: {
             id: number;
             name: string;
-            category: {
-              id: number;
-              name: string;
-            };
+        
           };
         }) => {
-          const { id, name, subCategory, photo } = item;
-
-          const { category } = subCategory;
-
+          const { id, name, category, photo } = item;
           return {
             id,
             name,
             photo,
-            subCategory: {
-              id: subCategory.id,
-              name: subCategory.name,
-            },
             category: {
               id: category.id,
               name: category.name,

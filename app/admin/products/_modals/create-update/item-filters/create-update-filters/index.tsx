@@ -40,6 +40,7 @@ const CreateUpdateFilter = () => {
   }, [mainConfig.updateFilterDetails, setMainConfig]);
   return (
     <div className="mt-5">
+  
       <TextInput
         label="Name"
         variant="underlined"

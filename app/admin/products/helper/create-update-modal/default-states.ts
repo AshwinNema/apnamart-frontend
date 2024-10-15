@@ -11,13 +11,11 @@ export const getMainDefaultState = (): MainModalState => ({
   height: 0,
   bodyState: bodyState.details,
   filterItems: [],
-  subCategoryId: null,
   categoryList: [],
-  subCategoryList: [],
-  subCategoryVal: "",
   categoryVal: "",
   deletedOriginalItems: [],
   originalFilterItems: {},
+  mainFilterItemId: null,
 });
 
 export const defaultModalBodyConfig = () => ({
@@ -41,5 +39,6 @@ export const getCreateUpdateItemConfig = (): createUpdateItemState => {
     optionId: null,
     filterId: null,
     deletedOptions: [],
+    isMainFilter:false
   };
 };

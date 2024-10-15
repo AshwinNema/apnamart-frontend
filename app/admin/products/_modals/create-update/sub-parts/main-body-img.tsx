@@ -7,7 +7,7 @@ import {
 } from "../../../helper";
 import { setKeyVal } from "@/app/_utils";
 import { ModalImgButtons } from "./modal-body-img-buttons";
-import { Dispatch, SetStateAction, useContext, useEffect } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import { useProductDispatch, useProductSelector } from "@/lib/product/hooks";
 
 // This component deals with the create and update of the main image for the entity.

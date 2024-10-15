@@ -15,7 +15,7 @@ import { MainBodyAutoCompletes } from "./sub-parts/main-body-autocompletes";
 // This component contains the main details of the entity for creation and updation. It has the following state -
 // img - When we are updating an entity, we have the image url from which we show image we store that url here
 // showImage - When we are updating an entity, we control whether we are showing the uploading component, in case we are replacing current image or the current image that was uploading during creation or previous image updation
-// autocompletes - subcategory autocomplete showing list of subcategory, item autocomplete  showing list of items
+// autocompletes - category autocomplete showing list of category, item autocomplete  showing list of items
 
 export const MainModalBody = () => {
   const [config, setConfig] = useState(getDefaultConfig());

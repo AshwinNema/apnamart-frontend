@@ -7,7 +7,7 @@ import {
 import { errorToast, successToast, toastErrorIcons } from "@/app/_utils/toast";
 import { v4 as uuidv4 } from "uuid";
 import { setNestedPath } from "@/app/_utils";
-
+import { produce } from "immer";
 export const mainOptionHandler = (
   createUpdateFilterOption: ItemFilterConfig["createUpdateFilterOption"],
   config: createUpdateItemState,
@@ -27,32 +27,29 @@ export const mainOptionHandler = (
 
   switch (createUpdateFilterOption) {
     case createUpdateFilterState.create: {
-      setConfig((prevConfig) => {
-        const length = prevConfig.options.length;
-        if (length && prevConfig.options[length - 1].id === id) {
-          return prevConfig;
+      setConfig(produce((draft) => {
+        const length = draft.options.length;
+        if (length && draft.options[length - 1].id === id) {
+          return 
         }
-        prevConfig.options.push({
+        draft.options.push({
           name: value,
           id,
         });
-        prevConfig.optionCreateUpdateName = "";
-        return { ...prevConfig };
-      });
-
+        draft.optionCreateUpdateName = "";
+      }))
       successToast({ msg: "Option added to the filter" });
       break;
     }
     case createUpdateFilterState.update:
-      setConfig((prevConfig) => {
-        const index = prevConfig.options.findIndex(
+      setConfig(produce((draft) => {
+        const index = draft.options.findIndex(
           (item) => item.id === config.optionId,
         );
         if (index != -1) {
-          prevConfig.options[index].name = value;
+          draft.options[index].name = value;
         }
-        return structuredClone(prevConfig);
-      });
+      }))
 
       successToast({ msg: "Option updated" });
       break;

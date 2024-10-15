@@ -3,7 +3,6 @@ import {
   auth,
   user,
   category,
-  subcategory,
   items,
   merchant,
 } from "./sub-endpoints";
@@ -14,7 +13,6 @@ export const appEndPoints = {
   UPDATE_DELIVERY_AREA: `${backendService}delivery-area`,
   GET_ALL_DELIVERY_AREAS: `${backendService}delivery-area`,
   ...category,
-  ...subcategory,
   ...items,
   ...merchant,
 };
