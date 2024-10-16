@@ -1,4 +1,5 @@
 import {
+  bodyState,
   createUpdateFilterState,
   createUpdateItemState,
   ItemFilterConfig,
@@ -9,6 +10,7 @@ import * as _ from "lodash";
 import { setMultiplePaths, successToast } from "@/app/_utils";
 import { v4 as uuidv4 } from "uuid";
 import { validateFilter } from "./validations";
+import { produce } from "immer";
 // This function handles the creation and updation of the item
 export const mainItemFilterHandler = (
   createUpdateFilter: ItemFilterConfig["createUpdateFilter"],
@@ -25,24 +27,30 @@ export const mainItemFilterHandler = (
   let successMsg = "";
   switch (createUpdateFilter) {
     case createUpdateFilterState.create:
-      setMainModalConfig((prevConfig) => {
-        const { filterItems } = prevConfig;
-        const length = filterItems.length;
-        if (length && filterItems[length - 1].id === id) return prevConfig;
-        prevConfig.filterItems.push({
-          name: data.name,
-          id,
-          options: data.options,
-        });
-        return prevConfig;
-      });
+      setMainModalConfig(
+        produce((draft) => {
+          if (draft.bodyState === bodyState.details) return draft;
+
+          draft.filterItems.push({
+            name: data.name,
+            id,
+            options: data.options,
+            isMainFilter: data.isMainFilter,
+          });
+          if (data.isMainFilter) {
+            draft.mainFilterItemId = id;
+          }
+        }),
+      );
+
       successMsg = "Filter added";
       break;
     case createUpdateFilterState.update:
       const newDeletedOptions = config.deletedOptions || [];
       const firstDeletedNewId = newDeletedOptions?.[0]?.id || null;
-      setMainModalConfig((prevConfig) => {
-        const { filterItems } = prevConfig;
+      setMainModalConfig(produce((draft) => {
+        if (draft.bodyState === bodyState.details) return ;
+        const { filterItems } = draft;
         const updateIndex = filterItems.findIndex(
           (item) => item.id === config.filterId,
         );
@@ -59,10 +67,13 @@ export const mainItemFilterHandler = (
             name: data.name,
             options: data.options,
             deletedOptions,
+            isMainFilter: data.isMainFilter,
           };
+          if (data.isMainFilter) {
+            draft.mainFilterItemId = filterItems[updateIndex].id;
+          }
         }
-        return prevConfig;
-      });
+      }))
       successMsg = "Filter updated";
       break;
     default:

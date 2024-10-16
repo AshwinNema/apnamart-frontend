@@ -42,3 +42,19 @@ export const MainMap = dynamic(
     loading: () => <Spinner />,
   },
 );
+
+export function MarkerWithoutHeader() {
+  return (
+    <div className="scale-[3] relative">
+      <div className={`relative animate-markerArrival`}>
+        <HiLocationMarker className={`fill-mainTheme`} />
+        <div
+          className={`absolute scale-75 rounded-[50%] left-[35%] -bottom-[30%] bg-[black] z-0 h-1 w-1`}
+        ></div>
+        <div
+          className={`w-[400%] h-[400%] rounded-[50%] absolute -bottom-[210%] -left-[150%] bg-transparent z-0 animate-glow`}
+        ></div>
+      </div>
+    </div>
+  );
+}

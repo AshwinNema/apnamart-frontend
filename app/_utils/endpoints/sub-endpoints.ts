@@ -29,16 +29,6 @@ export const category = {
   CATEGORY_LIST: `${backendService}category/list`,
 };
 
-export const subcategory = {
-  CREATE_SUB_CATEGORY: `${backendService}subcategory`,
-  UPDATE_SUB_CATEGORY: `${backendService}subcategory/`,
-  QUERY_SUB_CATEGORIES: `${backendService}subcategory`,
-  UPDATE_SUB_CATEGORY_IMAGE: `${backendService}subcategory/image/`,
-  DELETE_SUB_CATEGORY: `${backendService}subcategory/`,
-  SEARCH_SUB_CATEGORY_BY_NAME: `${backendService}subcategory/search-by-name`,
-  SUB_CATEGORY_LIST: `${backendService}subcategory/list`,
-};
-
 export const items = {
   CREATE_ITEM: `${backendService}item`,
   UPDATE_ITEM: `${backendService}item/`,
@@ -55,4 +45,6 @@ export const merchant = {
   UPDATE_REGISTRATION_DETAILS: `${backendService}merchant/registration`,
   QUERY_MERCHANT_REGISTRATIONS: `${backendService}merchant/registration`,
   APPROVE_MERCHANT_REGISTRATION: `${backendService}merchant/registration/approve/`,
+  QUERY_MERCHANTS: `${backendService}merchant`,
+  BLOCK_UNBLOCK_MERCHANT: `${backendService}merchant/block-unblock`,
 };

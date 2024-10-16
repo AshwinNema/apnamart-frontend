@@ -21,7 +21,6 @@ export interface MainModalState {
   name: string;
   upload: FileUploadWithPreview | null;
   categoryId: null | number;
-  subCategoryId: null | number;
   height: number;
   bodyState: bodyState;
   originalFilterItems: {
@@ -30,9 +29,8 @@ export interface MainModalState {
   filterItems: ModalFilterItem[];
   deletedOriginalItems: ModalDeletedFilterItem[];
   categoryList: autoCompleteState["itemList"];
-  subCategoryList: autoCompleteState["itemList"];
   categoryVal: string;
-  subCategoryVal: string;
+  mainFilterItemId:null | string | number;
 }
 // Api params while query entity data
 export interface getDataQuery {
@@ -61,6 +59,7 @@ export interface createUpdateItemState {
   optionId?: string | number | bigint | null;
   filterId?: string | number | bigint | null;
   deletedOptions: DatabaseFilterItemOption[];
+  isMainFilter: boolean;
 }
 // Main params that are passed for the create update function that is used for performing entity crud
 export interface createUpdateParams {
@@ -77,7 +76,6 @@ export interface modalCreateUpdatePayloadParams {
 export interface modalCreateUpdatePayload {
   name: string;
   categoryId?: number;
-  subCategoryId?: number;
   filters?: CreateFilterItem[];
   newFilters?: CreateFilterItem[];
   deleteFilters?: number[];

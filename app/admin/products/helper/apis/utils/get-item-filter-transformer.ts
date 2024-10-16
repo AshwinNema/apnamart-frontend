@@ -22,7 +22,7 @@ export const processGetItemFilters = (
       },
       item: DatabaseFilterItem,
     ) => {
-      const details = _.pick(item, ["id", "name", "options"]);
+      const details = _.pick(item, ["id", "name", "options", "isMainFilter"]);
 
       const allOptionDetails = details.options.reduce(
         (

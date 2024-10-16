@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button, Checkbox } from "@nextui-org/react";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { IoColorFilterSharp } from "react-icons/io5";
 import { RiColorFilterFill } from "react-icons/ri";
@@ -28,7 +28,18 @@ const Footer = ({
   const { config: centralConfig, setAllData } = centralState;
 
   return (
-    <div className="flex flex-col gap-4 mt-4">
+    <div className="flex flex-col gap-4 mt-4 mb-4">
+      {!mainConfig.createUpdateFilterOption && (
+        <div className="flex justify-end">
+          <Checkbox
+            isSelected={config.isMainFilter}
+            onValueChange={setNestedPath(setConfig)("isMainFilter")}
+            color="primary"
+          >
+            Is Main Filter?
+          </Checkbox>
+        </div>
+      )}
       <Button
         startContent={<RiColorFilterFill />}
         variant="bordered"

@@ -14,14 +14,7 @@ export const getCreateUpdatePayload = ({
   tab,
   config,
 }: modalCreateUpdatePayloadParams) => {
-  const {
-    name,
-    id,
-    upload: files,
-    categoryId,
-    subCategoryId,
-    filterItems,
-  } = config;
+  const { name, id, upload: files, categoryId, filterItems } = config;
   const apiBody: modalCreateUpdatePayload = {
     name,
     ...processUpdateItemFilterPayload({
@@ -29,12 +22,9 @@ export const getCreateUpdatePayload = ({
       config,
     }),
   };
-  if (tab === tabKeys.subCategory && categoryId) {
-    apiBody.categoryId = Number(categoryId);
-  }
 
-  if (tab === tabKeys.items && subCategoryId) {
-    apiBody.subCategoryId = subCategoryId;
+  if (tab === tabKeys.items && categoryId) {
+    apiBody.categoryId = categoryId;
   }
   // Filters are sent only when we are creating
   if (tab === tabKeys.items && filterItems.length && !id) {
@@ -44,6 +34,7 @@ export const getCreateUpdatePayload = ({
         options: item.options.map((option) => ({
           name: option.name,
         })),
+        isMainFilter: config.mainFilterItemId === item.id,
       };
     });
   }

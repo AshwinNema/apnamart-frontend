@@ -1,5 +1,7 @@
 import { columns } from "@/app/_custom-components";
 import { tabKeys } from "@/lib/product/slices/component-details.slice";
+import { itemTableProps } from "../../_modals/create-update/item-filters/tables";
+import { itemTableType } from "../interfaces & enums";
 
 // This is the main table displayed
 export const getTableColumns = (tab: tabKeys): columns[] => {
@@ -17,12 +19,6 @@ export const getTableColumns = (tab: tabKeys): columns[] => {
       key: "category",
     });
 
-  tab === tabKeys.items &&
-    columns.push({
-      label: "Sub Category",
-      key: "subCategory",
-    });
-
   columns.push({
     key: "actions",
     label: "Actions",
@@ -32,18 +28,27 @@ export const getTableColumns = (tab: tabKeys): columns[] => {
 };
 
 // In items tab when try to view item update data, we use this table
-export const getItemTableCols = (): columns[] => {
+export const getItemTableCols = <T>(
+  tableType: itemTableProps<T>["tableType"],
+): columns[] => {
   const columns: columns[] = [
     {
       label: "Name",
       key: "name",
     },
-    {
-      key: "actions",
-      label: "Actions",
-      align: "end",
-    },
   ];
+
+  tableType === itemTableType.main &&
+    columns.push({
+      label: "Main Menu Filter",
+      key: "isMainFilter",
+    });
+
+  columns.push({
+    key: "actions",
+    label: "Actions",
+    align: "end",
+  });
 
   return columns;
 };

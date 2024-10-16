@@ -25,9 +25,9 @@ import { useCallback } from "react";
 // originalFilterItems - This is for storing the original filter items. In case items are gettting updated, then before store original items here to compares changes made and creating update payload for updating item entity accordingly
 // deletedOriginalItems - This tracks all the items that are deleted by the user in the modal and are present in the database
 // categoryList - Stores the list of all the categories, that are present. This is visible only for sub categories and items
-// subCategoryList - Stores the list of all the sub categories for an item based on the selected category
+// categoryList - Stores the list of all the sub categories for an item based on the selected category
 // categoryVal - For controlling the input value of the category autocomplete
-// subCategoryVal- For controlling the input value of the sub category autocomplete
+// categoryVal- For controlling the input value of the sub category autocomplete
 
 // bodyRef - It is used for measuring the height of the main body of the modal excluding header and footer so that we can make the height of the item filter container equal to this height
 

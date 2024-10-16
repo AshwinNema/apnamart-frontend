@@ -1,4 +1,4 @@
-import { Badge, Button, user } from "@nextui-org/react";
+import { Badge, Button } from "@nextui-org/react";
 import { IoClose } from "react-icons/io5";
 import { useChatboxStore } from "../../store";
 import { ChatIcon } from "../../assets";

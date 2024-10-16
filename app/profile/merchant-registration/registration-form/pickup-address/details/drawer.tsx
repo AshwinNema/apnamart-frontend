@@ -59,7 +59,6 @@ export default function AddressDrawer({
               {...inputProps}
               setData={setData("addressLine2")}
             />
-
             <TextInput
               value={config.pinCode}
               validationSchema={z.string().length(6, {

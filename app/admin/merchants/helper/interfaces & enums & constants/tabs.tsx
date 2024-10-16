@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { NewMerchantRegistration } from "../../components";
+import { MerchantList } from "../../components/merchant-list";
 
 export enum tabKeys {
   newRegistration = "New Merchant Registrations",
@@ -18,11 +19,7 @@ export const tabList: tabOption[] = [
     Content: () => <NewMerchantRegistration />,
   },
   {
-    key: tabKeys.blockedMerchants,
-    Content: () => <></>,
-  },
-  {
     key: tabKeys.merchantList,
-    Content: () => <></>,
+    Content: () => <MerchantList />
   },
 ];

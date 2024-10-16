@@ -68,7 +68,7 @@ const ItemFilters = () => {
             <ItemTable
               tableType={itemTableType.main}
               onClick={(data) => {
-                mainTableClick(data, setConfig);
+                mainTableClick(data, setConfig, mainConfig.mainFilterItemId);
               }}
               hideTable={!!config.createUpdateFilter}
               items={mainState.config.filterItems}

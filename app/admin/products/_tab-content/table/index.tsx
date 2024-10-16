@@ -9,8 +9,7 @@ import { RenderTable, TableActions } from "@/app/_custom-components";
 import { useProductDispatch, useProductSelector } from "@/lib/product/hooks";
 import {
   updateTableData,
-  subCatTableDataElement,
-  itemTableDataElement,
+  categoryTableDataElement,
 } from "@/lib/product/slices/table.slice";
 import { setModalDetails } from "@/lib/product/slices/modal-details.slice";
 import { getEmptyContent, NameComponent } from "./render-helper";
@@ -40,13 +39,10 @@ const DataTable = ({
           );
         }
         case "category": {
-          const category = cellValue as subCatTableDataElement["category"];
+          const category = cellValue as unknown as categoryTableDataElement;
           return <div className="text-lg">{category?.name}</div>;
         }
-        case "subCategory": {
-          const subCategory = cellValue as itemTableDataElement["subCategory"];
-          return <div className="text-lg">{subCategory?.name}</div>;
-        }
+
         case "actions":
           return (
             <TableActions
