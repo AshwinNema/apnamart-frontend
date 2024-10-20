@@ -7,7 +7,7 @@ export * from "./auto-complete.props";
 
 export interface TextInputProps {
   value: string;
-  setData: setVal;
+  setData?: setVal;
   validationSchema?: ZodSchema;
   Icon?: () => ReactNode;
   label?: string;
@@ -69,4 +69,5 @@ export interface ImgPreviewInputProps {
   options?: Options;
   imgChangeCallback?: () => void;
   clearCallback?: () => void;
+  customClass?: string;
 }

@@ -1,8 +1,4 @@
-import {
-  Events,
-  FileUploadWithPreview,
-  Options,
-} from "file-upload-with-preview";
+import { Events, FileUploadWithPreview } from "file-upload-with-preview";
 import "file-upload-with-preview/dist/style.css";
 import { useEffect, useRef } from "react";
 import { ImgPreviewInputProps } from "./interface";
@@ -14,6 +10,7 @@ export const ImgPreviewInput = ({
   imgChangeCallback,
   clearCallback,
   value,
+  customClass,
 }: ImgPreviewInputProps) => {
   const imgPreviewRef = useRef<FileUploadWithPreview | null>(null);
   const imageAdded = (e: Event) => {
@@ -43,7 +40,10 @@ export const ImgPreviewInput = ({
   }, []);
 
   return (
-    <div className="custom-file-container" data-upload-id={dataUploadId}>
+    <div
+      className={`custom-file-container ${customClass || ''}`}
+      data-upload-id={dataUploadId}
+    >
       {" "}
     </div>
   );

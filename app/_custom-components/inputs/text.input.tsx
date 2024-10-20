@@ -8,7 +8,6 @@ import styles from "@/app/styles.module.css";
 
 export const TextInput = ({
   value,
-  setData,
   validationSchema,
   Icon,
   className = "",
@@ -32,7 +31,7 @@ export const TextInput = ({
 
   const EndContent = () => {
     return !!value && !props.isReadOnly ? (
-      <ClearIcon onClick={() => setData("")} />
+      <ClearIcon onClick={() => props.setData &&  props.setData("")} />
     ) : null;
   };
 
@@ -62,7 +61,7 @@ export const TextInput = ({
       endContent={<EndContent />}
       onValueChange={(newVal) => {
         if (type === "number" && `${Number(newVal)}` !== newVal) return;
-        setData(newVal);
+       props.setData && props.setData(newVal);
       }}
       label={config.label}
       className={`${className}`}
