@@ -1,10 +1,9 @@
 import { setMultiplePaths, setNestedPath } from "@/app/_utils";
 import {
   createUpdateSpecification,
-  defaultNewSpecificationConfig,
-  getCurState,
+  defaultCreateUpdateSpecificationState,
   getSpecificationModalHeader,
-  newSpecificationProps,
+  createUpdateSpecificationProps,
   createUpdateSpecificationState,
   resetCreateUpdateSpecificationState,
   setInitialSpecificationState,
@@ -16,6 +15,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  ScrollShadow,
   Textarea,
 } from "@nextui-org/react";
 import { useCallback, useEffect, useState } from "react";
@@ -26,10 +26,10 @@ export const CreateUpdateSpecification = ({
   isOpen,
   onOpenChange,
   setMainConfig,
-}: newSpecificationProps) => {
-  const { specificationType, updateDetails } = mainConfig;
+}: createUpdateSpecificationProps) => {
+  const { specificationType, updateSpecificationDetails } = mainConfig;
   const [config, setConfig] = useState<createUpdateSpecificationState>(
-    defaultNewSpecificationConfig(),
+    defaultCreateUpdateSpecificationState(),
   );
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
   useEffect(() => {
@@ -42,9 +42,8 @@ export const CreateUpdateSpecification = ({
 
   useEffect(() => {
     setInitialSpecificationState(mainConfig, setConfig, setMainConfig);
-  }, [updateDetails]);
+  }, [updateSpecificationDetails]);
 
-  const curState = getCurState(mainConfig);
   return (
     <>
       <Modal
@@ -54,9 +53,9 @@ export const CreateUpdateSpecification = ({
       >
         <ModalContent>
           {(onClose) => (
-            <>
+            <ScrollShadow className="max-h-[70svh]">
               <ModalHeader>
-                {getSpecificationModalHeader(mainConfig)}
+                {getSpecificationModalHeader(mainConfig, config)}
               </ModalHeader>
               <ModalBody>
                 {typeof config.details === "string" ? (
@@ -69,21 +68,20 @@ export const CreateUpdateSpecification = ({
                   <SeriesSpecification config={config} setConfig={setConfig} />
                 )}
               </ModalBody>
-
               <ModalFooter>
                 <div className="flex justify-end">
                   <Button
-                    className="text-white"
+                    className="text-white mb-5"
                     onPress={() =>
                       createUpdateSpecification(config, onClose, setMainConfig)
                     }
-                    color={`${curState === "create" ? "success" : "warning"}`}
+                    color={`${config.isUpdating ? "warning" : "success"}`}
                   >
-                    {curState === "create" ? "Create" : "Update"}
+                    {config.isUpdating ? "Update" : "Create"}
                   </Button>
                 </div>
               </ModalFooter>
-            </>
+            </ScrollShadow>
           )}
         </ModalContent>
       </Modal>

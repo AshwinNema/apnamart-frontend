@@ -1,13 +1,11 @@
 import { errorToast } from "@/app/_utils";
-import {
-  createUpdateProductConfig,
-  getCurState,
-  MainCreateUpdateProductContext,
-} from "@/app/merchant/products/helpers";
-import { Button, useDisclosure } from "@nextui-org/react";
+import { MainCreateUpdateProductContext } from "@/app/merchant/products/helpers";
+import { Button, Tooltip, useDisclosure } from "@nextui-org/react";
 import { CurrentSpecificationDetailsModal } from "./modals/current-specification";
 import { CreateUpdateSpecification } from "./modals/create-update-specification";
-import { Dispatch, SetStateAction, useContext } from "react";
+import { useContext } from "react";
+import { PiPlusCircleDuotone } from "react-icons/pi";
+import { MdOutlinePreview } from "react-icons/md";
 
 export const SpecificationDetails = () => {
   const {
@@ -23,42 +21,59 @@ export const SpecificationDetails = () => {
   } = useDisclosure();
   const mainContext = useContext(MainCreateUpdateProductContext);
   if (!mainContext) return null;
-  const {config, setConfig} = mainContext
-  const isCreateState = getCurState(config) === "create";
+  const { config, setConfig } = mainContext;
   const { specifications } = config;
   return (
     <>
-      <div className="flex items-center gap-3">
-        {isCreateState || Array.isArray(config.specifications) ? (
-          <Button
-            variant="flat"
-            onPress={() => openCreateUpdateModal()}
+      <div className="flex items-center gap-1">
+        {!config.specifications || Array.isArray(config.specifications) ? (
+          <Tooltip
             color="primary"
+            content={`${
+              config.specificationType === "series"
+                ? "Add new specification point"
+                : "Add specification details"
+            }`}
           >
-            {config.specificationType === "series"
-              ? "Add new specification"
-              : "Add specification details"}
-          </Button>
+            <Button
+              onPress={() => {
+                if (!config.specificationType) {
+                  errorToast({ msg: "Please select specification type first" });
+                  return;
+                }
+                openCreateUpdateModal();
+              }}
+              isIconOnly
+              className="bg-transparent"
+            >
+              <PiPlusCircleDuotone className="scale-[3] fill-mainTheme" />
+            </Button>
+          </Tooltip>
         ) : null}
 
-        <Button
+        <Tooltip
+          className="text-white"
           color="warning"
-          variant="flat"
-          className="font-bold"
-          onPress={() => {
-            if (!specifications) {
-              errorToast({ msg: "Please add specification details first" });
-              return;
-            }
-            if (Array.isArray(specifications) && !specifications?.length) {
-              errorToast({ msg: "Please add specification details first" });
-              return;
-            }
-            openCurrentSpecificationModal();
-          }}
+          content="View Current Specification details"
         >
-          View Current Specification details
-        </Button>
+          <Button
+            color="warning"
+            className="text-white bg-transparent"
+            onPress={() => {
+              if (!specifications) {
+                errorToast({ msg: "Please add specification details first" });
+                return;
+              }
+              if (Array.isArray(specifications) && !specifications?.length) {
+                errorToast({ msg: "Please add specification details first" });
+                return;
+              }
+              openCurrentSpecificationModal();
+            }}
+          >
+            <MdOutlinePreview className="scale-[3] fill-warningTheme" />
+          </Button>
+        </Tooltip>
       </div>
       <CurrentSpecificationDetailsModal
         isOpen={isCurrentSpecificationModalOpen}

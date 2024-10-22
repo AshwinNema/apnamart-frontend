@@ -7,23 +7,20 @@ import { Select, SelectItem } from "@nextui-org/react";
 import { useContext } from "react";
 import { produce } from "immer";
 import { SpecificationDetails } from "./specification-details";
-
+import styles from "@/app/styles.module.css";
 export const Specifications = () => {
   const mainContext = useContext(MainCreateUpdateProductContext);
   if (!mainContext) return null;
   const { config, setConfig } = mainContext;
   return (
     <div className="mb-5">
-      <div className="flex justify-between mb-3 font-bold">
+      <div
+        className={`mb-3 font-bold items-center gap-3 ${styles["product-specification-description-grid"]}`}
+      >
         {" "}
         <div>Specifications</div>
-        <SpecificationDetails  />
-      </div>
-      <div className="flex justify-between items-center mb-3 gap-3">
         <Select
           label="Select specification type"
-          color="primary"
-          variant="faded"
           selectedKeys={[config.specificationType]}
           onChange={(e) => {
             setConfig(
@@ -45,6 +42,7 @@ export const Specifications = () => {
             </SelectItem>
           ))}
         </Select>
+        <SpecificationDetails />
       </div>
     </div>
   );

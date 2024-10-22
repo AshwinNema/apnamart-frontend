@@ -1,33 +1,27 @@
 import { Dispatch, SetStateAction } from "react";
 import {
   createUpdateProductConfig,
-  newSpecificationProps,
+  createUpdateSpecificationProps,
+  createUpdateSpecificationState,
   specificationDetailsWithHeader,
 } from "../interfaces & enums & constants";
 import { produce } from "immer";
-import { FaEdit } from "react-icons/fa";
-import { Tooltip } from "@nextui-org/react";
 export * from "./state-setter";
 export * from "./update-delete-series-specifications";
 
-export const getCurState = (
-  mainConfig: newSpecificationProps["mainConfig"],
-): "create" | "update" => {
-  return typeof mainConfig.specifications === "string"
-    ? !mainConfig.specifications
-      ? "create"
-      : "update"
-    : !mainConfig.specifications?.length
-      ? "create"
-      : "update";
-};
-
 export const getSpecificationModalHeader = (
-  mainConfig: newSpecificationProps["mainConfig"],
+  mainConfig: createUpdateSpecificationProps["mainConfig"],
+  config: createUpdateSpecificationState,
 ) => {
-  return getCurState(mainConfig) === "create"
-    ? "Create Specification"
-    : "Update Specification";
+  const isArrSpecification = Array.isArray(mainConfig.specifications);
+  if (config.isUpdating)
+    return isArrSpecification
+      ? "Update Specification Pointer"
+      : "Update Specification";
+
+  return isArrSpecification
+    ? "Create Specification Pointer"
+    : "Create Specification";
 };
 
 export const openUpdateSpecificationModalWithDetails = (
@@ -37,34 +31,8 @@ export const openUpdateSpecificationModalWithDetails = (
 ) => {
   setConfig(
     produce((draft) => {
-      draft.updateDetails = details;
+      draft.updateSpecificationDetails = details;
     }),
   );
   openCreateUpdateModal();
-};
-
-export const getSpecificationEditIcon = (
-  details: string | specificationDetailsWithHeader,
-  setConfig: Dispatch<SetStateAction<createUpdateProductConfig>>,
-  openCreateUpdateModal: () => void,
-) => {
-  return (
-    <Tooltip
-      color="warning"
-      content={<p className="text-white">Update details</p>}
-    >
-      <span>
-        <FaEdit
-          className="cursor-pointer scale-150"
-          onClick={() => {
-            openUpdateSpecificationModalWithDetails(
-              details,
-              setConfig,
-              openCreateUpdateModal,
-            );
-          }}
-        />
-      </span>
-    </Tooltip>
-  );
 };

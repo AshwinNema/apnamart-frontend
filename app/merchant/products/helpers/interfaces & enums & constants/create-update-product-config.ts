@@ -1,16 +1,6 @@
-export interface specificationKeyVal { key: string; val: string; id: string }
-
-export type specificationDetailsWithHeader = {
-  header?: string;
-  keyVals: specificationKeyVal[];
-  id: string;
-};
-
-export type descriptionDetailsWithHeader = {
-  withHeader?: boolean;
-  header?: string;
-  details: string;
-};
+import { Dispatch, SetStateAction } from "react";
+import { specificationDetailsWithHeader } from "./specifications";
+import { seriesDescription } from "./description";
 
 export interface createUpdateProductConfig {
   name: string;
@@ -31,8 +21,8 @@ export interface createUpdateProductConfig {
   }[];
   specificationType: "string" | "series";
   specifications: string | specificationDetailsWithHeader[];
-  descriptionType: "string" | "series";
-  description: string | descriptionDetailsWithHeader[];
+  descriptionType: "string" | "series" | "series with images";
+  description: string | seriesDescription[];
   filterList: {
     id: number;
     name: string;
@@ -44,8 +34,13 @@ export interface createUpdateProductConfig {
   selectedOptions: {
     [filterId: string]: number[];
   };
-  updateDetails: string | specificationDetailsWithHeader | null;
+  updateSpecificationDetails: string | specificationDetailsWithHeader | null;
+  updateDescriptionDetails: null | string | seriesDescription;
 }
+
+export type setCreateUpdateProductConfig = Dispatch<
+  SetStateAction<createUpdateProductConfig>
+>;
 
 export const getDefaultCreateUpdateProductConfig =
   (): createUpdateProductConfig => ({
@@ -60,8 +55,9 @@ export const getDefaultCreateUpdateProductConfig =
     specificationType: "string",
     specifications: "",
     descriptionType: "string",
-    description: [],
+    description: "",
     filterList: [],
     selectedOptions: {},
-    updateDetails: null,
+    updateSpecificationDetails: null,
+    updateDescriptionDetails: null,
   });

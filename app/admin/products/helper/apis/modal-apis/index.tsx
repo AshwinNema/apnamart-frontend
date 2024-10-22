@@ -49,14 +49,14 @@ export const getItemFilters = (
   ) => void,
   setList?: setVal,
   clearList?: boolean,
-  reqConfig?: fetchConfig
+  reqConfig?: fetchConfig,
 ) => {
   makeDataRequest(
     HTTP_METHODS.GET,
     `${appEndPoints.GET_ITEM_FILTERS_BY_ITEM_ID}${id}`,
     undefined,
     undefined,
-    reqConfig
+    reqConfig,
   )
     .then((res) => {
       if (!res) return;

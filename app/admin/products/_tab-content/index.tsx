@@ -59,10 +59,7 @@ export default function TabContent() {
           color="primary"
           fullWidth
         >
-          Create{" "}
-          {tab === tabKeys.category
-            ? "Category"
-            : "Item"}
+          Create {tab === tabKeys.category ? "Category" : "Item"}
         </Button>
       </div>
       <CreateUpdateModal isOpen={isOpen} onOpenChange={onOpenChange} />

@@ -7,11 +7,17 @@ const MerchantProductSection = () => {
   const [config, setConfig] = useState<mainConfig>({
     currentState: "main screen",
   });
+
+  const isCreatingUpdatingProduct =
+    config.currentState === "create" || config.currentState === "update";
   return (
     <div className="mt-5">
       <MainContext.Provider value={{ config, setConfig }}>
-        <MainLandingPage />
-        <CreateUpdateProducts />
+        {isCreatingUpdatingProduct ? (
+          <CreateUpdateProducts />
+        ) : (
+          <MainLandingPage />
+        )}
       </MainContext.Provider>{" "}
     </div>
   );

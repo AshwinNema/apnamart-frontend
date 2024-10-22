@@ -5,9 +5,7 @@ import {
   merchantSelectStatus,
   merchantTableProps,
 } from "../../helper";
-import {
-  blockUnBlockMerchant,
-} from "./utils/api";
+import { blockUnBlockMerchant } from "./utils/api";
 import { MerchantListTable } from "./table";
 import { setNestedPath } from "@/app/_utils";
 import { SelectedMerchantRegistration } from "../merchant-registration/sub-components";

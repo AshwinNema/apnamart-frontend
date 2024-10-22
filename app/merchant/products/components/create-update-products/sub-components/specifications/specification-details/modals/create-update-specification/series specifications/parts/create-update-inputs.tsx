@@ -2,13 +2,13 @@ import { TextInput } from "@/app/_custom-components";
 import { setNestedPath, validateZodSchema } from "@/app/_utils";
 import {
   createUpdateSpecificationState,
-  newSpecificationValidation,
+  newKeyValValidation,
+  CancelUpdateKeyValIcons,
 } from "@/app/merchant/products/helpers";
 import { Dispatch, SetStateAction, useCallback } from "react";
-import { CancelUpdateKeyValIcons } from ".";
 import * as _ from "lodash";
-
-export const AddSeriesInputs = ({
+import { produce } from "immer";
+export const AddSpecificationSeriesInputs = ({
   config,
   setConfig,
   onAdd,
@@ -33,7 +33,9 @@ export const AddSeriesInputs = ({
           placeholder="Feature Header"
         />
       </div>
-      <div className={`flex gap-3 ${!config.addNewKeyVal && "invisible"} items-center my-3`}>
+      <div
+        className={`flex gap-3 ${!config.addNewKeyVal && "invisible"} items-center my-3`}
+      >
         <TextInput
           value={config.newKey}
           setData={setData("newKey")}
@@ -50,13 +52,19 @@ export const AddSeriesInputs = ({
         <CancelUpdateKeyValIcons
           type="new"
           onCancel={() => {
-            setData("addNewKeyVal")(false);
+            setConfig(
+              produce((draft) => {
+                draft.addNewKeyVal = false;
+                draft.newKey = "";
+                draft.newVal = "";
+              }),
+            );
           }}
           onSuccess={() => {
             const details = _.pick(config, ["newVal", "newKey"]);
             const { error, data } = validateZodSchema(
               details,
-              newSpecificationValidation,
+              newKeyValValidation,
               true,
             );
             if (error || !data) return;

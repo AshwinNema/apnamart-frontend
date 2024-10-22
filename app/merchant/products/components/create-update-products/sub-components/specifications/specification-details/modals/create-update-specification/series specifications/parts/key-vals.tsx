@@ -1,11 +1,10 @@
 import {
   deleteSeriesSpecification,
-  createUpdateSpecificationState,
-  specificationKeyVal,
   specificationKeyValState,
   updateSeriesSpecification,
+  specificationKeyValProps,
 } from "@/app/merchant/products/helpers";
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { TextInput } from "@/app/_custom-components";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -15,13 +14,8 @@ import { Tooltip } from "@nextui-org/react";
 
 export const SpecificationKeyVal = ({
   keyVal,
-  setNewSpecificationConfig,
-}: {
-  keyVal: specificationKeyVal;
-  setNewSpecificationConfig: Dispatch<
-    SetStateAction<createUpdateSpecificationState>
-  >;
-}) => {
+  setCreateUpdateSpecificationState,
+}: specificationKeyValProps) => {
   const [config, setConfig] = useState<specificationKeyValState>({
     isReadOnly: true,
     key: keyVal.key,
@@ -69,7 +63,7 @@ export const SpecificationKeyVal = ({
                     onClick={() => {
                       updateSeriesSpecification(
                         config,
-                        setNewSpecificationConfig,
+                        setCreateUpdateSpecificationState,
                         setData,
                       );
                     }}
@@ -88,7 +82,7 @@ export const SpecificationKeyVal = ({
                 <RiDeleteBin6Line
                   onClick={() => {
                     deleteSeriesSpecification(
-                      setNewSpecificationConfig,
+                      setCreateUpdateSpecificationState,
                       keyVal.id,
                     );
                   }}

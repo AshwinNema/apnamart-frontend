@@ -1,6 +1,11 @@
 import { setVal } from "@/app/_utils";
-import { InputSlots, SlotsToClasses } from "@nextui-org/react";
-import { FileUploadWithPreview, Options } from "file-upload-with-preview";
+import { InputProps, InputSlots, SlotsToClasses } from "@nextui-org/react";
+import {
+  FileUploadWithPreview,
+  ImageAddedEventDetail,
+  ImageDeletedEventDetail,
+  Options,
+} from "file-upload-with-preview";
 import { ReactNode } from "react";
 import { ZodSchema } from "zod";
 export * from "./auto-complete.props";
@@ -21,6 +26,7 @@ export interface TextInputProps {
   isRequired?: boolean;
   type?: string;
   isReadOnly?: boolean;
+  color?: InputProps["color"];
 }
 
 export interface TextInputState {
@@ -63,11 +69,14 @@ export interface autoCompleteState {
 // dataUploadId - dat upload id for the upload
 
 export interface ImgPreviewInputProps {
-  setUpload: (upload: FileUploadWithPreview) => void;
+  setUpload?: (upload: FileUploadWithPreview) => void;
   value?: FileUploadWithPreview | null;
   dataUploadId: string;
   options?: Options;
-  imgChangeCallback?: () => void;
+  imgChangeCallback?: (e: ImageAddedEventDetail) => void;
   clearCallback?: () => void;
   customClass?: string;
+  imgDeletedCallBack?: (e: ImageDeletedEventDetail) => void;
+  initialFiles?: File[];
+  hideClearBtn?: boolean;
 }

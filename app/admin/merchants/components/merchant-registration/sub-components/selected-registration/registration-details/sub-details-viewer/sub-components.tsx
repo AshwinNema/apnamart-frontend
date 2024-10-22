@@ -1,4 +1,4 @@
-import {  MarkerWithoutHeader } from "@/app/_custom-components";
+import { MarkerWithoutHeader } from "@/app/_custom-components";
 import { MainMap } from "@/app/_custom-components/leaflet/map-component";
 import { subDetailsViewerProps } from "@/app/admin/merchants/helper";
 import {

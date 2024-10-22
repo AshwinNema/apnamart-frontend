@@ -1,13 +1,12 @@
 import { setNestedPath } from "@/app/_utils";
 import { createUpdateSpecificationState } from "@/app/merchant/products/helpers";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { Dispatch, SetStateAction } from "react";
-import { GiCancel } from "react-icons/gi";
-import { SiTicktick } from "react-icons/si";
+
 export * from "./create-update-inputs";
 export * from "./key-vals";
 
-export const AddNewBtns = ({
+export const AddNewSpecificationBtns = ({
   config,
   setConfig,
 }: {
@@ -33,49 +32,5 @@ export const AddNewBtns = ({
         </Button>
       ) : null}
     </div>
-  );
-};
-
-export const CancelUpdateKeyValIcons = ({
-  type,
-  onCancel,
-  onSuccess,
-}: {
-  type: "new" | "edit";
-  onCancel: () => void;
-  onSuccess: () => void;
-}) => {
-  return (
-    <>
-      <Tooltip
-        color="success"
-        content={<p>{type === "new" ? "Add new " : "update "} feature</p>}
-      >
-        <span>
-          <SiTicktick
-            onClick={onSuccess}
-            className="fill-successTheme scale-[1.2] cursor-pointer"
-          />
-        </span>
-      </Tooltip>
-      <Tooltip
-        color="danger"
-        content={
-          <p>
-            Cancel{" "}
-            {type === "new"
-              ? "adding new feature"
-              : "updating the current featuere"}
-          </p>
-        }
-      >
-        <span>
-          <GiCancel
-            onClick={onCancel}
-            className="fill-dangerTheme scale-[1.2] cursor-pointer"
-          />
-        </span>
-      </Tooltip>
-    </>
   );
 };

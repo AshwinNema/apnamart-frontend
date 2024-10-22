@@ -4,7 +4,7 @@ import { AutoCompleteProps, autoCompleteState } from "./interface";
 import { HTTP_METHODS } from "@/app/_services";
 import { setMultiplePaths } from "@/app/_utils";
 import { autoCompleteFetchData, onAutoCompleteSelectionChange } from "./utils";
-import {produce} from "immer"
+import { produce } from "immer";
 // Note - For documentation regarding this component please refer AutoCompleteProps(type definition of props for this component)
 export const AutoCompleteComponent = ({
   size = "md",
@@ -45,10 +45,12 @@ export const AutoCompleteComponent = ({
           typeof props.inputVal === "string" ? props.inputVal : inputValue
         }
         onInputChange={(val: string) => {
-          setConfig(produce((draft) => {
-            draft.inputValue = val;
-            if (!val) draft.selectedKey = null;
-          }))
+          setConfig(
+            produce((draft) => {
+              draft.inputValue = val;
+              if (!val) draft.selectedKey = null;
+            }),
+          );
           !val && props.onSelectionChange(null);
           props.setInputVal && props.setInputVal(val);
         }}

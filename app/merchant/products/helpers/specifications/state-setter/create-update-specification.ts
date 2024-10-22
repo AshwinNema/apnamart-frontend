@@ -1,12 +1,12 @@
 import {
-  newSpecificationProps,
+  createUpdateSpecificationProps,
   createUpdateSpecificationState,
   specificationDetailsWithHeader,
 } from "../../interfaces & enums & constants";
 import { errorToast, setNestedPath, validateZodSchema } from "@/app/_utils";
 import { v4 } from "uuid";
 import {
-  specificationKeyValArrValidation,
+  keyValArrValidation,
   requiredStringValidation,
 } from "../../validations";
 import { produce } from "immer";
@@ -14,7 +14,7 @@ import { produce } from "immer";
 export const createUpdateSpecification = (
   config: createUpdateSpecificationState,
   onClose: () => void,
-  setMainConfig: newSpecificationProps["setMainConfig"],
+  setMainConfig: createUpdateSpecificationProps["setMainConfig"],
 ) => {
   if (config.addNewKeyVal) {
     errorToast({
@@ -48,7 +48,7 @@ export const createUpdateSpecification = (
       }
       const { error, data } = validateZodSchema(
         config.details.keyVals,
-        specificationKeyValArrValidation,
+        keyValArrValidation,
         true,
       );
 

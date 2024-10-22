@@ -1,4 +1,5 @@
 import { HTTP_METHODS } from "@/app/_services";
+import { TooltipProps } from "@nextui-org/react";
 import React from "react";
 
 export interface columns {
@@ -23,7 +24,7 @@ export interface tableProps<tableItem> {
 
 export interface TableActionProps {
   onClick?: () => void;
-  deleteBtnText?: string;
+  deleteModalHeadertext?: string;
   modalBodyMsg?: string;
   deleteMethod?: HTTP_METHODS;
   deleteUrl?: string;
@@ -32,4 +33,8 @@ export interface TableActionProps {
   onDelete?: (onClose: () => void) => any;
   editTooltipText?: string;
   deleteToolTipText?: string;
+  editToolTipColor?: TooltipProps["color"];
+  updateToolTipClass?: string;
+  showDeleteIcon?: boolean;
+  editIconClass?: string;
 }

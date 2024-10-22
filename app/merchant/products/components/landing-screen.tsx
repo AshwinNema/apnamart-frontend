@@ -5,7 +5,7 @@ import { setNestedPath } from "@/app/_utils";
 
 export const MainLandingPage = () => {
   const mainState = useContext(MainContext);
-  if (mainState?.config?.currentState !== "main screen") return null;
+  if (!mainState) return null;
   return (
     <>
       <div className="flex justify-end mr-5">

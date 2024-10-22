@@ -1,7 +1,11 @@
 import { createUpdateSpecificationState } from "@/app/merchant/products/helpers";
 import { produce } from "immer";
 import { Dispatch, Fragment, SetStateAction, useState } from "react";
-import { AddNewBtns, AddSeriesInputs, SpecificationKeyVal } from "./parts";
+import {
+  AddNewSpecificationBtns,
+  AddSpecificationSeriesInputs,
+  SpecificationKeyVal,
+} from "./parts";
 import { v4 } from "uuid";
 
 export const SeriesSpecification = ({
@@ -13,8 +17,8 @@ export const SeriesSpecification = ({
 }) => {
   return (
     <div>
-      <AddNewBtns config={config} setConfig={setConfig} />
-      <AddSeriesInputs
+      <AddNewSpecificationBtns config={config} setConfig={setConfig} />
+      <AddSpecificationSeriesInputs
         config={config}
         setConfig={setConfig}
         onAdd={(key: string, val: string) => {
@@ -37,7 +41,10 @@ export const SeriesSpecification = ({
           {config.details.keyVals.map((keyVal) => {
             return (
               <Fragment key={keyVal.id}>
-                <SpecificationKeyVal keyVal={keyVal} setNewSpecificationConfig={setConfig} />
+                <SpecificationKeyVal
+                  keyVal={keyVal}
+                  setCreateUpdateSpecificationState={setConfig}
+                />
               </Fragment>
             );
           })}

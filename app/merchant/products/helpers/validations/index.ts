@@ -9,19 +9,17 @@ export const requiredStringValidation = (keyName: string) => {
     });
 };
 
-export const newSpecificationValidation = z.object({
+export const newKeyValValidation = z.object({
   newKey: requiredStringValidation("Feature Key"),
   newVal: requiredStringValidation("Feature Value"),
 });
 
-export const specificationKeyValValidation = z.object({
+export const keyValValidation = z.object({
   key: requiredStringValidation("Feature Key"),
   val: requiredStringValidation("Feature Value"),
   id: z.string(),
 });
 
-export const specificationKeyValArrValidation = z
-  .array(specificationKeyValValidation)
-  .min(1, {
-    message: "There should be atleast one feature key and value",
-  });
+export const keyValArrValidation = z.array(keyValValidation).min(1, {
+  message: "There should be atleast one feature key and value",
+});

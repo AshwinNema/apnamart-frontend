@@ -1,6 +1,6 @@
 import {
   createUpdateProductConfig,
-  newSpecificationProps,
+  createUpdateSpecificationProps,
   createUpdateSpecificationState,
 } from "../../interfaces & enums & constants";
 import { keyVals, multiplePathSetter } from "@/app/_utils";
@@ -36,18 +36,21 @@ export const resetCreateUpdateSpecificationState = (
 };
 
 export const setInitialSpecificationState = (
-  mainConfig: newSpecificationProps["mainConfig"],
+  mainConfig: createUpdateSpecificationProps["mainConfig"],
   setConfig: Dispatch<SetStateAction<createUpdateSpecificationState>>,
-  setMainConfig: newSpecificationProps["setMainConfig"],
+  setMainConfig: createUpdateSpecificationProps["setMainConfig"],
 ) => {
-  const { updateDetails } = mainConfig;
-  if (!updateDetails) return;
-  setNestedPath(setMainConfig)("updateDetails")(null);
+  const { updateSpecificationDetails } = mainConfig;
+  if (!updateSpecificationDetails) return;
+  setNestedPath(setMainConfig)("updateSpecificationDetails")(null);
   setConfig(
     produce((draft) => {
-      draft.details = updateDetails;
+      draft.details = updateSpecificationDetails;
       draft.isUpdating = true;
-      if (typeof updateDetails !== "string" && updateDetails.header) {
+      if (
+        typeof updateSpecificationDetails !== "string" &&
+        updateSpecificationDetails.header
+      ) {
         draft.enableHeader = true;
       }
     }),

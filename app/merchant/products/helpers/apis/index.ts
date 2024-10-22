@@ -4,15 +4,15 @@ import { appEndPoints, setKeyVal, setVal } from "@/app/_utils";
 export const getItemsList = (
   query: { categoryId?: number },
   setData: setVal,
-  clearList?:true,
-  reqConfig?: fetchConfig
+  clearList?: true,
+  reqConfig?: fetchConfig,
 ) => {
   makeDataRequest(
     HTTP_METHODS.GET,
     `${appEndPoints.ITEM_LIST}`,
     undefined,
     query,
-    reqConfig
+    reqConfig,
   )
     .then((res) => {
       if (!res) return;
@@ -28,7 +28,7 @@ export const getItemsList = (
       setData(data);
     })
     .catch((err) => {
-      clearList && setData([])
+      clearList && setData([]);
       console.log(err);
     });
 };
