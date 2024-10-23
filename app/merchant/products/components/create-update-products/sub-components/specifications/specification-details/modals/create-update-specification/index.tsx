@@ -50,6 +50,7 @@ export const CreateUpdateSpecification = ({
         classNames={{ body: ["mt-3"], header: ["flex justify-center"] }}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
+        size="5xl"
       >
         <ModalContent>
           {(onClose) => (

@@ -2,6 +2,15 @@ import { Dispatch, SetStateAction } from "react";
 import { specificationDetailsWithHeader } from "./specifications";
 import { seriesDescription } from "./description";
 
+export interface productFilter {
+  id: number;
+  name: string;
+  options: {
+    id: number;
+    name: string;
+  }[];
+}
+
 export interface createUpdateProductConfig {
   name: string;
   price: string;
@@ -23,16 +32,9 @@ export interface createUpdateProductConfig {
   specifications: string | specificationDetailsWithHeader[];
   descriptionType: "string" | "series" | "series with images";
   description: string | seriesDescription[];
-  filterList: {
-    id: number;
-    name: string;
-    options: {
-      id: number;
-      name: string;
-    }[];
-  }[];
+  filterList: productFilter[];
   selectedOptions: {
-    [filterId: string]: number[];
+    [filterId: string]: number;
   };
   updateSpecificationDetails: string | specificationDetailsWithHeader | null;
   updateDescriptionDetails: null | string | seriesDescription;
