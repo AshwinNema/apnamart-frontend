@@ -30,7 +30,6 @@ export const MainBodyAutoCompletes = () => {
           fullWidth={true}
         />
       )}
-
     </>
   );
 };

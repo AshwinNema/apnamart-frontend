@@ -1,28 +1,20 @@
 import { Autocomplete, AutocompleteItem, Avatar } from "@nextui-org/react";
-import * as _ from "lodash";
 import React, { Key, useCallback, useEffect, useState } from "react";
 import { AutoCompleteProps, autoCompleteState } from "./interface";
 import { HTTP_METHODS } from "@/app/_services";
 import { setMultiplePaths } from "@/app/_utils";
 import { autoCompleteFetchData, onAutoCompleteSelectionChange } from "./utils";
+import { produce } from "immer";
 // Note - For documentation regarding this component please refer AutoCompleteProps(type definition of props for this component)
 export const AutoCompleteComponent = ({
-  label,
   size = "md",
   variant = "flat",
   color = "default",
   method = HTTP_METHODS.GET,
-  url,
-  list,
-  onSelectionChange,
   processLogic,
-  isClearable,
   labelPlacement = "inside",
-  fullWidth,
-  allowsCustomValue,
   selectedKey,
-  inputVal,
-  setInputVal,
+  ...props
 }: AutoCompleteProps): React.JSX.Element => {
   const [config, setConfig] = useState<autoCompleteState>({
     itemList: [],
@@ -33,42 +25,46 @@ export const AutoCompleteComponent = ({
   const { itemList, inputValue } = config;
 
   useEffect(() => {
-    autoCompleteFetchData(processLogic, method, setMultipleData, url);
-  }, [url]);
+    autoCompleteFetchData(processLogic, method, setMultipleData, props.url);
+  }, [props.url]);
 
   return (
     <>
       <Autocomplete
-        label={label}
+        label={props.label}
         variant={variant}
         allowsEmptyCollection={false}
-        fullWidth={!!fullWidth}
+        fullWidth={!!props.fullWidth}
         size={size}
         color={color}
         selectedKey={
           selectedKey !== undefined ? selectedKey : config.selectedKey
         }
-        inputValue={typeof inputVal === "string" ? inputVal : inputValue}
+        placeholder={props.placeholder}
+        inputValue={
+          typeof props.inputVal === "string" ? props.inputVal : inputValue
+        }
         onInputChange={(val: string) => {
-          setConfig((prevConfig) => {
-            prevConfig.inputValue = val;
-            if (!val) prevConfig.selectedKey = null;
-            return { ...prevConfig };
-          });
-          !val && onSelectionChange(null);
-          setInputVal && setInputVal(val);
+          setConfig(
+            produce((draft) => {
+              draft.inputValue = val;
+              if (!val) draft.selectedKey = null;
+            }),
+          );
+          !val && props.onSelectionChange(null);
+          props.setInputVal && props.setInputVal(val);
         }}
-        isClearable={!!isClearable}
-        allowsCustomValue={allowsCustomValue}
-        items={list ? list : itemList}
+        isClearable={!!props.isClearable}
+        allowsCustomValue={props.allowsCustomValue}
+        items={props.list ? props.list : itemList}
         labelPlacement={labelPlacement}
         onSelectionChange={(key: Key | null) => {
           onAutoCompleteSelectionChange(
             key,
-            list ? list : itemList,
+            props.list ? props.list : itemList,
             setMultipleData,
-            onSelectionChange,
-            setInputVal,
+            props.onSelectionChange,
+            props.setInputVal,
           );
         }}
       >

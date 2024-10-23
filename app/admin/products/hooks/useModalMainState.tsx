@@ -10,7 +10,7 @@ import {
 import {
   getItemFilters,
   getMainDefaultState,
-  getSearchList,
+  getCategorySearchList,
   MainModalState,
   setMainState,
   tableDataDataElement,
@@ -18,7 +18,6 @@ import {
 import { setMultiplePaths, setNestedPath } from "@/app/_utils";
 import { useProductSelector } from "@/lib/product/hooks";
 import { tabKeys } from "@/lib/product/slices/component-details.slice";
-import { appEndPoints } from "@/app/_utils/endpoints";
 
 const useModalMainState = (): [
   MainModalState,
@@ -45,7 +44,7 @@ const useModalMainState = (): [
   useEffect(() => {
     isOpen &&
       tab !== tabKeys.category &&
-      getSearchList(appEndPoints.CATEGORY_LIST, setData("categoryList"));
+      getCategorySearchList(setData("categoryList"));
   }, [tab, isOpen]);
 
   useEffect(() => {

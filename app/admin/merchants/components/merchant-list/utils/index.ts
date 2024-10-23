@@ -11,7 +11,7 @@ import {
 } from "../../merchant-registration/apis";
 import { merchantRegistrationStatus } from "@/lib/main/slices/user/user.slice";
 import { produce } from "immer";
- 
+
 export const queryMerchantList = (
   page: number,
   config: merchantListState,
@@ -59,8 +59,8 @@ export const queryMerchantList = (
       (registrationDetails: newRegistrationDetails) => {
         const { user, ...merchantDetails } = registrationDetails;
         return {
-            ...user,
-            merchantDetails
+          ...user,
+          merchantDetails,
         };
       },
     );

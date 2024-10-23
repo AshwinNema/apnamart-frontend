@@ -37,6 +37,7 @@ export const items = {
   DELETE_ITEM: `${backendService}item/`,
   SEARCH_ITEM_BY_NAME: `${backendService}item/search-by-name`,
   GET_ITEM_FILTERS_BY_ITEM_ID: `${backendService}item/item-filter/by-item-id/`,
+  ITEM_LIST: `${backendService}item/list`,
 };
 
 export const merchant = {

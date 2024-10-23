@@ -16,3 +16,11 @@
 .sr-only {
   display: none;
 }
+
+.hide-img-clear-icon {
+  .label-container {
+    a.clear-button {
+      display: none;
+    }
+  }
+}

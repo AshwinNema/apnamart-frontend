@@ -48,7 +48,7 @@ const DataTable = ({
             <TableActions
               deleteUrl={url}
               deleteSuccessMsg={msg}
-              deleteBtnText={button}
+              deleteModalHeadertext={button}
               onDeleteSuccess={loadData}
               onClick={() => {
                 dispatch(setModalDetails(data));

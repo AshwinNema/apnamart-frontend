@@ -62,7 +62,7 @@ export interface updateFilter {
   createOptions?: CreateFilterItemOption[];
   deleteOptions?: number[];
   updateOptions?: UpdateFilterItemOption[];
-  isMainFilter: boolean;
+  isMainFilter?: boolean;
 }
 // MainModalState contains originalFilterItems that are the items that are stored in the database
 export interface originalFilterItem

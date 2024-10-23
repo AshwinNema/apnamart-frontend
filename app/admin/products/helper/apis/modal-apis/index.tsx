@@ -10,13 +10,18 @@ export * from "./create-update";
 import * as _ from "lodash";
 import { processGetItemFilters } from "../..";
 
-export const getSearchList = (
-  url: string,
+export const getCategorySearchList = (
   setData: setVal,
   params?: params,
   reqConfig?: fetchConfig,
 ) => {
-  makeDataRequest(HTTP_METHODS.GET, url, undefined, params, reqConfig)
+  makeDataRequest(
+    HTTP_METHODS.GET,
+    appEndPoints.CATEGORY_LIST,
+    undefined,
+    params,
+    reqConfig,
+  )
     .then((res) => {
       if (!res) return;
 
@@ -38,18 +43,29 @@ export const getSearchList = (
 
 export const getItemFilters = (
   id: number,
-  setData: (
+  setData?: (
     list: MainModalState["filterItems"],
     originalFilterItems: MainModalState["originalFilterItems"],
   ) => void,
+  setList?: setVal,
+  clearList?: boolean,
+  reqConfig?: fetchConfig,
 ) => {
   makeDataRequest(
     HTTP_METHODS.GET,
     `${appEndPoints.GET_ITEM_FILTERS_BY_ITEM_ID}${id}`,
-  ).then((res) => {
-    if (!res) return;
+    undefined,
+    undefined,
+    reqConfig,
+  )
+    .then((res) => {
+      if (!res) return;
 
-    const { list, filterMap } = processGetItemFilters(res);
-    setData(list, filterMap);
-  });
+      const { list, filterMap } = processGetItemFilters(res);
+      setData && setData(list, filterMap);
+      setList && setList(res);
+    })
+    .catch((err) => {
+      clearList && setList && setList([]);
+    });
 };

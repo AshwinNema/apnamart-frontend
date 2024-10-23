@@ -30,7 +30,7 @@ export interface MainModalState {
   deletedOriginalItems: ModalDeletedFilterItem[];
   categoryList: autoCompleteState["itemList"];
   categoryVal: string;
-  mainFilterItemId:null | string | number;
+  mainFilterItemId: null | string | number;
 }
 // Api params while query entity data
 export interface getDataQuery {

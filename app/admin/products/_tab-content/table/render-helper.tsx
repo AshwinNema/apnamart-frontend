@@ -23,9 +23,5 @@ export const NameComponent = ({
 };
 
 export const getEmptyContent = (tab: tabKeys) => {
-  return `No ${
-    tab === tabKeys.category
-      ? "categories"
-      : "items"
-  } found`;
+  return `No ${tab === tabKeys.category ? "categories" : "items"} found`;
 };

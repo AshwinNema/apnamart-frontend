@@ -20,6 +20,6 @@ export const tabList: tabOption[] = [
   },
   {
     key: tabKeys.merchantList,
-    Content: () => <MerchantList />
+    Content: () => <MerchantList />,
   },
 ];

@@ -1,3 +1,4 @@
+"use client";
 import { Image } from "@nextui-org/react";
 import NextImage from "next/image";
 import { useAppSelector } from "@/lib/main/hooks";
@@ -15,6 +16,7 @@ export * from "./buttons";
 export * from "./chatbox";
 export * from "./pagination";
 export * from "./custom-icons";
+export * from "./img-viewer";
 
 export { default as CustomImagePreviewer } from "./image-previewer";
 
