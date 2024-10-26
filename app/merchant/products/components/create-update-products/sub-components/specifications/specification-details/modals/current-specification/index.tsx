@@ -10,7 +10,6 @@ import {
   ModalBody,
   ModalContent,
   ModalHeader,
-  ScrollShadow,
 } from "@nextui-org/react";
 import { useContext } from "react";
 import { SpecificationPointers } from "./specification-pointers";
@@ -33,41 +32,40 @@ export const CurrentSpecificationDetailsModal = ({
       }}
       isOpen={isOpen}
       onOpenChange={onOpenChange}
+      scrollBehavior="inside"
     >
       <ModalContent>
-        <ScrollShadow className="max-h-[70svh]">
-          <ModalHeader>Specification details</ModalHeader>
-          <ModalBody>
-            <Card>
-              {typeof specifications === "string" ? (
-                <CardBody>
-                  <div className="flex justify-between gap-3 items-center">
-                    <div className="break-all">{specifications}</div>
-                    <div>
-                      <TableActions
-                        showDeleteIcon={false}
-                        onClick={() => {
-                          openUpdateSpecificationModalWithDetails(
-                            specifications,
-                            setConfig,
-                            openCreateUpdateModal,
-                          );
-                        }}
-                        editTooltipText="Update specification"
-                        editToolTipColor="warning"
-                        updateToolTipClass="text-white"
-                      />
-                    </div>
+        <ModalHeader>Specification details</ModalHeader>
+        <ModalBody>
+          <Card className="overflow-visible">
+            {typeof specifications === "string" ? (
+              <CardBody>
+                <div className="flex justify-between gap-3 items-center">
+                  <div className="break-all">{specifications}</div>
+                  <div>
+                    <TableActions
+                      showDeleteIcon={false}
+                      onClick={() => {
+                        openUpdateSpecificationModalWithDetails(
+                          specifications,
+                          setConfig,
+                          openCreateUpdateModal,
+                        );
+                      }}
+                      editTooltipText="Update specification"
+                      editToolTipColor="warning"
+                      updateToolTipClass="text-white"
+                    />
                   </div>
-                </CardBody>
-              ) : (
-                <SpecificationPointers
-                  openCreateUpdateModal={openCreateUpdateModal}
-                />
-              )}
-            </Card>
-          </ModalBody>
-        </ScrollShadow>
+                </div>
+              </CardBody>
+            ) : (
+              <SpecificationPointers
+                openCreateUpdateModal={openCreateUpdateModal}
+              />
+            )}
+          </Card>
+        </ModalBody>
       </ModalContent>
     </Modal>
   );

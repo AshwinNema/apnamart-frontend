@@ -25,7 +25,7 @@ export const SpecificationPointers = ({
         const isLastIndex = index === specifications.length - 1;
         return (
           <Fragment key={specification.id}>
-            <CardBody>
+            <CardBody className="overflow-y-visible">
               <div className="ml-3">
                 {specification.header ? (
                   <div className="flex justify-center font-bold">

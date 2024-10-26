@@ -4,7 +4,15 @@ import {
   seriesDescription,
   TableKeyVal,
 } from "@/app/merchant/products/helpers";
-import { CardBody } from "@nextui-org/react";
+import {
+  CardBody,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+} from "@nextui-org/react";
 import { CreateUpdateIcons } from "./sub-components";
 
 export const PointerDescription = ({
@@ -19,7 +27,7 @@ export const PointerDescription = ({
       {descriptionPoints.map((descriptionDetails) => {
         const { details, header, id, photo } = descriptionDetails;
         return (
-          <CardBody key={id} className="ml-3">
+          <CardBody key={id} className="ml-3 overflow-y-visible">
             {header ? (
               <div className="flex justify-center font-bold">{header}</div>
             ) : null}
@@ -27,8 +35,16 @@ export const PointerDescription = ({
             <div className="flex justify-between items-center gap-3 mr-2">
               {typeof details === "string" ? (
                 <>
-                  <div></div>
-                  <div>{details}</div>
+                  <Table hideHeader aria-label="Hide table">
+                    <TableHeader>
+                      <TableColumn>Details</TableColumn>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow key={1}>
+                        <TableCell>{details}</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
                 </>
               ) : (
                 <TableKeyVal details={details} />

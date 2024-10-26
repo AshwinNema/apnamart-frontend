@@ -14,7 +14,7 @@ const MerchantProductSection = () => {
     <div className="mt-5">
       <MainContext.Provider value={{ config, setConfig }}>
         {isCreatingUpdatingProduct ? (
-          <CreateUpdateProducts />
+          <CreateUpdateProducts onSuccess={() => {}} />
         ) : (
           <MainLandingPage />
         )}

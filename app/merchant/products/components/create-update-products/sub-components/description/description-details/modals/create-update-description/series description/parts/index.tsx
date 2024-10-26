@@ -1,23 +1,22 @@
 import { setNestedPath } from "@/app/_utils";
 import {
+  CreateUpdateDescriptionContext,
   createUpdateDescriptionState,
   seriesDescription,
   seriesDescriptionTypeOptions,
 } from "@/app/merchant/products/helpers";
 import { Button, Select, SelectItem } from "@nextui-org/react";
-import { Dispatch, SetStateAction } from "react";
+import { useContext } from "react";
 import { produce } from "immer";
 import { v4 } from "uuid";
+import styles from "@/app/styles.module.css";
 export * from "./create-update-inputs";
 export * from "./key-vals";
 
-export const AddNewDescriptionBtns = ({
-  config,
-  setConfig,
-}: {
-  config: createUpdateDescriptionState;
-  setConfig: Dispatch<SetStateAction<createUpdateDescriptionState>>;
-}) => {
+export const AddNewDescriptionBtns = () => {
+  const mainDescriptionContext = useContext(CreateUpdateDescriptionContext);
+  if (!mainDescriptionContext) return null;
+  const { config, setConfig } = mainDescriptionContext;
   return (
     <div className="flex justify-between items-center gap-3 mb-5">
       <Select
@@ -67,7 +66,7 @@ export const AddNewDescriptionBtns = ({
           <Button
             onPress={() => setNestedPath(setConfig)("addNewKeyVal")(true)}
             color="warning"
-            className="text-white"
+            className={`text-white ${styles["hover-text-white"]}`}
           >
             Add new feature
           </Button>

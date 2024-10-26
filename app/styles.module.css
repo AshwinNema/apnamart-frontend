@@ -43,3 +43,7 @@
   align-items: center;
   gap: 20px;
 }
+
+.hover-text-white:hover {
+  color: white !important;
+}

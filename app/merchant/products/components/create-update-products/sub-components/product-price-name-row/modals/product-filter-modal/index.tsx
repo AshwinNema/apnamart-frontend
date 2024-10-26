@@ -62,6 +62,7 @@ export const CreateUpdateProductFilterModal = ({
               <ModalFooter>
                 <div className="flex justify-end">
                   <Button
+                    className="text-white"
                     onPress={() => {
                       setMainConfig(
                         produce((draft) => {

@@ -21,6 +21,7 @@ export const resetCreateUpdateSpecificationState = (
     ["newKey", ""],
     ["newVal", ""],
     ["isUpdating", false],
+    ["addNewKeyVal", false],
   ];
   specificationType === "string" && updates.push(["details", ""]);
   specificationType === "series" &&

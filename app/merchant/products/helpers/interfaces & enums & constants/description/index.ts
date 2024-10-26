@@ -1,5 +1,4 @@
 import { useDisclosure, UseDisclosureProps } from "@nextui-org/react";
-import { createUpdateProductConfig } from "./create-update-product-config";
 import { Dispatch, SetStateAction } from "react";
 
 export interface descriptionKeyVal {
@@ -14,24 +13,6 @@ export interface seriesDescription {
   header?: string;
   details: string | descriptionKeyVal[];
 }
-
-export const descriptionOptions: {
-  key: createUpdateProductConfig["descriptionType"];
-  label: string;
-}[] = [
-  {
-    key: "string",
-    label: "Text",
-  },
-  {
-    key: "series",
-    label: "Pointers",
-  },
-  {
-    key: "series with images",
-    label: "Pointers with alternate images",
-  },
-];
 
 export interface createUpdateDescriptionProps {
   isOpen: UseDisclosureProps["isOpen"];
@@ -50,32 +31,9 @@ export interface createUpdateDescriptionState {
   seriesDescriptionType: "text" | "pointers";
 }
 
-export const seriesDescriptionTypeOptions: {
-  key: createUpdateDescriptionState["seriesDescriptionType"];
-  value: string;
-}[] = [
-  {
-    key: "pointers",
-    value: "Pointers",
-  },
-  {
-    key: "text",
-    value: "Text",
-  },
-];
-
-export const defaultCreateUpdateDescriptionState =
-  (): createUpdateDescriptionState => ({
-    details: "",
-    enableHeader: false,
-    enablePhoto: false,
-    addNewKeyVal: false,
-    newKey: "",
-    newVal: "",
-    id: null,
-    isUpdating: false,
-    seriesDescriptionType: "pointers",
-  });
+export type setCreateUpdateDescriptionState = Dispatch<
+  SetStateAction<createUpdateDescriptionState>
+>;
 
 type useDisclosureType = ReturnType<typeof useDisclosure>;
 
@@ -98,3 +56,10 @@ export interface descriptionKeyValProps {
     SetStateAction<createUpdateDescriptionState>
   >;
 }
+
+export type descriptionStateEvents = {
+  type: "add file";
+  data: File;
+};
+
+export * from "./constants";

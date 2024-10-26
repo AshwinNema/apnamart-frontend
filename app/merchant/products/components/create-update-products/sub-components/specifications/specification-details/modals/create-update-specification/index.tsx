@@ -15,7 +15,6 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ScrollShadow,
   Textarea,
 } from "@nextui-org/react";
 import { useCallback, useEffect, useState } from "react";
@@ -51,10 +50,11 @@ export const CreateUpdateSpecification = ({
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         size="5xl"
+        scrollBehavior="inside"
       >
         <ModalContent>
           {(onClose) => (
-            <ScrollShadow className="max-h-[70svh]">
+            <>
               <ModalHeader>
                 {getSpecificationModalHeader(mainConfig, config)}
               </ModalHeader>
@@ -82,7 +82,7 @@ export const CreateUpdateSpecification = ({
                   </Button>
                 </div>
               </ModalFooter>
-            </ScrollShadow>
+            </>
           )}
         </ModalContent>
       </Modal>

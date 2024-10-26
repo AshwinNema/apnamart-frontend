@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import {
+  createUpdateProduct,
   createUpdateProductConfig,
   getDefaultCreateUpdateProductConfig,
   MainContext,
@@ -14,15 +15,18 @@ import {
   ProductPriceNameRow,
   Specifications,
 } from "./sub-components";
-import { FileUploadWithPreview } from "file-upload-with-preview";
 import { Button, Tooltip } from "@nextui-org/react";
+import styles from "@/app/styles.module.css";
 
-export const CreateUpdateProducts = () => {
+export const CreateUpdateProducts = ({
+  onSuccess,
+}: {
+  onSuccess: () => void;
+}) => {
   const mainState = useContext(MainContext);
   const [config, setConfig] = useState<createUpdateProductConfig>(
     getDefaultCreateUpdateProductConfig(),
   );
-  const uploadRef = useRef<FileUploadWithPreview | null>(null);
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
   useEffect(() => {
     getCategorySearchList(setData("categoryList"));
@@ -49,14 +53,25 @@ export const CreateUpdateProducts = () => {
         <div className="text-3xl ">Create Product</div>
         <div></div>
       </div>
-      <MainCreateUpdateProductContext.Provider
-        value={{ config, setConfig, uploadRef }}
-      >
+      <MainCreateUpdateProductContext.Provider value={{ config, setConfig }}>
         <Autocompletes />
         <ProductPriceNameRow />
         <Specifications />
         <Description />
       </MainCreateUpdateProductContext.Provider>
+
+      <div className="flex justify-end">
+        <Button
+          className={`${styles["hover-text-white"]}`}
+          color="success"
+          variant="ghost"
+          onPress={() => {
+            createUpdateProduct(config, onSuccess);
+          }}
+        >
+          {config.id ? "Update " : "Create "} Product
+        </Button>
+      </div>
     </div>
   );
 };

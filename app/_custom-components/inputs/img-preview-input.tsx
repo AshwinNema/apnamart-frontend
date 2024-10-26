@@ -40,8 +40,6 @@ export const ImgPreviewInput = ({
     window.addEventListener(Events.IMAGE_DELETED, imgDeleted);
     if (!imgPreviewRef.current) {
       const upload = new FileUploadWithPreview(dataUploadId, options);
-      const remp = document.createElement("span");
-      upload.clearButton = remp;
       value?.cachedFileArray && upload.addFiles(value.cachedFileArray);
       initialFiles && upload.addFiles(initialFiles);
       setUpload && setUpload(upload);

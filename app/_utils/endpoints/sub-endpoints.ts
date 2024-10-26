@@ -49,3 +49,7 @@ export const merchant = {
   QUERY_MERCHANTS: `${backendService}merchant`,
   BLOCK_UNBLOCK_MERCHANT: `${backendService}merchant/block-unblock`,
 };
+
+export const product = {
+  CREATE_PRODUCT: `${backendService}product`,
+};

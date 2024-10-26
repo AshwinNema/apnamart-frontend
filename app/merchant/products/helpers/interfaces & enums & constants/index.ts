@@ -9,6 +9,8 @@ export interface mainConfig {
   currentState: "create" | "update" | "main screen";
 }
 
+export type setMainConfig = Dispatch<SetStateAction<mainConfig>>;
+
 export interface productFilterModalState {
   details: createUpdateProductConfig["selectedOptions"];
 }

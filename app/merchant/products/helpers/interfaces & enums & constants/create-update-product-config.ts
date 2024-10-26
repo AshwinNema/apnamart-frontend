@@ -12,6 +12,7 @@ export interface productFilter {
 }
 
 export interface createUpdateProductConfig {
+  id?: number;
   name: string;
   price: string;
   category: string;
@@ -38,6 +39,7 @@ export interface createUpdateProductConfig {
   };
   updateSpecificationDetails: string | specificationDetailsWithHeader | null;
   updateDescriptionDetails: null | string | seriesDescription;
+  productImages: File[];
 }
 
 export type setCreateUpdateProductConfig = Dispatch<
@@ -62,4 +64,5 @@ export const getDefaultCreateUpdateProductConfig =
     selectedOptions: {},
     updateSpecificationDetails: null,
     updateDescriptionDetails: null,
+    productImages: [],
   });

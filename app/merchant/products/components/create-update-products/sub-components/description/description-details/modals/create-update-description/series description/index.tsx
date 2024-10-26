@@ -1,6 +1,6 @@
-import { createUpdateDescriptionState } from "@/app/merchant/products/helpers";
+import { CreateUpdateDescriptionContext } from "@/app/merchant/products/helpers";
 import { produce } from "immer";
-import { Dispatch, Fragment, SetStateAction } from "react";
+import { Fragment, useContext } from "react";
 import {
   AddNewDescriptionBtns,
   AddDescriptionSeriesInputs,
@@ -10,19 +10,15 @@ import { v4 } from "uuid";
 import { setNestedPath } from "@/app/_utils";
 import { Textarea } from "@nextui-org/react";
 
-export const SeriesDescription = ({
-  config,
-  setConfig,
-}: {
-  config: createUpdateDescriptionState;
-  setConfig: Dispatch<SetStateAction<createUpdateDescriptionState>>;
-}) => {
+export const SeriesDescription = () => {
+  const mainDescriptionContext = useContext(CreateUpdateDescriptionContext);
+  if (!mainDescriptionContext) return null;
+  const { config, setConfig } = mainDescriptionContext;
+
   return (
     <div>
-      <AddNewDescriptionBtns config={config} setConfig={setConfig} />
+      <AddNewDescriptionBtns />
       <AddDescriptionSeriesInputs
-        config={config}
-        setConfig={setConfig}
         onAdd={(key: string, val: string) => {
           setConfig(
             produce((draft) => {

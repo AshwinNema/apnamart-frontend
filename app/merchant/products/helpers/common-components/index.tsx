@@ -23,6 +23,7 @@ export const CancelUpdateKeyValIcons = ({
     <>
       <Tooltip
         color="success"
+        className="text-white"
         content={<p>{type === "new" ? "Add new " : "update "} feature</p>}
       >
         <span>

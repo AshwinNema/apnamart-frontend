@@ -10,7 +10,6 @@ import {
   ModalBody,
   ModalContent,
   ModalHeader,
-  ScrollShadow,
 } from "@nextui-org/react";
 import { useContext } from "react";
 import { PointerDescription } from "./pointer-details";
@@ -33,42 +32,41 @@ export const CurrentDescriptionDetailsModal = ({
       }}
       isOpen={isOpen}
       onOpenChange={onOpenChange}
+      scrollBehavior="inside"
     >
       <ModalContent>
-        <ScrollShadow className="max-h-[70svh]">
-          <ModalHeader>Description details</ModalHeader>
-          <ModalBody>
-            <Card>
-              {typeof description === "string" ? (
-                <CardBody>
-                  <div className="flex justify-between gap-3 items-center">
-                    <div className="break-all">{description}</div>
-                    <div>
-                      <TableActions
-                        showDeleteIcon={false}
-                        onClick={() =>
-                          openUpdateDescriptionModalWithDetails(
-                            description,
-                            setConfig,
-                            openCreateUpdateModal,
-                          )
-                        }
-                        editTooltipText="Update description"
-                        editToolTipColor="warning"
-                        updateToolTipClass="text-white"
-                      />
-                    </div>
+        <ModalHeader>Description details</ModalHeader>
+        <ModalBody>
+          <Card className="overflow-y-visible">
+            {typeof description === "string" ? (
+              <CardBody className="overflow-y-visible">
+                <div className="flex justify-between gap-3 items-center">
+                  <div className="break-all">{description}</div>
+                  <div>
+                    <TableActions
+                      showDeleteIcon={false}
+                      onClick={() =>
+                        openUpdateDescriptionModalWithDetails(
+                          description,
+                          setConfig,
+                          openCreateUpdateModal,
+                        )
+                      }
+                      editTooltipText="Update description"
+                      editToolTipColor="warning"
+                      updateToolTipClass="text-white"
+                    />
                   </div>
-                </CardBody>
-              ) : (
-                <PointerDescription
-                  descriptionPoints={description}
-                  openCreateUpdateModal={openCreateUpdateModal}
-                />
-              )}
-            </Card>
-          </ModalBody>
-        </ScrollShadow>
+                </div>
+              </CardBody>
+            ) : (
+              <PointerDescription
+                descriptionPoints={description}
+                openCreateUpdateModal={openCreateUpdateModal}
+              />
+            )}
+          </Card>
+        </ModalBody>
       </ModalContent>
     </Modal>
   );

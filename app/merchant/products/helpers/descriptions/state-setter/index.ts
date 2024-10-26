@@ -1,21 +1,21 @@
 import {
   createUpdateDescriptionState,
   createUpdateProductConfig,
-  setCreateUpdateProductConfig,
 } from "../../interfaces & enums & constants";
 import { keyVals, multiplePathSetter } from "@/app/_utils";
 import { v4 } from "uuid";
-import { Dispatch, SetStateAction } from "react";
-import { produce } from "immer";
-import { setNestedPath } from "@/app/_utils";
+
+export * from "./initial-state-setter";
 export * from "./create-update-description";
 
 export const resetCreateUpdateDescriptionState = (
   descriptionType: createUpdateProductConfig["descriptionType"],
+  seriesDescriptionType: createUpdateDescriptionState["seriesDescriptionType"],
   multiPathSetter: multiplePathSetter,
   isOpen?: boolean,
 ) => {
   if (isOpen) return;
+
   const updates: keyVals[] = [
     ["enableHeader", false],
     ["newKey", ""],
@@ -32,7 +32,7 @@ export const resetCreateUpdateDescriptionState = (
       updates.push([
         "details",
         {
-          details: [],
+          details: seriesDescriptionType === "text" ? "" : [],
           id: v4(),
           header: "",
         },
@@ -43,7 +43,7 @@ export const resetCreateUpdateDescriptionState = (
         [
           "details",
           {
-            details: [],
+            details: seriesDescriptionType === "text" ? "" : [],
             id: v4(),
             header: "",
           },
@@ -56,40 +56,4 @@ export const resetCreateUpdateDescriptionState = (
   }
 
   multiPathSetter(updates);
-};
-
-export const setInitialDescriptionState = (
-  mainConfig: createUpdateProductConfig,
-  setConfig: Dispatch<SetStateAction<createUpdateDescriptionState>>,
-  setMainConfig: setCreateUpdateProductConfig,
-) => {
-  const { updateDescriptionDetails } = mainConfig;
-  if (!updateDescriptionDetails) return;
-  setNestedPath(setMainConfig)("updateDescriptionDetails")(null);
-  setConfig(
-    produce((draft) => {
-      draft.details = updateDescriptionDetails;
-      draft.isUpdating = true;
-      if (
-        typeof updateDescriptionDetails !== "string" &&
-        updateDescriptionDetails.header
-      ) {
-        draft.enableHeader = true;
-      }
-
-      draft.seriesDescriptionType =
-        typeof updateDescriptionDetails === "string"
-          ? "text"
-          : Array.isArray(updateDescriptionDetails.details)
-            ? "pointers"
-            : "text";
-
-      if (
-        typeof updateDescriptionDetails !== "string" &&
-        updateDescriptionDetails.photo
-      ) {
-        draft.enablePhoto = true;
-      }
-    }),
-  );
 };

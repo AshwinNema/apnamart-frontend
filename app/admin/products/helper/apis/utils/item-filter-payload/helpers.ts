@@ -78,11 +78,11 @@ export const getUpdateFilterItem = (
     id: id as number,
   };
 
-  const isMainFilter = mainFilterItemId === id
+  const isMainFilter = mainFilterItemId === id;
 
   if (isMainFilter != originalItem.isMainFilter) {
     updateItemPayload.name = name;
-    updateItemPayload.isMainFilter = isMainFilter
+    updateItemPayload.isMainFilter = isMainFilter;
   }
   if (name != originalItem.name) {
     updateItemPayload.name = name;

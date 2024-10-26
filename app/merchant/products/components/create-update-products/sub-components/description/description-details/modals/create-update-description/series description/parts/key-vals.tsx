@@ -7,11 +7,10 @@ import {
 import { useCallback, useState } from "react";
 import { TextInput } from "@/app/_custom-components";
 import { FaEdit } from "react-icons/fa";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { setNestedPath } from "@/app/_utils";
 import { SiTicktick } from "react-icons/si";
 import { Tooltip } from "@nextui-org/react";
-
+import { RiDeleteBin6Fill } from "react-icons/ri";
 export const DescriptionKeyVal = ({
   keyVal,
   setCreateUpdateDescriptionState,
@@ -79,7 +78,7 @@ export const DescriptionKeyVal = ({
               content={"Delete specification feature/value"}
             >
               <span>
-                <RiDeleteBin6Line
+                <RiDeleteBin6Fill
                   onClick={() => {
                     deleteSeriesDescription(
                       setCreateUpdateDescriptionState,
