@@ -3,8 +3,10 @@ import {
   createUpdateProduct,
   createUpdateProductConfig,
   getDefaultCreateUpdateProductConfig,
+  mainConfig,
   MainContext,
   MainCreateUpdateProductContext,
+  setUpdateProductData,
 } from "../../helpers";
 import { BackIcon } from "@/app/_custom-components";
 import { getCategorySearchList } from "@/app/admin/products/helper";
@@ -20,17 +22,24 @@ import styles from "@/app/styles.module.css";
 
 export const CreateUpdateProducts = ({
   onSuccess,
+  updateData,
 }: {
   onSuccess: () => void;
+  updateData: mainConfig["updateData"];
 }) => {
   const mainState = useContext(MainContext);
   const [config, setConfig] = useState<createUpdateProductConfig>(
     getDefaultCreateUpdateProductConfig(),
   );
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
+
   useEffect(() => {
     getCategorySearchList(setData("categoryList"));
   }, []);
+  useEffect(() => {
+    setUpdateProductData(updateData, setConfig);
+  }, [updateData]);
+
   if (!mainState) return null;
   return (
     <div className="m-2">
@@ -50,7 +59,9 @@ export const CreateUpdateProducts = ({
             </Button>
           </Tooltip>
         </div>
-        <div className="text-3xl ">Create Product</div>
+        <div className="text-3xl ">
+          {config?.id ? "Update Product" : "Create Product"}
+        </div>
         <div></div>
       </div>
       <MainCreateUpdateProductContext.Provider value={{ config, setConfig }}>

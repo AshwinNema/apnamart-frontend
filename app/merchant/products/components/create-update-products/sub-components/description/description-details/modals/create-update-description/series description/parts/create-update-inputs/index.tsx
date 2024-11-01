@@ -1,9 +1,12 @@
 import { ImgPreviewInput, TextInput } from "@/app/_custom-components";
 import { setNestedPath } from "@/app/_utils";
 import * as _ from "lodash";
-import { NonTextSeriesInput } from "./sub-parts";
+import { NonTextSeriesInput, RestoreUploadedImage } from "./sub-parts";
 import { useContext, useEffect, useRef } from "react";
-import { CreateUpdateDescriptionContext } from "@/app/merchant/products/helpers";
+import {
+  CreateUpdateDescriptionContext,
+  seriesDescription,
+} from "@/app/merchant/products/helpers";
 import { FileUploadWithPreview } from "file-upload-with-preview";
 
 export const AddDescriptionSeriesInputs = ({
@@ -32,6 +35,7 @@ export const AddDescriptionSeriesInputs = ({
 
   if (!mainDescriptionContext) return null;
   const { config, setConfig } = mainDescriptionContext;
+  const seriesDetails = config.details as seriesDescription;
   return (
     <>
       <div className={`${!config.enableHeader && "invisible"}`}>
@@ -50,24 +54,30 @@ export const AddDescriptionSeriesInputs = ({
       {config.seriesDescriptionType !== "text" ? (
         <NonTextSeriesInput setData={setNestedPath(setConfig)} onAdd={onAdd} />
       ) : null}
-      {config.enablePhoto && (
-        <ImgPreviewInput
-          setUpload={(upload) => {
-            imgInputRef.current = upload;
-          }}
-          dataUploadId="description input"
-          imgChangeCallback={(e) => {
-            setNestedPath(setConfig)("details.photo")(e.cachedFileArray?.[0]);
-          }}
-          imgDeletedCallBack={() => {
-            setNestedPath(setConfig)("details.photo")();
-          }}
-          options={{
-            text: {
-              label: "Upload description pointer image",
-            },
-          }}
-        />
+      {config.enablePhoto && !seriesDetails?.uploadedImg && (
+        <>
+          <RestoreUploadedImage
+            deletedUploadedImg={seriesDetails.deletedUploadedImg}
+            setConfig={setConfig}
+          />
+          <ImgPreviewInput
+            setUpload={(upload) => {
+              imgInputRef.current = upload;
+            }}
+            dataUploadId="description input"
+            imgChangeCallback={(e) => {
+              setNestedPath(setConfig)("details.photo")(e.cachedFileArray?.[0]);
+            }}
+            imgDeletedCallBack={() => {
+              setNestedPath(setConfig)("details.photo")();
+            }}
+            options={{
+              text: {
+                label: "Upload description pointer image",
+              },
+            }}
+          />
+        </>
       )}
     </>
   );

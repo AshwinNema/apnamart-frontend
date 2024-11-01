@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { specificationDetailsWithHeader } from "./specifications";
 import { seriesDescription } from "./description";
+import { uploadedImgDetails } from "./landing-screen";
 
 export interface productFilter {
   id: number;
@@ -40,6 +41,8 @@ export interface createUpdateProductConfig {
   updateSpecificationDetails: string | specificationDetailsWithHeader | null;
   updateDescriptionDetails: null | string | seriesDescription;
   productImages: File[];
+  uploadedImgs: uploadedImgDetails[];
+  deletedImgs: uploadedImgDetails[];
 }
 
 export type setCreateUpdateProductConfig = Dispatch<
@@ -65,4 +68,6 @@ export const getDefaultCreateUpdateProductConfig =
     updateSpecificationDetails: null,
     updateDescriptionDetails: null,
     productImages: [],
+    uploadedImgs: [],
+    deletedImgs: [],
   });

@@ -3,11 +3,12 @@ import { setNestedPath, validateZodSchema } from "@/app/_utils";
 import {
   createUpdateSpecificationState,
   newKeyValValidation,
-  CancelUpdateKeyValIcons,
 } from "@/app/merchant/products/helpers";
 import { Dispatch, SetStateAction, useCallback } from "react";
 import * as _ from "lodash";
 import { produce } from "immer";
+import { CancelUpdateKeyValIcons } from "@/app/merchant/products/components/common-components";
+
 export const AddSpecificationSeriesInputs = ({
   config,
   setConfig,

@@ -1,5 +1,6 @@
 import { useDisclosure, UseDisclosureProps } from "@nextui-org/react";
 import { Dispatch, SetStateAction } from "react";
+import { uploadedImgDetails } from "../landing-screen";
 
 export interface descriptionKeyVal {
   key: string;
@@ -9,9 +10,16 @@ export interface descriptionKeyVal {
 
 export interface seriesDescription {
   photo?: File;
+  uploadedImg?: uploadedImgDetails | null;
+  deletedUploadedImg?: uploadedImgDetails | null;
   id: string;
   header?: string;
   details: string | descriptionKeyVal[];
+}
+
+export interface seriesDescriptionPayload
+  extends Omit<seriesDescription, "photo"> {
+  photo?: uploadedImgDetails;
 }
 
 export interface createUpdateDescriptionProps {
@@ -21,6 +29,7 @@ export interface createUpdateDescriptionProps {
 
 export interface createUpdateDescriptionState {
   details: string | seriesDescription;
+  photo?: File;
   enableHeader: boolean;
   enablePhoto: boolean;
   addNewKeyVal?: boolean;
@@ -29,6 +38,10 @@ export interface createUpdateDescriptionState {
   id: null | number;
   isUpdating: boolean;
   seriesDescriptionType: "text" | "pointers";
+}
+
+export interface seriesConfig extends createUpdateDescriptionState {
+  details: seriesDescription;
 }
 
 export type setCreateUpdateDescriptionState = Dispatch<

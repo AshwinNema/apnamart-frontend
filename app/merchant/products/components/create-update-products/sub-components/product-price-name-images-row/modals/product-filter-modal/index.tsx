@@ -1,7 +1,6 @@
 import {
   MainCreateUpdateProductContext,
   productFilterModalState,
-  setInitialSelectedFilters,
 } from "@/app/merchant/products/helpers";
 import {
   Button,
@@ -27,7 +26,12 @@ export const CreateUpdateProductFilterModal = ({
     details: {},
   });
   useEffect(() => {
-    setInitialSelectedFilters(setConfig, mainContext?.config?.selectedOptions);
+    if (!mainContext?.config?.selectedOptions) return;
+    setConfig(
+      produce((draft) => {
+        draft.details = produce(mainContext?.config?.selectedOptions, () => {});
+      }),
+    );
   }, [mainContext?.config?.selectedOptions, isOpen]);
 
   if (!mainContext) return null;
@@ -68,7 +72,7 @@ export const CreateUpdateProductFilterModal = ({
                         produce((draft) => {
                           draft.selectedOptions = produce(
                             config.details,
-                            (draft) => {},
+                            () => {},
                           );
                         }),
                       );

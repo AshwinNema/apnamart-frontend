@@ -44,7 +44,7 @@ export const TableActions = ({
         >
           <span className="cursor-pointer">
             <FaRegEdit
-              className={`scale-[1.3] ${editIconClass}`}
+              className={`fill-warningTheme scale-[1.3] ${editIconClass}`}
               onClick={onClick}
             />
           </span>

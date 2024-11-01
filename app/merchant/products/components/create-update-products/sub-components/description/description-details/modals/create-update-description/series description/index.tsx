@@ -5,6 +5,7 @@ import {
   AddNewDescriptionBtns,
   AddDescriptionSeriesInputs,
   DescriptionKeyVal,
+  UploadedImage,
 } from "./parts";
 import { v4 } from "uuid";
 import { setNestedPath } from "@/app/_utils";
@@ -36,30 +37,33 @@ export const SeriesDescription = () => {
         }}
       />
       {typeof config.details !== "string" ? (
-        Array.isArray(config.details.details) ? (
-          <ul className="list-disc">
-            {config.details.details.map((keyVal) => {
-              return (
-                <Fragment key={keyVal.id}>
-                  <DescriptionKeyVal
-                    keyVal={keyVal}
-                    setCreateUpdateDescriptionState={setConfig}
-                  />
-                </Fragment>
-              );
-            })}
-          </ul>
-        ) : (
-          <>
-            <Textarea
-              size="lg"
-              label="Description"
-              value={config.details.details}
-              className="mt-5"
-              onValueChange={setNestedPath(setConfig)("details.details")}
-            />
-          </>
-        )
+        <>
+          <UploadedImage uploadedImg={config?.details?.uploadedImg} />
+          {Array.isArray(config.details.details) ? (
+            <ul className="list-disc">
+              {config.details.details.map((keyVal) => {
+                return (
+                  <Fragment key={keyVal.id}>
+                    <DescriptionKeyVal
+                      keyVal={keyVal}
+                      setCreateUpdateDescriptionState={setConfig}
+                    />
+                  </Fragment>
+                );
+              })}
+            </ul>
+          ) : (
+            <>
+              <Textarea
+                size="lg"
+                label="Description"
+                value={config.details.details}
+                className="mt-5"
+                onValueChange={setNestedPath(setConfig)("details.details")}
+              />
+            </>
+          )}
+        </>
       ) : null}
     </div>
   );

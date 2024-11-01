@@ -2,12 +2,12 @@ import { TableActions } from "@/app/_custom-components";
 import {
   MainCreateUpdateProductContext,
   openUpdateSpecificationModalWithDetails,
-  TableKeyVal,
 } from "@/app/merchant/products/helpers";
 import { CardBody, Divider } from "@nextui-org/react";
 import { Fragment, useContext } from "react";
 import { produce } from "immer";
 import { successToast } from "@/app/_utils";
+import { TableKeyVal } from "@/app/merchant/products/components/common-components";
 
 export const SpecificationPointers = ({
   openCreateUpdateModal,

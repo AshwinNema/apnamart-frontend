@@ -1,13 +1,18 @@
 import { TextInput } from "@/app/_custom-components";
 import {
-  CancelUpdateKeyValIcons,
   CreateUpdateDescriptionContext,
   newKeyValValidation,
+  seriesDescription,
+  setCreateUpdateDescriptionState,
+  uploadedImgDetails,
 } from "@/app/merchant/products/helpers";
 import { useContext } from "react";
 import { produce } from "immer";
 import { setKeyVal, validateZodSchema } from "@/app/_utils";
 import * as _ from "lodash";
+import { CancelUpdateKeyValIcons } from "@/app/merchant/products/components/common-components";
+import { Button, Tooltip } from "@nextui-org/react";
+import { MdOutlineRestore } from "react-icons/md";
 
 export const NonTextSeriesInput = ({
   setData,
@@ -59,6 +64,37 @@ export const NonTextSeriesInput = ({
           setData("addNewKeyVal")(false);
         }}
       />
+    </div>
+  );
+};
+
+export const RestoreUploadedImage = ({
+  deletedUploadedImg,
+  setConfig,
+}: {
+  deletedUploadedImg?: uploadedImgDetails | null;
+  setConfig: setCreateUpdateDescriptionState;
+}) => {
+  if (!deletedUploadedImg) return null;
+
+  return (
+    <div className="flex justify-end ">
+      <Tooltip color="secondary" content="Restore uploaded image">
+        <Button
+          onPress={() => {
+            setConfig(
+              produce((draft) => {
+                const details = draft.details as seriesDescription;
+                details.uploadedImg = produce(deletedUploadedImg, () => {});
+                details.deletedUploadedImg = null;
+              }),
+            );
+          }}
+          className="bg-transparent flex justify-end p-1"
+        >
+          <MdOutlineRestore className="scale-[1.8]" />
+        </Button>
+      </Tooltip>
     </div>
   );
 };

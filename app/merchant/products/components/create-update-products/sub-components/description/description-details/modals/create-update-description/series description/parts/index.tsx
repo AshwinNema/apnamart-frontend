@@ -1,77 +1,54 @@
-import { setNestedPath } from "@/app/_utils";
 import {
   CreateUpdateDescriptionContext,
-  createUpdateDescriptionState,
   seriesDescription,
-  seriesDescriptionTypeOptions,
+  uploadedImgDetails,
 } from "@/app/merchant/products/helpers";
-import { Button, Select, SelectItem } from "@nextui-org/react";
-import { useContext } from "react";
 import { produce } from "immer";
-import { v4 } from "uuid";
-import styles from "@/app/styles.module.css";
+import { useContext } from "react";
+import { Button, Tooltip } from "@nextui-org/react";
+import { ImageComponent } from "@/app/_custom-components";
+import { TiDelete } from "react-icons/ti";
+
 export * from "./create-update-inputs";
 export * from "./key-vals";
+export * from "./add-new-description-btns";
 
-export const AddNewDescriptionBtns = () => {
+export const UploadedImage = ({
+  uploadedImg,
+}: {
+  uploadedImg?: uploadedImgDetails | null;
+}) => {
   const mainDescriptionContext = useContext(CreateUpdateDescriptionContext);
-  if (!mainDescriptionContext) return null;
-  const { config, setConfig } = mainDescriptionContext;
+  if (!mainDescriptionContext || !uploadedImg) return null;
+  const { setConfig } = mainDescriptionContext;
+
   return (
-    <div className="flex justify-between items-center gap-3 mb-5">
-      <Select
-        fullWidth={true}
-        label="Select description type"
-        selectedKeys={[config.seriesDescriptionType]}
-        onChange={(e) => {
-          const val = e.target.value as
-            | createUpdateDescriptionState["seriesDescriptionType"]
-            | null;
-          if (!val) return;
-          setConfig(
-            produce((draft) => {
-              draft.seriesDescriptionType = val;
-              const newDetails: seriesDescription = {
-                id: v4(),
-                header: "",
-                details: [],
-              };
-              if (val === "text") newDetails.details = "";
-              draft.details = newDetails;
-              draft.newKey = "";
-              draft.newVal = "";
-              draft.addNewKeyVal = false;
-            }),
-          );
-        }}
-      >
-        {seriesDescriptionTypeOptions.map((descriptionType) => {
-          return (
-            <SelectItem key={descriptionType.key}>
-              {descriptionType.value}
-            </SelectItem>
-          );
-        })}
-      </Select>
-
-      <div className="flex gap-3 items-center">
+    <div className="flex justify-center items-center gap-3">
+      <ImageComponent
+        width={300}
+        height={300}
+        src={uploadedImg?.url}
+        alt={uploadedImg?.name}
+      />
+      <Tooltip color="danger" content="Remove uploaded image">
         <Button
-          color="secondary"
-          onPress={() => setNestedPath(setConfig)("enableHeader", true)()}
+          onPress={() => {
+            setConfig(
+              produce((draft) => {
+                const details = draft.details as seriesDescription;
+                details.deletedUploadedImg = produce(
+                  details.uploadedImg,
+                  () => {},
+                );
+                details.uploadedImg = null;
+              }),
+            );
+          }}
+          className="bg-transparent"
         >
-          {config.enableHeader ? "Disable " : "Enable "} Header
+          <TiDelete className="fill-dangerTheme scale-[2.2]" />
         </Button>
-
-        {config.seriesDescriptionType !== "text" && !config.addNewKeyVal ? (
-          <Button
-            onPress={() => setNestedPath(setConfig)("addNewKeyVal")(true)}
-            color="warning"
-            className={`text-white ${styles["hover-text-white"]}`}
-          >
-            Add new feature
-          </Button>
-        ) : null}
-      </div>
+      </Tooltip>
     </div>
   );
 };

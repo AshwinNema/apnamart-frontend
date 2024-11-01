@@ -24,7 +24,7 @@ export const keyValArrValidation = z.array(keyValValidation).min(1, {
   message: "There should be atleast one feature key and value",
 });
 
-export const createProductValidation = z.object({
+const basicProductValidation = z.object({
   name: requiredStringValidation("Name"),
   itemId: z
     .number({ message: "Please select item" })
@@ -34,21 +34,6 @@ export const createProductValidation = z.object({
     .number({ message: "Price must be a number" })
     .positive({ message: "Price must be frater than 0" }),
   filterOptions: z.array(z.number().positive()),
-  description: z.union([
-    requiredStringValidation("Description"),
-    z
-      .array(
-        z.object({
-          id: requiredStringValidation("Id"),
-          header: requiredStringValidation("Header").optional(),
-          details: z.union([
-            requiredStringValidation("Details"),
-            keyValArrValidation,
-          ]),
-        }),
-      )
-      .min(1, {}),
-  ]),
   specification: z.union([
     requiredStringValidation("Specification"),
     z.array(
@@ -60,3 +45,47 @@ export const createProductValidation = z.object({
     ),
   ]),
 });
+
+const descriptionStageValidation = z.object({
+  id: requiredStringValidation("Id"),
+  header: requiredStringValidation("Header").optional(),
+  details: z.union([requiredStringValidation("Details"), keyValArrValidation]),
+});
+
+export const createProductValidation = basicProductValidation.merge(
+  z.object({
+    description: z.union([
+      requiredStringValidation("Description"),
+      z.array(descriptionStageValidation).min(1),
+    ]),
+  }),
+);
+
+export const updateProductValidation = basicProductValidation
+  .merge(
+    z.object({
+      description: z.union([
+        requiredStringValidation("Description"),
+        z
+          .array(
+            descriptionStageValidation.merge(
+              z.object({
+                photo: z
+                  .object({
+                    url: requiredStringValidation("Image url"),
+                    cloudinary_public_id: requiredStringValidation("Image id"),
+                  })
+                  .optional(),
+              }),
+            ),
+          )
+          .min(1),
+      ]),
+    }),
+  )
+  .merge(
+    z.object({
+      updatedDescriptionImgIds: z.array(z.string()),
+      deletedProductImgIds: z.array(requiredStringValidation("Image Id")),
+    }),
+  );

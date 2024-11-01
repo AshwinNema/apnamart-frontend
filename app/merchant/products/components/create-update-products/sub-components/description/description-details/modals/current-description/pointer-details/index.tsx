@@ -2,8 +2,8 @@ import { ImgViewer } from "@/app/_custom-components";
 import {
   currentDescriptionModalProps,
   seriesDescription,
-  TableKeyVal,
 } from "@/app/merchant/products/helpers";
+import { TableKeyVal } from "@/app/merchant/products/components/common-components";
 import {
   CardBody,
   Table,
@@ -25,13 +25,13 @@ export const PointerDescription = ({
   return (
     <>
       {descriptionPoints.map((descriptionDetails) => {
-        const { details, header, id, photo } = descriptionDetails;
+        const { details, header, id, photo, uploadedImg } = descriptionDetails;
         return (
           <CardBody key={id} className="ml-3 overflow-y-visible">
             {header ? (
               <div className="flex justify-center font-bold">{header}</div>
             ) : null}
-            {photo ? <ImgViewer file={photo} /> : null}
+            <ImgViewer file={photo} uploadedImg={uploadedImg} />
             <div className="flex justify-between items-center gap-3 mr-2">
               {typeof details === "string" ? (
                 <>
@@ -58,13 +58,13 @@ export const PointerDescription = ({
         );
       })}
 
-      {!descriptionPoints.length && (
+      {!descriptionPoints.length ? (
         <CardBody>
           <div className="font-bold">
             No description pointers found. Please add pointers
           </div>
         </CardBody>
-      )}
+      ) : null}
     </>
   );
 };
