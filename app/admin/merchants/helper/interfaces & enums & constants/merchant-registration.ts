@@ -6,7 +6,7 @@ export interface newRegistrationDetails extends Merchantdetails {
   user: {
     id: number;
     name: string;
-    email:string
+    email: string;
   };
 }
 
@@ -44,7 +44,10 @@ export interface merchantRegistrationSubComponentProps<T> {
 
 export interface selectedRegistrationProps<
   T,
-  V extends { selectedRegistrationDetails: null | newRegistrationDetails, page: number },
+  V extends {
+    selectedRegistrationDetails: null | newRegistrationDetails;
+    page: number;
+  },
 > extends Omit<
     Omit<merchantRegistrationSubComponentProps<T>, "config">,
     "setConfig"

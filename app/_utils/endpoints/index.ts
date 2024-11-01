@@ -5,6 +5,7 @@ import {
   category,
   items,
   merchant,
+  product,
 } from "./sub-endpoints";
 
 export const appEndPoints = {
@@ -15,6 +16,7 @@ export const appEndPoints = {
   ...category,
   ...items,
   ...merchant,
+  ...product,
 };
 
 const webSocketService = `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}`;

@@ -37,6 +37,7 @@ export const items = {
   DELETE_ITEM: `${backendService}item/`,
   SEARCH_ITEM_BY_NAME: `${backendService}item/search-by-name`,
   GET_ITEM_FILTERS_BY_ITEM_ID: `${backendService}item/item-filter/by-item-id/`,
+  ITEM_LIST: `${backendService}item/list`,
 };
 
 export const merchant = {
@@ -47,4 +48,12 @@ export const merchant = {
   APPROVE_MERCHANT_REGISTRATION: `${backendService}merchant/registration/approve/`,
   QUERY_MERCHANTS: `${backendService}merchant`,
   BLOCK_UNBLOCK_MERCHANT: `${backendService}merchant/block-unblock`,
+};
+
+export const product = {
+  CREATE_PRODUCT: `${backendService}product`,
+  QUERY_PRODUCTS: `${backendService}product`,
+  DELETE_PRODUCT_BY_ID: `${backendService}product/`,
+  SELECTED_PRODUCT_FILTERS_BY_ID: `${backendService}product/selected-filters/`,
+  UPDATE_PRODUCT: `${backendService}product/`,
 };

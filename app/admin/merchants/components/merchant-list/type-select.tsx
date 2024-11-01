@@ -17,7 +17,7 @@ export const MerchantTypeSelect = (props: {
       <Select
         label="Registration status"
         color="primary"
-        classNames={{base:["mb-3"]}}
+        classNames={{ base: ["mb-3"] }}
         variant="faded"
         selectedKeys={[props.config.type]}
         className="max-w-xs"
@@ -25,7 +25,7 @@ export const MerchantTypeSelect = (props: {
           props.setConfig(
             produce((draft) => {
               draft.type = e.target.value as merchantSelectStatus;
-              draft.page = 1
+              draft.page = 1;
             }),
           );
         }}

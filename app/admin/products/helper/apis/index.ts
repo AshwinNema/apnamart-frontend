@@ -28,7 +28,6 @@ export const queryTableData = (
           category: {
             id: number;
             name: string;
-        
           };
         }) => {
           const { id, name, category, photo } = item;

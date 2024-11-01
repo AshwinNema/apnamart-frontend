@@ -55,7 +55,7 @@ export const TableSubComponent = <
           onDelete={(closeModal) => {
             onDelete(closeModal, data);
           }}
-          deleteBtnText={`Delete ${label}`}
+          deleteModalHeadertext={`Delete ${label}`}
           editTooltipText={`Edit ${label}`}
           deleteToolTipText={`Delete ${label}`}
         />

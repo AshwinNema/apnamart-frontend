@@ -29,3 +29,21 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+.create-product-name-price-photo-row {
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+.product-specification-description-grid {
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  align-items: center;
+  gap: 20px;
+}
+
+.hover-text-white:hover {
+  color: white !important;
+}

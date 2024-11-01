@@ -8,16 +8,9 @@ import {
 } from "@/app/_services";
 import {
   createUpdateRegistrationDetails,
-  finalDetailsValidation,
-  nextHandlerDetails,
   stepList,
 } from "../interfaces & validations";
-import {
-  appEndPoints,
-  errorToast,
-  toastErrorIcons,
-  validateZodSchema,
-} from "@/app/_utils";
+import { appEndPoints } from "@/app/_utils";
 import { ProfileDispatch } from "@/lib/profile/store";
 import {
   merchantRegistrationDetails,

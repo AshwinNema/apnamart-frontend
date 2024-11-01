@@ -63,7 +63,7 @@ export const merchantListActionHandler = (
             user: {
               id: data.id as number,
               name: data.name,
-              email: data.email
+              email: data.email,
             },
           };
         }),

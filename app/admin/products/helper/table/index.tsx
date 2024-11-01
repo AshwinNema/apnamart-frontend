@@ -2,9 +2,7 @@
 import { appEndPoints } from "@/app/_utils/endpoints";
 import { tableDataDataElement } from "../interfaces & enums";
 import { tabKeys } from "@/lib/product/slices/component-details.slice";
-import {
-  categoryTableDataElement,
-} from "@/lib/product/slices/table.slice";
+import { categoryTableDataElement } from "@/lib/product/slices/table.slice";
 export * from "./table-columns";
 export const getDeleteActionTexts = (tabType: tabKeys, id?: number) => {
   let url = "",
