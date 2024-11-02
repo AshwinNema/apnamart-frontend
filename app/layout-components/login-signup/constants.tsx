@@ -30,7 +30,7 @@ interface userRoles {
 
 export const userRoles: userRoles = {
   customer: {
-    src: "https://res.cloudinary.com/ash006/image/upload/v1720580195/OIG4.CKabxgFy8P5r_d40dh9.jpg",
+    src: "https://res.cloudinary.com/ash006/image/upload/v1730567161/z6jw4vldtmz47vp5akzq.png",
     role: "customer",
     roleHeader: "Customer",
     loginIntro:
@@ -41,7 +41,7 @@ export const userRoles: userRoles = {
       "🎉 Welcome to Apnamart! 🛒 We're delighted to have you join our online shopping community. Explore our wide range of products and enjoy a seamless shopping experience. If you have any questions or need assistance, feel free to reach out. Thank you for choosing Apnamart! 🌟 Happy shopping! 🛍️💻🌺",
   },
   merchant: {
-    src: "https://res.cloudinary.com/ash006/image/upload/v1720104362/qwnep4boe9onjk6rn21s.webp",
+    src: "https://res.cloudinary.com/ash006/image/upload/v1730565383/fzby6arzpb6k3zioaiiy.png",
     role: "merchant",
     roleHeader: "Merchant",
     loginIntro:
@@ -52,7 +52,7 @@ export const userRoles: userRoles = {
       "🎉 Welcome to Apnamart! 🎉 We're thrilled to have you join our vibrant community of merchants! 🛍️✨ Get ready to showcase your amazing products and connect with customers who value quality and sustainability. 🌱 If you need any assistance, our team is here to help you every step of the way. Let’s make magic happen together! 🤝💚",
   },
   admin: {
-    src: "https://res.cloudinary.com/ash006/image/upload/v1720580605/admin-81118788_ybjdf7.png",
+    src: "https://res.cloudinary.com/ash006/image/upload/v1730565386/h2d5htexkxbojohcgb0k.png",
     role: "admin",
     roleHeader: "Admin",
     loginIntro:
