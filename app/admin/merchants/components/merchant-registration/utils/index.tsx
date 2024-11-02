@@ -1,5 +1,3 @@
-
-
 import { ReactNode } from "react";
 import { newRegistrationDetails, subDetails } from "../../../helper";
 import { GrLocation } from "react-icons/gr";

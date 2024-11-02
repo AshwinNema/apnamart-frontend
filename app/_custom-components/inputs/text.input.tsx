@@ -8,16 +8,15 @@ import styles from "@/app/styles.module.css";
 
 export const TextInput = ({
   value,
-  setData,
   validationSchema,
   Icon,
   className = "",
-  classNames,
   variant = "bordered",
   autoFocus = false,
   labelPlacement = "inside",
   fullWidth = false,
   type = "text",
+  color = "default",
   ...props
 }: TextInputProps) => {
   const [config, setConfig] = useState<TextInputState>({
@@ -32,17 +31,17 @@ export const TextInput = ({
 
   const EndContent = () => {
     return !!value && !props.isReadOnly ? (
-      <ClearIcon onClick={() => setData("")} />
+      <ClearIcon onClick={() => props.setData && props.setData("")} />
     ) : null;
   };
 
   return (
     <Input
       classNames={{
-        ...classNames,
+        ...props.classNames,
         input: [
           ...[
-            classNames?.input,
+            props.classNames?.input,
             type === "number" ? styles["numberInput"] : "",
           ],
         ],
@@ -51,7 +50,7 @@ export const TextInput = ({
       startContent={Icon ? <Icon /> : null}
       value={value}
       isInvalid={config.invalid}
-      color={config.invalid ? "danger" : "default"}
+      color={config.invalid ? "danger" : color}
       labelPlacement={labelPlacement}
       errorMessage={`${config.errorMsg}`}
       isRequired={props.isRequired}
@@ -62,7 +61,7 @@ export const TextInput = ({
       endContent={<EndContent />}
       onValueChange={(newVal) => {
         if (type === "number" && `${Number(newVal)}` !== newVal) return;
-        setData(newVal);
+        props.setData && props.setData(newVal);
       }}
       label={config.label}
       className={`${className}`}

@@ -46,6 +46,7 @@ const Footer = ({ onClose }: { onClose: () => void }) => {
 
       {config.bodyState === bodyState.details && (
         <Button
+          className="text-white"
           onPress={() =>
             createUpdateData({
               config,

@@ -75,4 +75,5 @@ export interface AutoCompleteProps {
   selectedKey?: string | null;
   inputVal?: string;
   setInputVal?: (val: string) => void;
+  placeholder?: string;
 }

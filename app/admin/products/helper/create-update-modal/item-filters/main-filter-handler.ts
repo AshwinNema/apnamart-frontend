@@ -48,32 +48,35 @@ export const mainItemFilterHandler = (
     case createUpdateFilterState.update:
       const newDeletedOptions = config.deletedOptions || [];
       const firstDeletedNewId = newDeletedOptions?.[0]?.id || null;
-      setMainModalConfig(produce((draft) => {
-        if (draft.bodyState === bodyState.details) return ;
-        const { filterItems } = draft;
-        const updateIndex = filterItems.findIndex(
-          (item) => item.id === config.filterId,
-        );
-        if (updateIndex != -1) {
-          const deletedOptions = filterItems[updateIndex]?.deletedOptions || [];
-          const deletedLength = deletedOptions.length;
-          const lastDeleteId = deletedOptions[deletedLength - 1]?.id || null;
+      setMainModalConfig(
+        produce((draft) => {
+          if (draft.bodyState === bodyState.details) return;
+          const { filterItems } = draft;
+          const updateIndex = filterItems.findIndex(
+            (item) => item.id === config.filterId,
+          );
+          if (updateIndex != -1) {
+            const deletedOptions =
+              filterItems[updateIndex]?.deletedOptions || [];
+            const deletedLength = deletedOptions.length;
+            const lastDeleteId = deletedOptions[deletedLength - 1]?.id || null;
 
-          if (firstDeletedNewId != lastDeleteId) {
-            deletedOptions.push(...newDeletedOptions);
+            if (firstDeletedNewId != lastDeleteId) {
+              deletedOptions.push(...newDeletedOptions);
+            }
+            filterItems[updateIndex] = {
+              ...filterItems[updateIndex],
+              name: data.name,
+              options: data.options,
+              deletedOptions,
+              isMainFilter: data.isMainFilter,
+            };
+            if (data.isMainFilter) {
+              draft.mainFilterItemId = filterItems[updateIndex].id;
+            }
           }
-          filterItems[updateIndex] = {
-            ...filterItems[updateIndex],
-            name: data.name,
-            options: data.options,
-            deletedOptions,
-            isMainFilter: data.isMainFilter,
-          };
-          if (data.isMainFilter) {
-            draft.mainFilterItemId = filterItems[updateIndex].id;
-          }
-        }
-      }))
+        }),
+      );
       successMsg = "Filter updated";
       break;
     default:

@@ -14,12 +14,11 @@ export const makeUploadDataRequest = async (
   url: string,
   data: object,
   params?: params,
-  responseHandling: uploadRespHandling = {
-    showToastAndRedirect: true,
-    iconType: toastErrorIcons.default,
-    throwErr: false,
-    successMsg: "",
-  },
+  responseHandling?: uploadRespHandling,
+  multipleFiles?: {
+    key: string;
+    file: File;
+  }[],
 ) => {
   const {
     showToastAndRedirect = true,
@@ -27,7 +26,7 @@ export const makeUploadDataRequest = async (
     throwErr,
     successCallback,
     successMsg,
-  } = responseHandling;
+  } = responseHandling || {};
   const headers = {
     Authorization: `Bearer ${await getToken()}`,
   };
@@ -36,6 +35,9 @@ export const makeUploadDataRequest = async (
 
   Object.entries(data).forEach(([key, val]) => {
     formData.append(key, val);
+  });
+  multipleFiles?.forEach(({ key, file }) => {
+    formData.append(key, file);
   });
 
   return trackPromise(

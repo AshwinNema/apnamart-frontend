@@ -39,6 +39,6 @@ export const getCreateUpdateItemConfig = (): createUpdateItemState => {
     optionId: null,
     filterId: null,
     deletedOptions: [],
-    isMainFilter:false
+    isMainFilter: false,
   };
 };

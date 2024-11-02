@@ -39,7 +39,7 @@ export interface fetchConfig extends errHandling {
 }
 
 export interface uploadRespHandling extends errHandling {
-  successMsg: ReactNode;
+  successMsg?: ReactNode;
   successCallback?: (...args: any[]) => any;
 }
 
