@@ -9,7 +9,7 @@ import {
   setUpdateProductData,
 } from "../../helpers";
 import { BackIcon } from "@/app/_custom-components";
-import { getCategorySearchList } from "@/app/admin/products/helper";
+import { getItemEntityList } from "@/app/admin/products/helper";
 import { setNestedPath } from "@/app/_utils";
 import {
   Autocompletes,
@@ -34,7 +34,7 @@ export const CreateUpdateProducts = ({
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
 
   useEffect(() => {
-    getCategorySearchList(setData("categoryList"));
+    getItemEntityList(setData("categoryList"));
   }, []);
   useEffect(() => {
     setUpdateProductData(updateData, setConfig);

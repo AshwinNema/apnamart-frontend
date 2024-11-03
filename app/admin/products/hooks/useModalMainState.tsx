@@ -10,12 +10,12 @@ import {
 import {
   getItemFilters,
   getMainDefaultState,
-  getCategorySearchList,
+  getItemEntityList,
   MainModalState,
   setMainState,
   tableDataDataElement,
 } from "../helper";
-import { setMultiplePaths, setNestedPath } from "@/app/_utils";
+import { appEndPoints, setMultiplePaths, setNestedPath } from "@/app/_utils";
 import { useProductSelector } from "@/lib/product/hooks";
 import { tabKeys } from "@/lib/product/slices/component-details.slice";
 
@@ -44,8 +44,25 @@ const useModalMainState = (): [
   useEffect(() => {
     isOpen &&
       tab !== tabKeys.category &&
-      getCategorySearchList(setData("categoryList"));
+      getItemEntityList(setData("categoryList"));
   }, [tab, isOpen]);
+
+  useEffect(() => {
+    !config.categoryId && setData("subCatList")([]);
+    tab === tabKeys.items &&
+      isOpen &&
+      config.categoryId &&
+      getItemEntityList(
+        setData("subCatList"),
+        appEndPoints.SUB_CATEGORY_LIST,
+        {
+          categoryId: config.categoryId,
+        },
+        {
+          showLoader: false,
+        },
+      );
+  }, [config.categoryId, tab, isOpen]);
 
   useEffect(() => {
     tab === tabKeys.items &&

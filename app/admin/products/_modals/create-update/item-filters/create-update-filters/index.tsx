@@ -15,6 +15,7 @@ import {
 import Footer from "./footer";
 import { ItemTable } from "../tables";
 import { DeletedDataViewer } from "../deleted-data-viewer";
+import { produce } from "immer";
 
 // This is component for mananging create update of the item filter. It has the following props -
 // name - This is the name of the filter that is being created / updated
@@ -40,7 +41,6 @@ const CreateUpdateFilter = () => {
   }, [mainConfig.updateFilterDetails, setMainConfig]);
   return (
     <div className="mt-5">
-  
       <TextInput
         label="Name"
         variant="underlined"
@@ -60,11 +60,12 @@ const CreateUpdateFilter = () => {
       <ItemTable
         tableType={itemTableType.options}
         onClick={(data: itemFilterTabletem) => {
-          setConfig((prevConfig) => {
-            prevConfig.optionId = data.id as string;
-            prevConfig.optionCreateUpdateName = data.name;
-            return { ...prevConfig };
-          });
+          setConfig(
+            produce((draft) => {
+              draft.optionId = data.id as string;
+              draft.optionCreateUpdateName = data.name;
+            }),
+          );
           setNestedPath(setMainConfig)("createUpdateFilterOption")(
             createUpdateFilterState.update,
           );

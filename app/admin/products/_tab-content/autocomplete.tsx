@@ -15,6 +15,10 @@ export default function Autocomplete() {
         url = appEndPoints.SEARCH_CATEGORY_BY_NAME;
         break;
 
+      case tabKeys.subCategory:
+        url = appEndPoints.SEARCH_SUB_CATEGORY_BY_NAME;
+        break;
+
       case tabKeys.items:
         url = appEndPoints.SEARCH_ITEM_BY_NAME;
         break;

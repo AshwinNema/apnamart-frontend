@@ -5,9 +5,11 @@ import { ImageComponent } from "..";
 export const ImgViewer = ({
   file,
   uploadedImg,
+  alt,
 }: {
   file?: File;
   uploadedImg?: uploadedImgDetails | null;
+  alt: string;
 }) => {
   const imgContainerRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -33,7 +35,7 @@ export const ImgViewer = ({
               <ImageComponent
                 width={200}
                 height={200}
-                alt={`${uploadedImg.name}`}
+                alt={`${alt}`}
                 src={`${uploadedImg.url}`}
               />
             </div>

@@ -9,6 +9,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export enum tabKeys {
   category = "Category",
+  subCategory = "Sub Category",
   items = "Item",
 }
 

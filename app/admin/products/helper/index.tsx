@@ -25,6 +25,17 @@ export const tabList: tabOption[] = [
     key: tabKeys.category,
   },
   {
+    title: "Sub Category",
+    Content: () => {
+      return (
+        <>
+          <TabComponent />
+        </>
+      );
+    },
+    key: tabKeys.subCategory,
+  },
+  {
     title: "Items",
     Content: () => <TabComponent />,
     key: tabKeys.items,

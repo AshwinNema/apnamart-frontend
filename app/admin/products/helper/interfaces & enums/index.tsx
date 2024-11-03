@@ -21,6 +21,7 @@ export interface MainModalState {
   name: string;
   upload: FileUploadWithPreview | null;
   categoryId: null | number;
+  subCategoryId: number | null;
   height: number;
   bodyState: bodyState;
   originalFilterItems: {
@@ -29,7 +30,9 @@ export interface MainModalState {
   filterItems: ModalFilterItem[];
   deletedOriginalItems: ModalDeletedFilterItem[];
   categoryList: autoCompleteState["itemList"];
+  subCatList: autoCompleteState["itemList"];
   categoryVal: string;
+  subCategoryVal: string;
   mainFilterItemId: null | string | number;
 }
 // Api params while query entity data
@@ -76,6 +79,7 @@ export interface modalCreateUpdatePayloadParams {
 export interface modalCreateUpdatePayload {
   name: string;
   categoryId?: number;
+  subCategoryId?: number;
   filters?: CreateFilterItem[];
   newFilters?: CreateFilterItem[];
   deleteFilters?: number[];

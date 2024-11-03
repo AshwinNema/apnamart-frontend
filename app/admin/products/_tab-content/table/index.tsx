@@ -1,15 +1,12 @@
 import { useCallback } from "react";
-import {
-  getTableColumns,
-  getCellValue,
-  tableDataDataElement,
-  getDeleteActionTexts,
-} from "../../helper";
+import { getTableColumns, getDeleteActionTexts } from "../../helper";
 import { RenderTable, TableActions } from "@/app/_custom-components";
 import { useProductDispatch, useProductSelector } from "@/lib/product/hooks";
 import {
   updateTableData,
   categoryTableDataElement,
+  subCatTableDataElement,
+  itemTableDataElement,
 } from "@/lib/product/slices/table.slice";
 import { setModalDetails } from "@/lib/product/slices/modal-details.slice";
 import { getEmptyContent, NameComponent } from "./render-helper";
@@ -25,24 +22,32 @@ const DataTable = ({
   const table = useProductSelector((state) => state.table);
   const dispatch = useProductDispatch();
   const renderCell = useCallback(
-    (data: Partial<tableDataDataElement>, columnKey: React.Key) => {
-      const cellValue = getCellValue(tab, data, columnKey);
+    (
+      data:
+        | categoryTableDataElement
+        | subCatTableDataElement
+        | itemTableDataElement,
+      columnKey: React.Key,
+    ) => {
       const { url, msg, button } = getDeleteActionTexts(tab, data.id);
       switch (columnKey) {
         case "name": {
-          const name = cellValue as string;
           return (
             <NameComponent
               photo={(data?.photo || "category image") as string}
-              name={name}
+              name={data?.name}
             />
           );
         }
         case "category": {
-          const category = cellValue as unknown as categoryTableDataElement;
-          return <div className="text-lg">{category?.name}</div>;
+          const category = (data as subCatTableDataElement)?.category?.name;
+          return <div className="text-lg">{category}</div>;
         }
 
+        case "subCategory": {
+          const subCategory = (data as itemTableDataElement)?.subCategory?.name;
+          return <div className="text-lg">{subCategory}</div>;
+        }
         case "actions":
           return (
             <TableActions
@@ -59,7 +64,7 @@ const DataTable = ({
             />
           );
         default:
-          return <>{cellValue}</>;
+          return <></>;
       }
     },
     [],

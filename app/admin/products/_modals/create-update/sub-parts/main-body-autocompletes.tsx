@@ -10,7 +10,7 @@ export const MainBodyAutoCompletes = () => {
   const mainData = useContext(MainModalContext);
   if (!mainData) return null;
   const { config: mainConfig, setAllData } = mainData;
-  const { categoryId } = mainConfig;
+  const { categoryId, subCategoryId } = mainConfig;
   const setData = useCallback(setNestedPath(setAllData), [setAllData]);
   return (
     <>
@@ -24,6 +24,23 @@ export const MainBodyAutoCompletes = () => {
           onSelectionChange={(key) => {
             setMultiplePaths(setAllData)([
               ["categoryId", key ? Number(key) : null],
+            ]);
+          }}
+          isClearable={false}
+          fullWidth={true}
+        />
+      )}
+
+      {tab === tabKeys.items && (
+        <AutoComplete
+          label="Sub Category"
+          selectedKey={subCategoryId ? `${subCategoryId}` : null}
+          list={mainConfig.subCatList}
+          inputVal={mainConfig.subCategoryVal}
+          setInputVal={setData("subCategoryVal")}
+          onSelectionChange={(key) => {
+            setMultiplePaths(setAllData)([
+              ["subCategoryId", key ? Number(key) : null],
             ]);
           }}
           isClearable={false}

@@ -6,8 +6,15 @@ export interface categoryTableDataElement {
   name: string;
 }
 
-export interface itemTableDataElement extends categoryTableDataElement {
+export interface subCatTableDataElement extends categoryTableDataElement {
   category: {
+    id: number;
+    name: string;
+  };
+}
+
+export interface itemTableDataElement extends categoryTableDataElement {
+  subCategory: {
     id: number;
     name: string;
   };
@@ -21,14 +28,15 @@ export interface dataTable<tableElementData> {
   totalPages: number;
 }
 
-const initialState: dataTable<categoryTableDataElement | itemTableDataElement> =
-  {
-    limit: 2,
-    page: 1,
-    totalResults: 0,
-    results: [],
-    totalPages: 0,
-  };
+const initialState: dataTable<
+  categoryTableDataElement | subCatTableDataElement | itemTableDataElement
+> = {
+  limit: 2,
+  page: 1,
+  totalResults: 0,
+  results: [],
+  totalPages: 0,
+};
 
 export const tableSlice = createSlice({
   name: "table",
