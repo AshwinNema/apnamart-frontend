@@ -31,7 +31,11 @@ export const PointerDescription = ({
             {header ? (
               <div className="flex justify-center font-bold">{header}</div>
             ) : null}
-            <ImgViewer file={photo} uploadedImg={uploadedImg} />
+            <ImgViewer
+              file={photo}
+              uploadedImg={uploadedImg}
+              alt="Pointer image"
+            />
             <div className="flex justify-between items-center gap-3 mr-2">
               {typeof details === "string" ? (
                 <>

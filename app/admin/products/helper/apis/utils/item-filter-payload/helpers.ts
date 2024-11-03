@@ -76,6 +76,7 @@ export const getUpdateFilterItem = (
 
   const updateItemPayload: updateFilter = {
     id: id as number,
+    isMainFilter: mainFilterItemId === id,
   };
 
   const isMainFilter = mainFilterItemId === id;

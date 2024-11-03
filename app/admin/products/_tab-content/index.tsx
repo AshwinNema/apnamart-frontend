@@ -9,7 +9,6 @@ import { useProductDispatch, useProductSelector } from "@/lib/product/hooks";
 import {
   setDetails,
   setIsOpen,
-  tabKeys,
 } from "@/lib/product/slices/component-details.slice";
 import { clearModalDetails } from "@/lib/product/slices/modal-details.slice";
 import styles from "../../../styles.module.css";
@@ -59,7 +58,7 @@ export default function TabContent() {
           color="primary"
           fullWidth
         >
-          Create {tab === tabKeys.category ? "Category" : "Item"}
+          Create {tab}
         </Button>
       </div>
       <CreateUpdateModal isOpen={isOpen} onOpenChange={onOpenChange} />

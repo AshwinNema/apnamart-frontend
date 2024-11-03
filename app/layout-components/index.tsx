@@ -16,7 +16,7 @@ import {
   sessionStorageAttributes,
   setSessionStorageKey,
 } from "../_services";
-import { commonRoleRoutes, setNestedPath } from "../_utils";
+import { commonRoleRoutes, routes, setNestedPath } from "../_utils";
 import { UserRole } from "@/lib/main/slices/user/user.slice";
 export default function Layout({
   children,
@@ -46,7 +46,13 @@ export default function Layout({
     const isUserFetched = getSessionStorageKey(
       sessionStorageAttributes.userFetch,
     );
-    if (!isUserFetched && user && !path.includes(commonRoleRoutes.profile)) {
+
+    if (
+      !isUserFetched &&
+      user &&
+      !path.includes(commonRoleRoutes.profile) &&
+      path !== routes[UserRole.merchant].product
+    ) {
       setSessionStorageKey(sessionStorageAttributes.userFetch, true);
       getUserProfile(dispatch, user?.role === UserRole.merchant);
     }

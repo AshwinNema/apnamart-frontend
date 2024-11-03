@@ -14,7 +14,14 @@ export const getCreateUpdatePayload = ({
   tab,
   config,
 }: modalCreateUpdatePayloadParams) => {
-  const { name, id, upload: files, categoryId, filterItems } = config;
+  const {
+    name,
+    id,
+    upload: files,
+    categoryId,
+    filterItems,
+    subCategoryId,
+  } = config;
   const apiBody: modalCreateUpdatePayload = {
     name,
     ...processUpdateItemFilterPayload({
@@ -22,10 +29,9 @@ export const getCreateUpdatePayload = ({
       config,
     }),
   };
-
-  if (tab === tabKeys.items && categoryId) {
-    apiBody.categoryId = categoryId;
-  }
+  if (tab !== tabKeys.category && categoryId) apiBody.categoryId = categoryId;
+  if (tab === tabKeys.items && subCategoryId)
+    apiBody.subCategoryId = subCategoryId;
   // Filters are sent only when we are creating
   if (tab === tabKeys.items && filterItems.length && !id) {
     apiBody.filters = filterItems.map((item) => {
@@ -51,15 +57,32 @@ export const validateCreateUpdatePayload = (
   config: MainModalState,
   tab: tabKeys,
 ) => {
-  const errors = [];
-  const { name, id, upload: files, categoryId } = config;
+  const errors: string[] = [];
+  const {
+    name,
+    id,
+    upload: files,
+    categoryId,
+    subCategoryId,
+    filterItems,
+  } = config;
   !name.trim() && errors.push("Name cannot be empty");
+
   !id &&
     !files?.cachedFileArray?.[0] &&
     errors.push(`${tab} image has to be added`);
+
   tab !== tabKeys.category &&
     !categoryId &&
     errors.push("Category is mandatory");
+
+  tab === tabKeys.items &&
+    !subCategoryId &&
+    errors.push("Sub category is mandatory");
+
+  tab === tabKeys.items &&
+    !filterItems.length &&
+    errors.push("There should be atleast one filter");
 
   if (errors.length) {
     errorToast({

@@ -10,18 +10,13 @@ export * from "./create-update";
 import * as _ from "lodash";
 import { processGetItemFilters } from "../..";
 
-export const getCategorySearchList = (
+export const getItemEntityList = (
   setData: setVal,
+  url: string = appEndPoints.CATEGORY_LIST,
   params?: params,
   reqConfig?: fetchConfig,
 ) => {
-  makeDataRequest(
-    HTTP_METHODS.GET,
-    appEndPoints.CATEGORY_LIST,
-    undefined,
-    params,
-    reqConfig,
-  )
+  makeDataRequest(HTTP_METHODS.GET, url, undefined, params, reqConfig)
     .then((res) => {
       if (!res) return;
 

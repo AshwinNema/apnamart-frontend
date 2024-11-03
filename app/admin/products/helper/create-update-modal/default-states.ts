@@ -16,6 +16,9 @@ export const getMainDefaultState = (): MainModalState => ({
   deletedOriginalItems: [],
   originalFilterItems: {},
   mainFilterItemId: null,
+  subCategoryId: null,
+  subCategoryVal: "",
+  subCatList: [],
 });
 
 export const defaultModalBodyConfig = () => ({

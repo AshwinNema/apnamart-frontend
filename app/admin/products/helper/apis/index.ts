@@ -19,30 +19,6 @@ export const queryTableData = (
     ...query,
   }).then((res) => {
     if (!res) return;
-    if (tabKey === tabKeys.items) {
-      res.results = res.results.map(
-        (item: {
-          id: number;
-          name: string;
-          photo: string;
-          category: {
-            id: number;
-            name: string;
-          };
-        }) => {
-          const { id, name, category, photo } = item;
-          return {
-            id,
-            name,
-            photo,
-            category: {
-              id: category.id,
-              name: category.name,
-            },
-          };
-        },
-      );
-    }
     dispatch(updateTableData(res));
   });
 };

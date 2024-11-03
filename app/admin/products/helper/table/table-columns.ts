@@ -19,6 +19,12 @@ export const getTableColumns = (tab: tabKeys): columns[] => {
       key: "category",
     });
 
+  tab === tabKeys.items &&
+    columns.push({
+      label: "Sub Category",
+      key: "subCategory",
+    });
+
   columns.push({
     key: "actions",
     label: "Actions",

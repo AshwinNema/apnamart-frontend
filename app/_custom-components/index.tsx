@@ -28,8 +28,8 @@ export const ImageComponent = ({
   className,
   isBlurred = false,
 }: {
-  width: number;
-  height: number;
+  width: number | string;
+  height: number | string;
   src: string;
   alt: string;
   className?: string;
