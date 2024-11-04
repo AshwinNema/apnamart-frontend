@@ -49,7 +49,7 @@ export default function TabContent() {
   return (
     <div>
       <div
-        className={`flex justify-between gap-3 items-center ${styles["product-autocomplete-container"]}`}
+        className={`flex justify-between gap-3 items-center mb-5 ${styles["product-autocomplete-container"]}`}
       >
         <Autocomplete />
         <Button

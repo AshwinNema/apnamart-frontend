@@ -27,7 +27,7 @@ export const MainLandingPage = ({
   if (!mainState) return null;
   return (
     <>
-      <div className="flex justify-end mr-5">
+      <div className="flex justify-end mr-5 mb-5">
         <Button
           onPress={() => {
             setNestedPath(mainState.setConfig)("currentState")("create");

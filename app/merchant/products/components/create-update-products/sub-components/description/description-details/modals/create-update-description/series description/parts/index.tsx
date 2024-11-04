@@ -28,7 +28,7 @@ export const UploadedImage = ({
         width={300}
         height={300}
         src={uploadedImg?.url}
-        alt={uploadedImg?.name}
+        alt={"Uploaded image"}
       />
       <Tooltip color="danger" content="Remove uploaded image">
         <Button

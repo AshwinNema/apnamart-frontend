@@ -1,6 +1,9 @@
 "use client";
 import { ComponentSkeleton, ProtectedRoute } from "@/app/_custom-components";
-import { UserRole } from "@/lib/main/slices/user/user.slice";
+import {
+  merchantRegistrationStatus,
+  UserRole,
+} from "@/lib/main/slices/user/user.slice";
 import dynamic from "next/dynamic";
 import {
   getLocalStorageKey,
@@ -28,15 +31,23 @@ function Page() {
     const isUserFetched = getSessionStorageKey(
       sessionStorageAttributes.userFetch,
     );
-    if ((!isUserFetched && user) || !user?.merchantDetails) {
+    const incompleteRegistration =
+      !user?.merchantDetails ||
+      user?.merchantDetails?.registrationStatus ===
+        merchantRegistrationStatus.adminReview;
+    if ((!isUserFetched && user) || incompleteRegistration) {
       getUserProfile(dispatch, user?.role === UserRole.merchant);
     }
   }, [dispatch]);
 
   const user = getLocalStorageKey(storageAttributes.user) as UserInterface;
+  const incompleteRegistration =
+    !user?.merchantDetails ||
+    user?.merchantDetails?.registrationStatus ===
+      merchantRegistrationStatus.adminReview;
   return (
     <ProtectedRoute allowedRole={UserRole.merchant}>
-      {!user?.merchantDetails ? (
+      {incompleteRegistration ? (
         <div className="relative h-[100svh] flex items-center justify-center">
           <Card isBlurred={true} className="min-h-[30svh] p-3 m-3">
             <CardBody className={`flex items-center flex-row`}>

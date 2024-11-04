@@ -28,7 +28,7 @@ export const ImgViewer = ({
       {file || uploadedImg ? (
         <div className="mb-3">
           {file ? (
-            <div className="h-full min-h-[200px]" ref={imgContainerRef}></div>
+            <div className="h-full min-h-[200px] bg-no-repeat bg-cover bg-center" ref={imgContainerRef}></div> 
           ) : null}
           {uploadedImg ? (
             <div className="flex justify-center">
