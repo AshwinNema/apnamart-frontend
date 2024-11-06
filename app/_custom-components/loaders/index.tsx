@@ -24,6 +24,7 @@ export const Spinner = () => {
       onOpenChange={onOpenChange}
       isDismissable={false}
       isKeyboardDismissDisabled={false}
+      hideCloseButton={true}
     >
       <ModalContent className="bg-[transparent] shadow-none">
         <div className="spinner-container bg-[transparent] flex items-center justify-center h-screen">

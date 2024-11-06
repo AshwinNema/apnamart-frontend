@@ -67,3 +67,7 @@ export const product = {
   SELECTED_PRODUCT_FILTERS_BY_ID: `${backendService}product/selected-filters/`,
   UPDATE_PRODUCT: `${backendService}product/`,
 };
+
+export const customer = {
+  CUSTOMER_MENU: `${backendService}customer/category-subcategory-item-menu`,
+};

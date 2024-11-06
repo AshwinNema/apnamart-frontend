@@ -34,7 +34,7 @@ export default function NotFound() {
               <ImageComponent
                 width={256}
                 height={256}
-                src={`${theme === browserTheme.dark ? "https://res.cloudinary.com/ash006/image/upload/v1722048587/th_1_-removebg-preview_tzwznw.jpg" : "https://res.cloudinary.com/ash006/image/upload/v1722047691/th_1_og8ujy.jpg"}`}
+                src={`https://res.cloudinary.com/ash006/image/upload/v1730920921/ltljrhinpmdxcwxa6ecj.jpg`}
                 alt="Not found"
               />
             </div>

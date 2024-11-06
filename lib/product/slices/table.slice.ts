@@ -31,7 +31,7 @@ export interface dataTable<tableElementData> {
 const initialState: dataTable<
   categoryTableDataElement | subCatTableDataElement | itemTableDataElement
 > = {
-  limit: 2,
+  limit: 5,
   page: 1,
   totalResults: 0,
   results: [],

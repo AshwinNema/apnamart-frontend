@@ -33,10 +33,7 @@ const DataTable = ({
       switch (columnKey) {
         case "name": {
           return (
-            <NameComponent
-              photo={(data?.photo || "category image") as string}
-              name={data?.name}
-            />
+            <NameComponent photo={data?.photo as string} name={data?.name} />
           );
         }
         case "category": {

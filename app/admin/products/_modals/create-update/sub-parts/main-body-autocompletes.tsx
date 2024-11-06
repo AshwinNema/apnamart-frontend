@@ -24,6 +24,8 @@ export const MainBodyAutoCompletes = () => {
           onSelectionChange={(key) => {
             setMultiplePaths(setAllData)([
               ["categoryId", key ? Number(key) : null],
+              ["subCategoryId", null],
+              ["subCategoryVal", ""],
             ]);
           }}
           isClearable={false}

@@ -44,10 +44,12 @@ export const getCreateUpdatePayload = ({
       };
     });
   }
+  const file: { file?: File } = {};
+  if (files?.cachedFileArray?.[0]) file.file = files?.cachedFileArray?.[0];
   const payload = id
     ? apiBody
     : {
-        file: files?.cachedFileArray?.[0],
+        ...file,
         data: JSON.stringify(apiBody),
       };
   return payload;
@@ -70,6 +72,7 @@ export const validateCreateUpdatePayload = (
 
   !id &&
     !files?.cachedFileArray?.[0] &&
+    tab !== tabKeys.items &&
     errors.push(`${tab} image has to be added`);
 
   tab !== tabKeys.category &&
@@ -80,9 +83,9 @@ export const validateCreateUpdatePayload = (
     !subCategoryId &&
     errors.push("Sub category is mandatory");
 
-  tab === tabKeys.items &&
-    !filterItems.length &&
-    errors.push("There should be atleast one filter");
+  // tab === tabKeys.items &&
+  //   !filterItems.length &&
+  //   errors.push("There should be atleast one filter");
 
   if (errors.length) {
     errorToast({
