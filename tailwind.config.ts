@@ -7,6 +7,7 @@ import {
   warningTheme,
   secondaryTheme,
   dangerTheme,
+  cardWhite,
 } from "./constants";
 const { nextui } = require("@nextui-org/react");
 
@@ -35,6 +36,7 @@ const config: Config = {
         darkContainerTheme,
         secondaryTheme,
         dangerTheme,
+        cardWhite,
       },
       animation: {
         glow: "glow 1.5s linear 3s infinite",

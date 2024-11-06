@@ -38,12 +38,14 @@ export default function MainBodyImg({
     <>
       {config.showImage ? (
         <div className="flex justify-center">
-          <ImageComponent
-            src={modalDetails?.photo as string}
-            height={200}
-            width={200}
-            alt="Category image"
-          />
+          {!!modalDetails?.photo && (
+            <ImageComponent
+              src={modalDetails?.photo as string}
+              height={200}
+              width={200}
+              alt="Category image"
+            />
+          )}
         </div>
       ) : (
         <ImgPreviewInput

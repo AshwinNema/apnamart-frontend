@@ -6,8 +6,13 @@ import {
 } from "@reduxjs/toolkit";
 import { userSlice } from "./slices/user/user.slice";
 import { notificationsSlice } from "./slices/notification/notification.slice";
+import { productMenuSlice } from "./slices/product-menu/product-menu.slice";
 
-const rootReducer = combineSlices(userSlice, notificationsSlice);
+const rootReducer = combineSlices(
+  userSlice,
+  notificationsSlice,
+  productMenuSlice,
+);
 
 export type RootState = ReturnType<typeof rootReducer>;
 

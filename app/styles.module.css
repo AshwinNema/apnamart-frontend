@@ -47,3 +47,8 @@
 .hover-text-white:hover {
   color: white !important;
 }
+
+.customer-menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}

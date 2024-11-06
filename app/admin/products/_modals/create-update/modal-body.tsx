@@ -56,6 +56,7 @@ export const MainModalBody = () => {
           setConfig={setConfig}
           setModalCrtState={setModalCrtState}
         />
+        <MainBodyAutoCompletes />
         <TextInput
           classNames={{
             mainWrapper: ["w-full"],
@@ -66,7 +67,6 @@ export const MainModalBody = () => {
           setData={setMainData("name")}
           label="Name"
         />
-        <MainBodyAutoCompletes />
       </ModalBody>
     </div>
   );
