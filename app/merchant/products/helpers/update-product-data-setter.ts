@@ -5,8 +5,8 @@ import {
 } from "./interfaces & enums & constants";
 import { produce } from "immer";
 import { getItemsList, getProductFiltersList } from "./apis";
-import { setNestedPath } from "@/app/_utils";
-import { getItemFilters } from "@/app/admin/products/helper";
+import { appEndPoints, setNestedPath } from "@/app/_utils";
+import { getItemEntityList, getItemFilters } from "@/app/admin/products/helper";
 import * as _ from "lodash";
 
 export const setUpdateProductData = (
@@ -14,8 +14,18 @@ export const setUpdateProductData = (
   setConfig: setCreateUpdateProductConfig,
 ) => {
   if (!updateData) return;
+  getItemEntityList(
+    setNestedPath(setConfig)("subCategoryList"),
+    appEndPoints.SUB_CATEGORY_LIST,
+    {
+      categoryId: updateData.item.category.id,
+    },
+    {
+      showLoader: false,
+    },
+  );
   getItemsList(
-    { categoryId: updateData.item.category.id },
+    { subCategoryId: updateData.item.subCategory.id },
     setNestedPath(setConfig)("itemList"),
     true,
     { showLoader: false },
@@ -76,6 +86,8 @@ export const setUpdateProductData = (
               };
             });
       draft.uploadedImgs = updateData.photos;
+      draft.subCategory = updateData.item.subCategory.name;
+      draft.subCategoryId = updateData.item.subCategory.id;
     }),
   );
 };

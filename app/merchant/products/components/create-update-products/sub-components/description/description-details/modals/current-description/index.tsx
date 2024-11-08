@@ -33,6 +33,7 @@ export const CurrentDescriptionDetailsModal = ({
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       scrollBehavior="inside"
+      size="5xl"
     >
       <ModalContent>
         <ModalHeader>Description details</ModalHeader>

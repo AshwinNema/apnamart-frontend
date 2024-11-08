@@ -9,7 +9,7 @@ import { createUpdateProductConfig } from "../interfaces & enums & constants";
 import { validateAndGetCreateUpdateProductPayload } from "./helper";
 
 export const getItemsList = (
-  query: { categoryId?: number },
+  query: { categoryId?: number; subCategoryId?: number },
   setData: setVal,
   clearList?: true,
   reqConfig?: fetchConfig,

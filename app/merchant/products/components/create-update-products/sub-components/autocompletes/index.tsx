@@ -3,7 +3,11 @@ import { AutoComplete } from "@/app/_custom-components";
 import { setNestedPath } from "@/app/_utils";
 import { produce } from "immer";
 import { getItemFilters } from "@/app/admin/products/helper";
-import { getItemsList, MainCreateUpdateProductContext } from "../../../helpers";
+import {
+  getItemsList,
+  MainCreateUpdateProductContext,
+} from "../../../../helpers";
+import { CategoryAutoComplete } from "./category-autocomplete";
 
 export const Autocompletes = () => {
   const mainContext = useContext(MainCreateUpdateProductContext);
@@ -11,13 +15,14 @@ export const Autocompletes = () => {
   const { config, setConfig } = mainContext;
   return (
     <div className="flex justify-between gap-3 mb-10">
+      <CategoryAutoComplete />
       <AutoComplete
-        label="Category"
-        placeholder="Select category"
-        selectedKey={config.categoryId ? `${config.categoryId}` : null}
-        list={config.categoryList}
-        inputVal={config.category}
-        setInputVal={setNestedPath(mainContext.setConfig)("category")}
+        label="Sub Category"
+        placeholder={`${!config.categoryId ? "Please select category before selecting sub category" : "Select Sub Category"} `}
+        selectedKey={config.subCategoryId ? `${config.subCategoryId}` : null}
+        list={config.subCategoryList}
+        inputVal={config.subCategory}
+        setInputVal={setNestedPath(mainContext.setConfig)("subCategory")}
         onSelectionChange={(key) => {
           if (!key) {
             setConfig(
@@ -27,24 +32,24 @@ export const Autocompletes = () => {
                 draft.itemList = [];
                 draft.filterList = [];
                 draft.selectedOptions = {};
-                draft.categoryId = null;
+                draft.subCategoryId = null;
               }),
             );
             return;
           }
           key = Number(key);
-          if (key === config.categoryId) return;
+          if (key === config.subCategoryId) return;
           setConfig(
             produce((draft) => {
               draft.item = "";
               draft.itemId = null;
               draft.filterList = [];
               draft.selectedOptions = {};
-              draft.categoryId = key;
+              draft.subCategoryId = key;
             }),
           );
           getItemsList(
-            { categoryId: key },
+            { subCategoryId: key },
             setNestedPath(mainContext?.setConfig)("itemList"),
             true,
             { showLoader: false },
@@ -56,7 +61,7 @@ export const Autocompletes = () => {
 
       <AutoComplete
         label="Item"
-        placeholder={`${!config.categoryId ? "Please select category before selecting item" : "Select item"} `}
+        placeholder={`${!config.subCategoryId ? "Please select sub category before selecting item" : "Select item"} `}
         selectedKey={config.itemId ? `${config.itemId}` : null}
         list={config.itemList}
         inputVal={config.item}

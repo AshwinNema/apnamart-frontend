@@ -41,6 +41,13 @@ export const DescriptionDetails = () => {
                   errorToast({ msg: "Please select description type first" });
                   return;
                 }
+                if (
+                  descriptionType === "series with images" &&
+                  config.description.length === 4
+                ) {
+                  errorToast({msg:"There can be atmost 4 stages with photos"})
+                  return;
+                }
                 openCreateUpdateModal();
               }}
               isIconOnly
