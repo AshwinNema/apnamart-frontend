@@ -38,11 +38,15 @@ export const CurrentSpecificationDetailsModal = ({
       <ModalContent>
         <ModalHeader>Specification details</ModalHeader>
         <ModalBody>
-          <Card className={`overflow-visible ${typeof specifications !== "string" && "min-w-max"}`}>
+          <Card
+            className={`overflow-visible ${typeof specifications !== "string" && "min-w-max"}`}
+          >
             {typeof specifications === "string" ? (
               <CardBody>
                 <div className="flex justify-between gap-3 items-center">
-                  <div className="break-all overflow-visible">{specifications}</div>
+                  <div className="break-all overflow-visible">
+                    {specifications}
+                  </div>
                   <div>
                     <TableActions
                       showDeleteIcon={false}

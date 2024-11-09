@@ -64,6 +64,9 @@ export const setUpdateProductData = (
       draft.categoryId = updateData.item.category.id;
       draft.item = updateData.item.name;
       draft.itemId = updateData.item.id;
+      if (updateData.highlights)
+        draft.highlights = produce(updateData.highlights, () => {});
+
       draft.specificationType =
         typeof updateData.specification === "string" ? "string" : "series";
       draft.specifications = updateData.specification;

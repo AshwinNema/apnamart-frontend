@@ -28,9 +28,7 @@ export const SpecificationPointers = ({
             <CardBody className="overflow-y-visible min-w-max">
               <div className="ml-3">
                 {specification.header ? (
-                  <div className=" font-bold">
-                    {specification.header}
-                  </div>
+                  <div className=" font-bold">{specification.header}</div>
                 ) : null}
                 <div className="flex justify-between items-center gap-3 mr-2">
                   <TableKeyVal details={specification.keyVals} />

@@ -33,14 +33,10 @@ export const DeleteModal = ({
               <ModalBody>{modalBodyMsg}</ModalBody>
 
               <ModalFooter>
-                <Button onClick={() => deleteData()} color="danger"  fullWidth>
+                <Button onClick={() => deleteData()} color="danger" fullWidth>
                   Delete
                 </Button>
-                <Button
-                  fullWidth
-                  color="secondary"
-                  onPress={onClose}
-                >
+                <Button fullWidth color="secondary" onPress={onClose}>
                   Cancel
                 </Button>
               </ModalFooter>

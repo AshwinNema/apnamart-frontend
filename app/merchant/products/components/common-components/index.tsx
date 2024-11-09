@@ -1,22 +1,24 @@
 import { GiCancel } from "react-icons/gi";
 import { SiTicktick } from "react-icons/si";
 import { Tooltip } from "@nextui-org/react";
+import { createUpdateKetValIconConfig } from "../../helpers";
 
 export const CancelUpdateKeyValIcons = ({
   type,
   onCancel,
   onSuccess,
-}: {
-  type: "new" | "edit";
-  onCancel: () => void;
-  onSuccess: () => void;
-}) => {
+  entity = "feature",
+}: createUpdateKetValIconConfig) => {
   return (
     <>
       <Tooltip
         color="success"
         className="text-white"
-        content={<p>{type === "new" ? "Add new " : "update "} feature</p>}
+        content={
+          <p>
+            {type === "new" ? "Add new " : "update "} {entity}
+          </p>
+        }
       >
         <span>
           <SiTicktick
@@ -31,8 +33,8 @@ export const CancelUpdateKeyValIcons = ({
           <p>
             Cancel{" "}
             {type === "new"
-              ? "adding new feature"
-              : "updating the current feature"}
+              ? `adding new ${entity}`
+              : `updating the current ${entity}`}
           </p>
         }
       >

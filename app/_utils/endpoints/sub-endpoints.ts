@@ -62,10 +62,11 @@ export const merchant = {
 
 export const product = {
   CREATE_PRODUCT: `${backendService}product`,
-  QUERY_PRODUCTS: `${backendService}product`,
+  QUERY_MERCHANT_PRODUCTS: `${backendService}product/by-merchant`,
   DELETE_PRODUCT_BY_ID: `${backendService}product/`,
   SELECTED_PRODUCT_FILTERS_BY_ID: `${backendService}product/selected-filters/`,
   UPDATE_PRODUCT: `${backendService}product/`,
+  QUERY_CUSTOMER_PRODUCTS: `${backendService}product/by-customer`,
 };
 
 export const customer = {

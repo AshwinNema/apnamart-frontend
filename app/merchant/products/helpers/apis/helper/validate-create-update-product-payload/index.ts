@@ -19,7 +19,12 @@ export const validateAndGetCreateUpdateProductPayload = (
     deletedImgs,
     uploadedImgs,
   } = config;
-  const basicDetails = _.pick(config, ["name", "price", "itemId"]);
+  const basicDetails = _.pick(config, [
+    "name",
+    "price",
+    "itemId",
+    "highlights",
+  ]);
   const filterOptions = Object.values(selectedOptions);
   const deletedProductImgIds = deletedImgs.map(
     (details) => details.cloudinary_public_id,
@@ -48,6 +53,8 @@ export const validateAndGetCreateUpdateProductPayload = (
 
   const createProductPayload = {
     ...basicDetails,
+    price: Number(basicDetails.price),
+    itemId: basicDetails.itemId as number,
     filterOptions,
     specification: specifications,
     description,

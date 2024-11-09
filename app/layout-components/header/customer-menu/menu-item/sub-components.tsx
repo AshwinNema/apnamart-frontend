@@ -4,14 +4,16 @@ import {
 } from "@/lib/main/slices/product-menu/product-menu.slice";
 import { IoIosArrowForward } from "react-icons/io";
 import { useHover } from "react-aria";
-import { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { browserTheme } from "@/app/layout-components/theme-switch";
+import { Spinner } from "@/app/_custom-components";
 
 export const SubCategoryItemList = ({ itemList }: { itemList: item[] }) => {
   const router = useRouter();
   const { theme } = useTheme();
+  const [showSpinner, setShowSpinner] = useState(false);
   return (
     <>
       <div
@@ -22,6 +24,10 @@ export const SubCategoryItemList = ({ itemList }: { itemList: item[] }) => {
             return (
               <li
                 onClick={() => {
+                  setShowSpinner(true);
+                  setTimeout(() => {
+                    setShowSpinner(false);
+                  }, 400);
                   router.push(`/search/by-item/${item.id}`);
                 }}
                 key={item.id}
@@ -35,6 +41,7 @@ export const SubCategoryItemList = ({ itemList }: { itemList: item[] }) => {
           })}
         </ul>
       </div>
+      {showSpinner && <Spinner />}
     </>
   );
 };
@@ -47,15 +54,21 @@ export const SubCategoryList = ({
   setSelectedSubCategory: Dispatch<SetStateAction<subCategory | null>>;
 }) => {
   const router = useRouter();
+  const [showSpinner, setShowSpinner] = useState(false);
   let { hoverProps } = useHover({
     onHoverStart: () => {
       setSelectedSubCategory(subCategory);
     },
   });
+
   return (
     <>
       <li
         onClick={() => {
+          setShowSpinner(true);
+          setTimeout(() => {
+            setShowSpinner(false);
+          }, 400);
           router.push(`/search/by-subcategory/${subCategory.id}`);
         }}
         className="flex group gap-2 items-center justify-between relative px-2 py-1.5 w-full h-full box-border rounded-small subpixel-antialiased cursor-pointer tap-highlight-transparent outline-none hover:text-primary hover:bg-primary/20"
@@ -69,6 +82,7 @@ export const SubCategoryList = ({
             <IoIosArrowForward />
           </div>
         )}
+        {showSpinner && <Spinner />}
       </li>
     </>
   );

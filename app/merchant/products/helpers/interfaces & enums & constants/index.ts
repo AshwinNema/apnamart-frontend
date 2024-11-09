@@ -56,3 +56,27 @@ export const getDefaultProductImgsModalState = (): productImgsModalState => ({
   cachedFiles: [],
   productImages: [],
 });
+
+export interface productHighlightModalState {
+  data: { id: string; data: string }[];
+  showAddNewBtn: boolean;
+  newHightlightPoint: string;
+}
+
+export const getDefaultProductHighlightModalState =
+  (): productHighlightModalState => ({
+    data: [],
+    showAddNewBtn: true,
+    newHightlightPoint: "",
+  });
+
+export type setProductHighlightModalState = Dispatch<
+  SetStateAction<productHighlightModalState>
+>;
+
+export interface createUpdateKetValIconConfig {
+  type: "new" | "edit";
+  onCancel: () => void;
+  onSuccess: () => void;
+  entity?: string;
+}

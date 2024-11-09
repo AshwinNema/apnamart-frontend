@@ -13,7 +13,7 @@ export const queryProducts = (
 ) => {
   makeDataRequest(
     HTTP_METHODS.GET,
-    `${appEndPoints.QUERY_PRODUCTS}`,
+    `${appEndPoints.QUERY_MERCHANT_PRODUCTS}`,
     undefined,
     query,
   )

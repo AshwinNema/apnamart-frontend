@@ -4,10 +4,12 @@ import {
   createUpdateProductConfig,
   descriptionStateEvents,
   mainConfig,
+  productHighlightModalState,
   productImgsModalState,
   setCreateUpdateDescriptionState,
   setCreateUpdateProductConfig,
   setMainConfig,
+  setProductHighlightModalState,
   setProductImgsModalState,
 } from "./interfaces & enums & constants";
 import { produce } from "immer";
@@ -20,16 +22,20 @@ export * from "./validations";
 export * from "./specifications";
 export * from "./descriptions";
 export * from "./update-product-data-setter";
+export * from "./product-highlights";
 
 export const MainContext = createContext<{
   config: mainConfig;
   setConfig: setMainConfig;
 } | null>(null);
 
-export const MainCreateUpdateProductContext = createContext<{
+export type MainCreateUpdateProductContextType = {
   config: createUpdateProductConfig;
   setConfig: setCreateUpdateProductConfig;
-} | null>(null);
+} | null;
+
+export const MainCreateUpdateProductContext =
+  createContext<MainCreateUpdateProductContextType>(null);
 
 export const CreateUpdateDescriptionContext = createContext<null | {
   config: createUpdateDescriptionState;
@@ -42,6 +48,11 @@ export const ProductImgsModalContext = createContext<null | {
   setConfig: setProductImgsModalState;
   uploadRef: MutableRefObject<FileUploadWithPreview | null>;
   isOpen: boolean;
+}>(null);
+
+export const ProductHighlightModalContext = createContext<null | {
+  config: productHighlightModalState;
+  setConfig: setProductHighlightModalState;
 }>(null);
 
 export const setInitialProductImgModalState = (

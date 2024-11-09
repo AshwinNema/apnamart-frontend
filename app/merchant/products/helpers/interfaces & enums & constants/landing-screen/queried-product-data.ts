@@ -54,4 +54,5 @@ export interface queriedProduct {
   merchant: number;
   available: boolean;
   item: itemDetails;
+  highlights: string[];
 }

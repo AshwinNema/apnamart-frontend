@@ -14,7 +14,7 @@ export interface productFilter {
 }
 
 interface productEntityList extends autoCompleteListItem {
-  id: number
+  id: number;
 }
 
 export interface createUpdateProductConfig {
@@ -43,6 +43,7 @@ export interface createUpdateProductConfig {
   productImages: File[];
   uploadedImgs: uploadedImgDetails[];
   deletedImgs: uploadedImgDetails[];
+  highlights: string[];
 }
 
 export type setCreateUpdateProductConfig = Dispatch<
@@ -73,4 +74,5 @@ export const getDefaultCreateUpdateProductConfig =
     uploadedImgs: [],
     deletedImgs: [],
     subCategoryList: [],
+    highlights: [],
   });

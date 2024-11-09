@@ -20,9 +20,9 @@ export const getZodErrMsg = (error: ZodError<any>) => {
   return error.issues.map((issue) => issue.message).join(", ");
 };
 
-export const validateZodSchema = (
-  validationData: any,
-  validation: ZodSchema<any>,
+export const validateZodSchema = <T>(
+  validationData: T,
+  validation: ZodSchema<T>,
   throwErr?: boolean,
   errorIcon?: toastErrorIcons,
 ) => {

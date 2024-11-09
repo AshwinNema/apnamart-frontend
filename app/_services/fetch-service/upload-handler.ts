@@ -51,7 +51,7 @@ export const makeUploadDataRequest = async (
           if (showToastAndRedirect) {
             errorToast({ msg: "Token expired" });
             clearUserStorage();
-            redirect("/");
+            redirect("");
           }
           return;
         }

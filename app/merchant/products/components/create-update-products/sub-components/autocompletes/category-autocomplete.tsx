@@ -23,7 +23,7 @@ export const CategoryAutoComplete = () => {
           if (!key) {
             setConfig(
               produce((draft) => {
-                draft.categoryId = null
+                draft.categoryId = null;
                 draft.subCategoryList = [];
                 draft.subCategory = "";
                 draft.subCategoryId = null;
@@ -40,15 +40,15 @@ export const CategoryAutoComplete = () => {
           if (key === config.categoryId) return;
           setConfig(
             produce((draft) => {
-                draft.categoryId = key
-                draft.subCategoryList = [];
-                draft.subCategory = "";
-                draft.subCategoryId = null;
-                draft.item = "";
-                draft.itemId = null;
-                draft.itemList = [];
-                draft.filterList = [];
-                draft.selectedOptions = {};
+              draft.categoryId = key;
+              draft.subCategoryList = [];
+              draft.subCategory = "";
+              draft.subCategoryId = null;
+              draft.item = "";
+              draft.itemId = null;
+              draft.itemList = [];
+              draft.filterList = [];
+              draft.selectedOptions = {};
             }),
           );
           getItemEntityList(
