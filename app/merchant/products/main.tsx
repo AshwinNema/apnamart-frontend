@@ -26,7 +26,7 @@ const MerchantProductSection = () => {
     queryData(1);
   }, []);
 
-  useCallback(() => {
+  useEffect(() => {
     config.currentState === "main screen" && setData("updateData")(null);
   }, [config.currentState]);
 

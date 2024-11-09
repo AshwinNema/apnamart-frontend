@@ -50,5 +50,5 @@ export const clearUserStorage = () => {
 };
 
 export const redirect = (route: string) => {
-  window.location.href = `${window.location.href}${route}`;
+  window.location.href = `${window.location.origin}${route}`;
 };

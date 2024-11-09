@@ -5,9 +5,13 @@ import { MainCreateUpdateProductContext } from "../../../../helpers";
 import { useContext } from "react";
 import { setNestedPath } from "@/app/_utils";
 import { z } from "zod";
+import { BsHighlights } from "react-icons/bs";
+import { Button, Tooltip, useDisclosure } from "@nextui-org/react";
+import { ProductHighlights } from "./modals/product-highlights";
 
 export const ProductPriceNameRow = () => {
   const mainContext = useContext(MainCreateUpdateProductContext);
+  const { isOpen, onOpenChange, onOpen } = useDisclosure();
   if (!mainContext) return null;
   const { config, setConfig } = mainContext;
 
@@ -15,6 +19,16 @@ export const ProductPriceNameRow = () => {
     <div className={`${styles["create-product-name-price-photo-row"]} mb-10`}>
       <div className="flex gap-3 items-center">
         <ProductFilterAndImages />
+        <Tooltip
+          className="text-white"
+          color="warning"
+          content="View/Add Product Highlight Points"
+        >
+          <Button onPress={onOpen} className="bg-transparent" isIconOnly>
+            <BsHighlights className="scale-[2.5] rotate-90" />
+          </Button>
+        </Tooltip>
+        <ProductHighlights isOpen={isOpen} onOpenChange={onOpenChange} />
         <TextInput
           value={config.name}
           className="mb-3"

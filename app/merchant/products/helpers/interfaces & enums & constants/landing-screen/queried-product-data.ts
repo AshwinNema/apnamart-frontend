@@ -27,10 +27,16 @@ interface categoryDetails {
   name: string;
 }
 
+interface subCategoryDetails {
+  id: number;
+  name: string;
+}
+
 interface itemDetails {
   id: number;
   name: string;
   category: categoryDetails;
+  subCategory: subCategoryDetails;
 }
 
 export interface descriptionDetails {
@@ -48,4 +54,5 @@ export interface queriedProduct {
   merchant: number;
   available: boolean;
   item: itemDetails;
+  highlights: string[];
 }

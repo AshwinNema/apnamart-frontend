@@ -77,7 +77,7 @@ export default function Logout({ onClose }: { onClose: () => void }) {
           <Button
             startContent={<TbLogout className="scale-[1.5]" />}
             onPress={logout}
-            className="mb-3"
+            className="mb-3 text-white"
             color="warning"
             fullWidth={true}
           >

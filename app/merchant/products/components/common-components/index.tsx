@@ -1,30 +1,24 @@
 import { GiCancel } from "react-icons/gi";
 import { SiTicktick } from "react-icons/si";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableHeader,
-  TableRow,
-  Tooltip,
-} from "@nextui-org/react";
+import { Tooltip } from "@nextui-org/react";
+import { createUpdateKetValIconConfig } from "../../helpers";
 
 export const CancelUpdateKeyValIcons = ({
   type,
   onCancel,
   onSuccess,
-}: {
-  type: "new" | "edit";
-  onCancel: () => void;
-  onSuccess: () => void;
-}) => {
+  entity = "feature",
+}: createUpdateKetValIconConfig) => {
   return (
     <>
       <Tooltip
         color="success"
         className="text-white"
-        content={<p>{type === "new" ? "Add new " : "update "} feature</p>}
+        content={
+          <p>
+            {type === "new" ? "Add new " : "update "} {entity}
+          </p>
+        }
       >
         <span>
           <SiTicktick
@@ -39,8 +33,8 @@ export const CancelUpdateKeyValIcons = ({
           <p>
             Cancel{" "}
             {type === "new"
-              ? "adding new feature"
-              : "updating the current feature"}
+              ? `adding new ${entity}`
+              : `updating the current ${entity}`}
           </p>
         }
       >
@@ -62,26 +56,45 @@ export const TableKeyVal = ({
 }) => {
   return (
     <ul className="list-disc w-full">
-      <Table aria-label="Description Pointer Details" hideHeader>
-        <TableHeader>
-          <TableColumn>Feature</TableColumn>
-          <TableColumn>-</TableColumn>
-          <TableColumn>Feature Value</TableColumn>
-        </TableHeader>
-        <TableBody>
+      <div className="flex gap-3">
+        <div className="flex flex-col">
           {details.map((descriptionDetails) => {
             return (
-              <TableRow key={descriptionDetails.id}>
-                <TableCell>
-                  <li>{descriptionDetails.key}</li>
-                </TableCell>
-                <TableCell>-</TableCell>
-                <TableCell>{descriptionDetails.val}</TableCell>
-              </TableRow>
+              <div
+                className="py-2 px-3 relative align-middle whitespace-normal text-small font-normal text-start"
+                key={descriptionDetails.id}
+              >
+                <li>{descriptionDetails.key}</li>
+              </div>
             );
           })}
-        </TableBody>
-      </Table>
+        </div>
+        <div className="flex flex-col">
+          {details.map((descriptionDetails) => {
+            return (
+              <div
+                className="py-2 px-3 relative align-middle whitespace-normal text-small font-normal text-start"
+                key={descriptionDetails.id}
+              >
+                -
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="flex flex-col">
+          {details.map((descriptionDetails) => {
+            return (
+              <div
+                className="py-2 px-3 relative align-middle whitespace-normal text-small font-normal text-start"
+                key={descriptionDetails.id}
+              >
+                {descriptionDetails.val}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </ul>
   );
 };

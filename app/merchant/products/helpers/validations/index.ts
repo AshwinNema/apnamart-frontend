@@ -44,6 +44,9 @@ const basicProductValidation = z.object({
       }),
     ),
   ]),
+  highlights: z
+    .array(requiredStringValidation("HighlightPointer"))
+    .min(4, { message: "There should be atleast 4 highlight pointers" }),
 });
 
 const descriptionStageValidation = z.object({
