@@ -66,9 +66,11 @@ export const product = {
   DELETE_PRODUCT_BY_ID: `${backendService}product/`,
   SELECTED_PRODUCT_FILTERS_BY_ID: `${backendService}product/selected-filters/`,
   UPDATE_PRODUCT: `${backendService}product/`,
-  QUERY_CUSTOMER_PRODUCTS: `${backendService}product/by-customer`,
+  QUERY_CUSTOMER_PRODUCTS_UNLOGGED: `${backendService}product/by-customer-unlogged`,
+  QUERY_CUSTOMER_PRODUCTS_LOGGED: `${backendService}product/by-customer-logged-in`,
 };
 
 export const customer = {
   CUSTOMER_MENU: `${backendService}customer/category-subcategory-item-menu`,
+  ADD_REMOVE_WISHLIST_ITEM: `${backendService}customer/add-remove-wishlist-item/`,
 };

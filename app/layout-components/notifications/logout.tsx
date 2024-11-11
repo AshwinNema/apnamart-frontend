@@ -18,7 +18,7 @@ import {
 } from "@/lib/main/slices/notification/notification.slice";
 import { setUser } from "@/lib/main/slices/user/user.slice";
 import { Button, ModalBody, ModalFooter, ModalHeader } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { TbLogout } from "react-icons/tb";
 
 export const handleAction = () =>
@@ -37,7 +37,7 @@ export const handleAction = () =>
 export default function Logout({ onClose }: { onClose: () => void }) {
   const router = useRouter();
   const dispatch = useAppDispatch();
-
+  const path = usePathname();
   const logout = () => {
     const tokens: token = getLocalStorageKey<token>(storageAttributes.tokens);
     const access = tokens?.access?.token || "";
@@ -59,7 +59,7 @@ export default function Logout({ onClose }: { onClose: () => void }) {
       );
       clearUserStorage();
       dispatch(setUser(null));
-      router.push("/");
+      !path.startsWith("/search") && router.push("/");
       onClose();
     });
   };

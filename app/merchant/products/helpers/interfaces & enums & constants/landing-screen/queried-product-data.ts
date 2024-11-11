@@ -55,4 +55,5 @@ export interface queriedProduct {
   available: boolean;
   item: itemDetails;
   highlights: string[];
+  wishList?: { userId: number }[];
 }

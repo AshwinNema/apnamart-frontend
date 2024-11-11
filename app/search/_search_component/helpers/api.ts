@@ -1,5 +1,10 @@
-import { HTTP_METHODS, makeDataRequest } from "@/app/_services";
-import { appEndPoints } from "@/app/_utils";
+import {
+  getLocalStorageKey,
+  HTTP_METHODS,
+  makeDataRequest,
+  storageAttributes,
+} from "@/app/_services";
+import { appEndPoints, errorToast } from "@/app/_utils";
 import { setMainConfig } from "./interfaces & constants & enums";
 import { produce } from "immer";
 
@@ -12,9 +17,12 @@ export const queryProducts = (
   },
   setConfig: setMainConfig,
 ) => {
+  const user = getLocalStorageKey(storageAttributes.user);
   makeDataRequest(
     HTTP_METHODS.GET,
-    appEndPoints.QUERY_CUSTOMER_PRODUCTS,
+    user
+      ? appEndPoints.QUERY_CUSTOMER_PRODUCTS_LOGGED
+      : appEndPoints.QUERY_CUSTOMER_PRODUCTS_UNLOGGED,
     undefined,
     query,
   )
@@ -35,5 +43,33 @@ export const queryProducts = (
     })
     .catch((err) => {
       console.log(err);
+    });
+};
+
+export const addRemoveWishlistItem = (
+  productId: number,
+  connect: boolean,
+  onFailure: () => void,
+) => {
+  makeDataRequest(
+    HTTP_METHODS.PUT,
+    `${appEndPoints.ADD_REMOVE_WISHLIST_ITEM}${productId}`,
+    undefined,
+    {
+      connect,
+    },
+    {
+      showLoader: false,
+    },
+  )
+    .then((res) => {
+      if (!res) {
+        onFailure();
+        return;
+      }
+    })
+    .catch((err) => {
+      errorToast({ msg: err.msg });
+      onFailure();
     });
 };

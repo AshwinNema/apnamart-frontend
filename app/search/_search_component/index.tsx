@@ -10,11 +10,12 @@ import { Card, CardBody, Divider } from "@nextui-org/react";
 import { ProductItem } from "./subcomponents";
 import { PaginationComponent } from "@/app/_custom-components";
 import { setNestedPath } from "@/app/_utils";
+import { useAppSelector } from "@/lib/main/hooks";
 const ProductSearch = ({ type }: { type: "item" | "sub category" }) => {
   const params = useParams();
   const { id } = params;
   const [config, setConfig] = useState<mainConfig>(getDefaultMainConfig());
-
+  const user = useAppSelector((state) => state.user);
   const queryData = useCallback(
     (page: number) => {
       if (!Number(id)) return;
@@ -32,8 +33,8 @@ const ProductSearch = ({ type }: { type: "item" | "sub category" }) => {
   );
 
   useEffect(() => {
-    queryData(1);
-  }, []);
+    queryData(config.page);
+  }, [user]);
 
   return (
     <>
