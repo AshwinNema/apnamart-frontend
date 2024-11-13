@@ -10,7 +10,7 @@ import {
 import { ReactNode, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { FcShop } from "react-icons/fc";
-
+export * from "./event-loader";
 export const Spinner = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 

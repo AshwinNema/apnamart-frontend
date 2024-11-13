@@ -1,18 +1,23 @@
-import { ImageComponent, Spinner } from "@/app/_custom-components";
+import {
+  loaderEvents,
+  EventLoader,
+  ImageComponent,
+} from "@/app/_custom-components";
 import { queriedProduct } from "@/app/merchant/products/helpers";
-import { useRouter } from "next/navigation";
+
 import Heart from "react-animated-heart";
 import { getLocalStorageKey, storageAttributes } from "@/app/_services";
 import useStateManager from "./useStateManager";
 import LoginSignUpModal from "@/app/layout-components/login-signup";
 import { addRemoveWishlistItem } from "../helpers";
+import useEventLoaderEmitter from "@/app/_custom-components/loaders/event-loader/useEventLoaderEmitter";
 
 export const ProductItem = ({
   productDetails,
 }: {
   productDetails: queriedProduct;
 }) => {
-  const router = useRouter();
+  const eventEmitter = useEventLoaderEmitter();
   const [config, setData, hoverProps, openModal, isOpen, onOpenChange] =
     useStateManager({ productDetails });
 
@@ -21,8 +26,10 @@ export const ProductItem = ({
       <div
         {...hoverProps}
         onClick={() => {
-          setData("showSpinner")(true);
-          router.push(`/view-product/${productDetails.id}`);
+          eventEmitter.next({
+            type: loaderEvents.routeNavigation,
+            route: `/view-product/${productDetails.id}`,
+          });
         }}
         className="flex justify-between gap-3 my-3 cursor-pointer"
       >
@@ -79,8 +86,7 @@ export const ProductItem = ({
 
         <div className="font-bold">₹{productDetails.price}</div>
       </div>
-      {config.showSpinner && <Spinner />}
-
+      <EventLoader emitter={eventEmitter} />
       <LoginSignUpModal
         modalType={config.modalType}
         setModalType={setData("modalType")}

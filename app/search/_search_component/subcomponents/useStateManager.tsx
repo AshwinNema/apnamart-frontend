@@ -12,7 +12,6 @@ const useStateManager = ({
   productDetails: queriedProduct;
 }): [
   {
-    showSpinner: boolean;
     isClicked: boolean;
     hovered: boolean;
     modalType: null | modalTypes;
@@ -25,7 +24,6 @@ const useStateManager = ({
 ] => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [config, setConfig] = useState({
-    showSpinner: false,
     isClicked: !!productDetails?.wishList?.length,
     hovered: false,
     modalType: null,
