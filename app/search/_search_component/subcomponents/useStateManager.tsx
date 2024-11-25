@@ -29,11 +29,9 @@ const useStateManager = ({
     modalType: null,
   });
 
-
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
   useEffect(() => {
-
-    setData("isClicked")(!!productDetails?.wishList?.length) 
+    setData("isClicked")(!!productDetails?.wishList?.length);
   }, [productDetails?.wishList?.length]);
 
   let { hoverProps } = useHover({
