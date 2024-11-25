@@ -12,7 +12,7 @@ import useEventLoaderEmitter from "@/app/_custom-components/loaders/event-loader
 
 export const SubCategoryItemList = ({ itemList }: { itemList: item[] }) => {
   const { theme } = useTheme();
-  const eventEmitter = useEventLoaderEmitter()
+  const eventEmitter = useEventLoaderEmitter();
   return (
     <>
       <div
@@ -25,8 +25,8 @@ export const SubCategoryItemList = ({ itemList }: { itemList: item[] }) => {
                 onClick={() => {
                   eventEmitter.next({
                     type: loaderEvents.routeNavigation,
-                    route: `/search/by-item/${item.id}`
-                  })
+                    route: `/search/by-item/${item.id}`,
+                  });
                 }}
                 key={item.id}
                 className="flex z-10 group gap-2 items-center justify-between relative px-2 py-1.5 w-full h-full box-border rounded-small hover:text-bold subpixel-antialiased cursor-pointer tap-highlight-transparent outline-none"
@@ -39,7 +39,7 @@ export const SubCategoryItemList = ({ itemList }: { itemList: item[] }) => {
           })}
         </ul>
       </div>
-      <EventLoader emitter={eventEmitter}/>
+      <EventLoader emitter={eventEmitter} />
     </>
   );
 };
@@ -51,7 +51,7 @@ export const SubCategoryList = ({
   subCategory: subCategory;
   setSelectedSubCategory: Dispatch<SetStateAction<subCategory | null>>;
 }) => {
-  const eventEmitter = useEventLoaderEmitter()
+  const eventEmitter = useEventLoaderEmitter();
   let { hoverProps } = useHover({
     onHoverStart: () => {
       setSelectedSubCategory(subCategory);
@@ -62,12 +62,10 @@ export const SubCategoryList = ({
     <>
       <li
         onClick={() => {
-          eventEmitter.next(
-            {
-              type: loaderEvents.routeNavigation,
-              route: `/search/by-subcategory/${subCategory.id}`
-            }
-          )
+          eventEmitter.next({
+            type: loaderEvents.routeNavigation,
+            route: `/search/by-subcategory/${subCategory.id}`,
+          });
         }}
         className="flex group gap-2 items-center justify-between relative px-2 py-1.5 w-full h-full box-border rounded-small subpixel-antialiased cursor-pointer tap-highlight-transparent outline-none hover:text-primary hover:bg-primary/20"
         {...hoverProps}
@@ -80,7 +78,7 @@ export const SubCategoryList = ({
             <IoIosArrowForward />
           </div>
         )}
-        <EventLoader emitter={eventEmitter}/>
+        <EventLoader emitter={eventEmitter} />
       </li>
     </>
   );

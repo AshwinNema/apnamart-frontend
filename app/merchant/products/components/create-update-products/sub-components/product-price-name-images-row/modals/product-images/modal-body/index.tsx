@@ -38,7 +38,7 @@ export const MainModalBody = () => {
       {config.view === "upload images" ? (
         <>
           {isloaded && (
-            <ImgUpload allowedImgsLength={4 - config?.uploadedImgs?.length} />
+            <ImgUpload allowedImgsLength={20 - config?.uploadedImgs?.length} />
           )}
         </>
       ) : (

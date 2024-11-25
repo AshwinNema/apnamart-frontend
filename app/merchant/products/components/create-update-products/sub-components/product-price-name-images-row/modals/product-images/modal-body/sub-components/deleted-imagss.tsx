@@ -44,7 +44,7 @@ export const DeletedImgViewer = ({
                       config.uploadedImgs.length +
                       config.cachedFiles.length;
 
-                    if (totalLength >= 4) {
+                    if (totalLength >= 20) {
                       errorToast({
                         msg: "You cannot upload more than 4 images. To upload a new image, you will have to remove one of the images you are newly trying to upload",
                       });
