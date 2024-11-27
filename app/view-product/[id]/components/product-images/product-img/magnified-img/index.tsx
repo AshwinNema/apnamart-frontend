@@ -34,7 +34,6 @@ export const MagnifiedImg = () => {
     config.imgHeight,
     config.imgWidth,
   ]);
-
   if (!context) return null;
 
   return (
