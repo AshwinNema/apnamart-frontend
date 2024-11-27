@@ -1,22 +1,27 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import React, {
+  MutableRefObject,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   cssTranslate,
+  getProductImagesDefaultConfig,
   productImagesConfig,
   setProductImagesConfig,
 } from "../../helpers";
 import { produce } from "immer";
+import { MainContext } from "../../helpers";
 
 const useConfigManager = (): [
   productImagesConfig,
   setProductImagesConfig,
   MutableRefObject<HTMLUListElement | null>,
 ] => {
-  const [config, setConfig] = useState<productImagesConfig>({
-    curImgIndex: 0,
-    itemListStyle: {},
-    imgContainerLeft: 0,
-    imgContainerTop: 0,
-  });
+  const [config, setConfig] = useState<productImagesConfig>(
+    getProductImagesDefaultConfig(),
+  );
   const containerRef = useRef<HTMLUListElement | null>(null);
   const isLoaded = !!containerRef.current;
 
@@ -61,6 +66,17 @@ const useConfigManager = (): [
       }),
     );
   }, [config.curImgIndex]);
+  const mainContext = useContext(MainContext);
+  useEffect(() => {
+    if (!mainContext) return;
+    mainContext.config.details?.wishList?.[0] &&
+      setConfig(
+        produce((draft) => {
+          draft.productIsLiked = true;
+        }),
+      );
+  }, [mainContext?.config.details?.wishList]);
+
   return [config, setConfig, containerRef];
 };
 

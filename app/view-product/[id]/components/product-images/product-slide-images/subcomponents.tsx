@@ -1,5 +1,5 @@
 import { uploadedImgDetails } from "@/app/merchant/products/helpers";
-import styles from "../styles.module.css";
+import styles from "../../../styles.module.css";
 import { MutableRefObject, useContext, useEffect } from "react";
 import { MainContext, ProductImgContext } from "../../../helpers";
 import { useHover } from "react-aria";

@@ -3,26 +3,53 @@ import { MainContext, ProductImgContext } from "../../helpers";
 import { produce } from "immer";
 import useConfigManager from "./useConfigManager";
 import { ProductImg } from "./product-img";
-import styles from "./styles.module.css";
+import styles from "../../styles.module.css";
 import { ProductSlideImages } from "./product-slide-images";
+import { Button } from "@nextui-org/react";
+import { useParams } from "next/navigation";
+import { ProductLikedHeart } from "@/app/_shared-Components/product-liked-heart";
 
 export const ProductImages = () => {
   const [config, setConfig, containerRef] = useConfigManager();
   const mainContext = useContext(MainContext);
+  const { id } = useParams();
+
   if (!mainContext) return null;
 
   const { details } = mainContext.config;
+
   if (!details) return null;
 
   return (
     <>
       <ProductImgContext.Provider value={{ config, setConfig }}>
         <div className="relative overflow-hidden m-0">
+          <Button
+            isIconOnly={true}
+            className={`absolute z-[2] top-[1svh] right-[4svh] ${styles["productLikeBtn"]} bg-white rounded-full`}
+          >
+            <ProductLikedHeart
+              styles={{
+                position: "absolute",
+                transform: "scale(0.5)",
+              }}
+              productId={Number(id)}
+              isClicked={config.productIsLiked}
+              setIsClicked={(val) => {
+                setConfig(
+                  produce((draft) => {
+                    draft.productIsLiked = val;
+                  }),
+                );
+              }}
+            />
+          </Button>
           <div className="relative overflow-hidden m-0 ">
             <div className="relative w-full h-[50svh] flex">
               <ProductSlideImages photos={details.photos} />
+
               <div
-                className={`h-[50svh] flex flex-col m-auto w-full  ${styles["slider-wrapper"]} overflow-hidden`}
+                className={`h-[50svh] flex flex-col m-auto w-full box-border ${styles["slider-wrapper"]} overflow-hidden`}
               >
                 <ul
                   ref={containerRef}

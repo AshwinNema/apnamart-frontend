@@ -60,11 +60,8 @@ const useConfigManager = (): [
           break;
         case notifierTypes.imgDimensions:
           {
-            const {
-              imgDimensions,
-              lensOffsetHeight,
-              lensOffsetWidth,
-            } = event.data;
+            const { imgDimensions, lensOffsetHeight, lensOffsetWidth } =
+              event.data;
             setConfig(
               produce((draft) => {
                 draft.imgHeight = imgDimensions.height;
