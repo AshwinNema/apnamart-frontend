@@ -10,6 +10,7 @@ import {
   MainContext,
   notifierTypes,
   productImgConfig,
+  setProductImgConfig,
 } from "../../../helpers";
 import { produce } from "immer";
 const useEventsManager = (details: {
@@ -25,6 +26,7 @@ const useEventsManager = (details: {
   const [config, setConfig] = useState<productImgConfig>({
     imgLeftOffSet: 0,
     imgTopOffSet: 0,
+    isClicked: false,
   });
   const imgRef = useRef<HTMLImageElement | null>(null);
   const lensContainerRef = useRef<HTMLDivElement | null>(null);

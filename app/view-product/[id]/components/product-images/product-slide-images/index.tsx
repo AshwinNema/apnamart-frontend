@@ -1,7 +1,11 @@
 import { uploadedImgDetails } from "@/app/merchant/products/helpers";
-import React, { Fragment, useContext } from "react";
-import { ProductImgContext, ProductThumbContext } from "../../../helpers";
-import styles from "../styles.module.css";
+import React, { Fragment, useContext, useEffect } from "react";
+import {
+  MainContext,
+  ProductImgContext,
+  ProductThumbContext,
+} from "../../../helpers";
+import styles from "../../../styles.module.css";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { produce } from "immer";
 import useConfigManager from "./useConfigManager";
@@ -21,7 +25,16 @@ export const ProductSlideImages = ({
     checkHasMore,
   ] = useConfigManager();
   const context = useContext(ProductImgContext);
-
+  const mainContext = useContext(MainContext);
+  useEffect(() => {
+    if (!mainContext || !containerRef.current) return;
+    const { right } = containerRef.current.getBoundingClientRect();
+    mainContext.setConfig(
+      produce((draft) => {
+        draft.buttonLeftMargin = right;
+      }),
+    );
+  }, [mainContext]);
   if (!context) return null;
   return (
     <div className="ml-2 h-[50svh] relative overflow-hidden" ref={containerRef}>

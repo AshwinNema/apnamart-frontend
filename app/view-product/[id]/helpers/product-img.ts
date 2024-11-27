@@ -38,7 +38,6 @@ export const imgHover = (
     const imgDimensions = (
       e.target as HTMLImageElement
     ).getBoundingClientRect();
-    console.log("SDfsdfsdf");
     notifier.next({
       type: notifierTypes.hoverIn,
       data: {

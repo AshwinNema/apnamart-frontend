@@ -1,6 +1,6 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import Draggable from "react-draggable";
-import styles from "../styles.module.css";
+import styles from "../../../styles.module.css";
 import { MainContext, onDragStop, ProductImgContext } from "../../../helpers";
 import { ImgLens } from "./img-lens";
 import useEventsManager from "./useEventsManager";
@@ -16,10 +16,10 @@ export const ProductImg = ({
   };
 }) => {
   const context = useContext(ProductImgContext);
+
   const mainContext = useContext(MainContext);
   const [mainContainerRef, imgRef, config, lensContainerRef] =
     useEventsManager(details);
-
   if (!context || !mainContext) return null;
   return (
     <Draggable

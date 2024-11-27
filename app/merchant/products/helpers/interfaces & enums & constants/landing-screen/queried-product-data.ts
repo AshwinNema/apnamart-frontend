@@ -9,7 +9,7 @@ interface keyValDetails {
   val: string;
 }
 
-interface descriptionStage {
+export interface descriptionStage {
   id: string;
   header?: string;
   details: string | keyValDetails[];

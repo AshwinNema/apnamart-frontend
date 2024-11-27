@@ -27,6 +27,7 @@ export default function Footer({
             variant={variants.goBackBtn}
             fullWidth
             onClick={() => setData("currentStep")(0)}
+             className="text-white"
           >
             Go Back
           </Button>
@@ -35,6 +36,7 @@ export default function Footer({
             fullWidth
             onClick={() => loginSignUp(formData, onClose, modalType, dispatch)}
             color="success"
+            className="text-white"
           >
             {modalType === modalTypes.signUp ? "Sign Up" : "Sign in"}
           </Button>

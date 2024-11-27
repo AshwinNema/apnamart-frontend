@@ -1,8 +1,7 @@
 "use client";
 import { useAppSelector } from "@/lib/main/hooks";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   getProductData,
   mainConfig,
@@ -10,11 +9,13 @@ import {
   notifier,
   getDefaultMainConfig,
 } from "./helpers";
-import styles from "@/app/styles.module.css";
 import { ProductImages } from "./components/product-images";
 import { setNestedPath } from "@/app/_utils";
 import { MagnifiedImg } from "./components/product-images/product-img/magnified-img";
 import { Subject } from "rxjs";
+import { ProductDetails } from "./components/product-details";
+import styles from "./styles.module.css";
+import { ProductBtns } from "./components/product-btns";
 
 const MainComponent = () => {
   const { id } = useParams();
@@ -22,7 +23,6 @@ const MainComponent = () => {
   const router = useRouter();
   const [config, setConfig] = useState<mainConfig>(getDefaultMainConfig());
   const notifier = useMemo(() => new Subject<notifier>(), []);
-
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
 
   useEffect(() => {
@@ -40,8 +40,10 @@ const MainComponent = () => {
         <div className={`${styles["product-item-container"]}`}>
           <div>
             <ProductImages />
+            <ProductBtns />
           </div>
           <div className="relative">
+            <ProductDetails />
             <MagnifiedImg />
           </div>
         </div>

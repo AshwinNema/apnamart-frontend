@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { MainContext } from "../../../../helpers";
 import useConfigManager from "./useConfigManager";
-import internalStyles from "../../styles.module.css";
+import internalStyles from "../../../../styles.module.css";
 import { produce } from "immer";
 export const MagnifiedImg = () => {
   const context = useContext(MainContext);
@@ -34,6 +34,7 @@ export const MagnifiedImg = () => {
     config.imgHeight,
     config.imgWidth,
   ]);
+
   if (!context) return null;
 
   return (
@@ -41,7 +42,7 @@ export const MagnifiedImg = () => {
       <div
         ref={containerRef}
         style={config.containerStyles}
-        className={`ml-[20px] w-[70%] bg-no-repeat pointer-events-none ${config.hovered ? "opacity-100" : "opacity-0"} ${internalStyles["opacityTransition"]} h-full m-auto align-top top-0 absolute overflow-hidden`}
+        className={`absolute w-[70%] h-[70svh] bg-no-repeat pointer-events-none ${config.hovered ? "opacity-100" : "opacity-0"} ${internalStyles["opacityTransition"]} m-auto align-top top-0  overflow-hidden`}
       ></div>
     </>
   );

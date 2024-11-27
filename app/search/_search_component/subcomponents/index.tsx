@@ -4,13 +4,9 @@ import {
   ImageComponent,
 } from "@/app/_custom-components";
 import { queriedProduct } from "@/app/merchant/products/helpers";
-
-import Heart from "react-animated-heart";
-import { getLocalStorageKey, storageAttributes } from "@/app/_services";
 import useStateManager from "./useStateManager";
-import LoginSignUpModal from "@/app/layout-components/login-signup";
-import { addRemoveWishlistItem } from "../helpers";
 import useEventLoaderEmitter from "@/app/_custom-components/loaders/event-loader/useEventLoaderEmitter";
+import { ProductLikedHeart } from "@/app/_shared-Components/product-liked-heart";
 
 export const ProductItem = ({
   productDetails,
@@ -18,8 +14,7 @@ export const ProductItem = ({
   productDetails: queriedProduct;
 }) => {
   const eventEmitter = useEventLoaderEmitter();
-  const [config, setData, hoverProps, openModal, isOpen, onOpenChange] =
-    useStateManager({ productDetails });
+  const [config, setData, hoverProps] = useStateManager({ productDetails });
 
   return (
     <>
@@ -48,26 +43,13 @@ export const ProductItem = ({
                   e.stopPropagation();
                 }}
               >
-                <Heart
-                  isClick={config.isClicked}
+                <ProductLikedHeart
                   styles={{
                     transform: "scale(0.5)",
                   }}
-                  onClick={() => {
-                    const user = getLocalStorageKey(storageAttributes.user);
-                    if (!user) {
-                      openModal();
-                      return;
-                    }
-                    setData("isClicked")(!config.isClicked);
-                    addRemoveWishlistItem(
-                      productDetails.id,
-                      !config.isClicked,
-                      () => {
-                        setData("isClicked")(config.isClicked);
-                      },
-                    );
-                  }}
+                  productId={productDetails.id}
+                  isClicked={config.isClicked}
+                  setIsClicked={setData("isClicked")}
                 />
               </div>
             </div>
@@ -87,12 +69,6 @@ export const ProductItem = ({
         <div className="font-bold">₹{productDetails.price}</div>
       </div>
       <EventLoader emitter={eventEmitter} />
-      <LoginSignUpModal
-        modalType={config.modalType}
-        setModalType={setData("modalType")}
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-      />
     </>
   );
 };
