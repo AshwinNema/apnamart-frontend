@@ -8,6 +8,9 @@ import {
   secondaryTheme,
   dangerTheme,
   cardWhite,
+  leadText,
+  styledBorder,
+  buyNowButton,
 } from "./constants";
 const { nextui } = require("@nextui-org/react");
 
@@ -37,6 +40,9 @@ const config: Config = {
         secondaryTheme,
         dangerTheme,
         cardWhite,
+        leadText,
+        styledBorder,
+        buyNowButton,
       },
       animation: {
         glow: "glow 1.5s linear 3s infinite",

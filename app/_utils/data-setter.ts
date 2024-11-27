@@ -12,7 +12,7 @@ const getNestedPath = (obj: any, index: number, path: string | string[]) => {
 };
 
 export const setNestedPath =
-  (setDataFunc: Dispatch<SetStateAction<any>>) =>
+  <T>(setDataFunc: Dispatch<SetStateAction<T>>) =>
   (key: string, toggleVal?: boolean) =>
   (value?: any) => {
     setDataFunc(
@@ -27,10 +27,8 @@ export const setNestedPath =
     );
   };
 
-export type setVal = (value: any) => void;
-
-export type setKeyVal = (key: string, toggleVal?: boolean) => setVal;
-
+export type setKeyVal = ReturnType<typeof setNestedPath>;
+export type setVal = ReturnType<setKeyVal>;
 export type keyVals = [string, any];
 
 export type valueOf<T> = T[keyof T];
@@ -46,4 +44,4 @@ export const setMultiplePaths =
     );
   };
 
-export type multiplePathSetter = (pathValList: keyVals[]) => void;
+export type multiplePathSetter = ReturnType<typeof setMultiplePaths>;

@@ -1,4 +1,9 @@
-import { HTTP_METHODS, makeDataRequest } from "@/app/_services";
+import {
+  getLocalStorageKey,
+  HTTP_METHODS,
+  makeDataRequest,
+  storageAttributes,
+} from "@/app/_services";
 import { appEndPoints } from "@/app/_utils";
 import { setMainConfig } from "./interfaces & constants & enums";
 import { produce } from "immer";
@@ -12,9 +17,12 @@ export const queryProducts = (
   },
   setConfig: setMainConfig,
 ) => {
+  const user = getLocalStorageKey(storageAttributes.user);
   makeDataRequest(
     HTTP_METHODS.GET,
-    appEndPoints.QUERY_CUSTOMER_PRODUCTS,
+    user
+      ? appEndPoints.QUERY_CUSTOMER_PRODUCTS_LOGGED
+      : appEndPoints.QUERY_CUSTOMER_PRODUCTS_UNLOGGED,
     undefined,
     query,
   )

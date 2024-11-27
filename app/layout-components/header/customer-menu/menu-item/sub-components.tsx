@@ -4,16 +4,15 @@ import {
 } from "@/lib/main/slices/product-menu/product-menu.slice";
 import { IoIosArrowForward } from "react-icons/io";
 import { useHover } from "react-aria";
-import React, { Dispatch, SetStateAction, useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { Dispatch, SetStateAction } from "react";
 import { useTheme } from "next-themes";
 import { browserTheme } from "@/app/layout-components/theme-switch";
-import { Spinner } from "@/app/_custom-components";
+import { EventLoader, loaderEvents } from "@/app/_custom-components";
+import useEventLoaderEmitter from "@/app/_custom-components/loaders/event-loader/useEventLoaderEmitter";
 
 export const SubCategoryItemList = ({ itemList }: { itemList: item[] }) => {
-  const router = useRouter();
   const { theme } = useTheme();
-  const [showSpinner, setShowSpinner] = useState(false);
+  const eventEmitter = useEventLoaderEmitter();
   return (
     <>
       <div
@@ -24,11 +23,10 @@ export const SubCategoryItemList = ({ itemList }: { itemList: item[] }) => {
             return (
               <li
                 onClick={() => {
-                  setShowSpinner(true);
-                  setTimeout(() => {
-                    setShowSpinner(false);
-                  }, 400);
-                  router.push(`/search/by-item/${item.id}`);
+                  eventEmitter.next({
+                    type: loaderEvents.routeNavigation,
+                    route: `/search/by-item/${item.id}`,
+                  });
                 }}
                 key={item.id}
                 className="flex z-10 group gap-2 items-center justify-between relative px-2 py-1.5 w-full h-full box-border rounded-small hover:text-bold subpixel-antialiased cursor-pointer tap-highlight-transparent outline-none"
@@ -41,7 +39,7 @@ export const SubCategoryItemList = ({ itemList }: { itemList: item[] }) => {
           })}
         </ul>
       </div>
-      {showSpinner && <Spinner />}
+      <EventLoader emitter={eventEmitter} />
     </>
   );
 };
@@ -53,8 +51,7 @@ export const SubCategoryList = ({
   subCategory: subCategory;
   setSelectedSubCategory: Dispatch<SetStateAction<subCategory | null>>;
 }) => {
-  const router = useRouter();
-  const [showSpinner, setShowSpinner] = useState(false);
+  const eventEmitter = useEventLoaderEmitter();
   let { hoverProps } = useHover({
     onHoverStart: () => {
       setSelectedSubCategory(subCategory);
@@ -65,11 +62,10 @@ export const SubCategoryList = ({
     <>
       <li
         onClick={() => {
-          setShowSpinner(true);
-          setTimeout(() => {
-            setShowSpinner(false);
-          }, 400);
-          router.push(`/search/by-subcategory/${subCategory.id}`);
+          eventEmitter.next({
+            type: loaderEvents.routeNavigation,
+            route: `/search/by-subcategory/${subCategory.id}`,
+          });
         }}
         className="flex group gap-2 items-center justify-between relative px-2 py-1.5 w-full h-full box-border rounded-small subpixel-antialiased cursor-pointer tap-highlight-transparent outline-none hover:text-primary hover:bg-primary/20"
         {...hoverProps}
@@ -82,7 +78,7 @@ export const SubCategoryList = ({
             <IoIosArrowForward />
           </div>
         )}
-        {showSpinner && <Spinner />}
+        <EventLoader emitter={eventEmitter} />
       </li>
     </>
   );

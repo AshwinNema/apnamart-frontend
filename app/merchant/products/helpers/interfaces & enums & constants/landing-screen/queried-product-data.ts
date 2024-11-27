@@ -9,7 +9,7 @@ interface keyValDetails {
   val: string;
 }
 
-interface descriptionStage {
+export interface descriptionStage {
   id: string;
   header?: string;
   details: string | keyValDetails[];
@@ -55,4 +55,5 @@ export interface queriedProduct {
   available: boolean;
   item: itemDetails;
   highlights: string[];
+  wishList?: { userId: number }[];
 }

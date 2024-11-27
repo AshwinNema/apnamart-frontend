@@ -6,3 +6,6 @@ export const dangerTheme = "hsl(339.20000000000005 90.36% 51.18%)";
 export const chatBoxMsgTheme = "hsl(212, 78%, 67%)";
 export const darkContainerTheme = "hsl(240 3.7% 15.88%)";
 export const cardWhite = "hsl(0 0% 100%)";
+export const leadText = "#878787";
+export const styledBorder = "#e0e0e0";
+export const buyNowButton = "#fb641b";
