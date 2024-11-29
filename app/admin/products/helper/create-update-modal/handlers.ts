@@ -9,20 +9,23 @@ import {
 } from "../interfaces & enums";
 import { successToast } from "@/app/_utils/toast";
 import { produce } from "immer";
+import { filterTypeOptions } from ".";
 export const mainTableClick = (
   data: ModalFilterItem,
   setConfig: Dispatch<SetStateAction<ItemFilterConfig>>,
-  mainFilterItemId: MainModalState["mainFilterItemId"],
 ) => {
-  const { id, name, options, deletedOptions } = data;
-  5;
+  const { id, name, options, deletedOptions, filterType } = data;
+
   setConfig(
     produce((draft) => {
       draft.createUpdateFilter = createUpdateFilterState.update;
       draft.updateFilterDetails = {
         name,
         optionCreateUpdateName: "",
-
+        filterType,
+        filterTypeVal:
+          filterTypeOptions.find((option) => option.id === filterType)?.label ||
+          "",
         options: options.map((item) => {
           return {
             id: item.id as string,
@@ -32,7 +35,6 @@ export const mainTableClick = (
         optionId: null,
         filterId: id,
         deletedOptions: deletedOptions || [],
-        isMainFilter: mainFilterItemId === id,
       };
     }),
   );

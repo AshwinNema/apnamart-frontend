@@ -23,3 +23,9 @@ export enum deletedItemDataViewerType {
   filter = "Filter",
   filterOption = "Filter Option",
 }
+
+export enum itemFilterType {
+  price = "price",
+  userMenu = "userMenu",
+  normal = "normal",
+}

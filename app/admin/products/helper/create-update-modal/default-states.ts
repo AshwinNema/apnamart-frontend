@@ -1,6 +1,8 @@
+import { filterTypeOptions } from ".";
 import {
   bodyState,
   createUpdateItemState,
+  itemFilterType,
   MainModalState,
 } from "../interfaces & enums";
 
@@ -15,7 +17,6 @@ export const getMainDefaultState = (): MainModalState => ({
   categoryVal: "",
   deletedOriginalItems: [],
   originalFilterItems: {},
-  mainFilterItemId: null,
   subCategoryId: null,
   subCategoryVal: "",
   subCatList: [],
@@ -42,6 +43,9 @@ export const getCreateUpdateItemConfig = (): createUpdateItemState => {
     optionId: null,
     filterId: null,
     deletedOptions: [],
-    isMainFilter: false,
+    filterType: itemFilterType.normal,
+    filterTypeVal:
+      filterTypeOptions.find((item) => item.id === itemFilterType.normal)
+        ?.label || "",
   };
 };

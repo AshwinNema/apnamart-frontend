@@ -68,12 +68,9 @@ const useModalMainState = (): [
     tab === tabKeys.items &&
       modalDetails?.id &&
       getItemFilters(modalDetails?.id, (list, filterMap) => {
-        const mainFilterItemId =
-          list.filter((item) => item.isMainFilter)[0]?.id || null;
         setMultiplePaths(setConfig)([
           ["filterItems", list],
           ["originalFilterItems", filterMap],
-          ["mainFilterItemId", mainFilterItemId],
         ]);
       });
   }, [modalDetails?.id, tab]);

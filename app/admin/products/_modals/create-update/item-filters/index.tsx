@@ -18,7 +18,7 @@ import * as _ from "lodash";
 import { Header } from "./sub-components";
 import { useProductSelector } from "@/lib/product/hooks";
 import { DeletedDataViewer } from "./deleted-data-viewer";
-
+import { produce } from "immer";
 // This is the central component for viewing filters, when user clicks for view filters this component is rendered
 // It shows all the filters present in the system
 // It has the following props :
@@ -40,6 +40,13 @@ const ItemFilters = () => {
     getDefaultItemFilterConfig(),
   );
   const isOpen = useProductSelector((state) => state.componentDetails.isOpen);
+  useEffect(() => {
+    setConfig(
+      produce((draft) => {
+        draft.createUpdateFilter = null;
+      }),
+    );
+  }, [mainState?.config?.bodyState]);
   useEffect(() => {
     !isOpen && setConfig(getDefaultItemFilterConfig());
   }, [isOpen]);
@@ -68,7 +75,7 @@ const ItemFilters = () => {
             <ItemTable
               tableType={itemTableType.main}
               onClick={(data) => {
-                mainTableClick(data, setConfig, mainConfig.mainFilterItemId);
+                mainTableClick(data, setConfig);
               }}
               hideTable={!!config.createUpdateFilter}
               items={mainState.config.filterItems}

@@ -27,7 +27,7 @@ export default function Footer({
             variant={variants.goBackBtn}
             fullWidth
             onClick={() => setData("currentStep")(0)}
-             className="text-white"
+            className="text-white"
           >
             Go Back
           </Button>

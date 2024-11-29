@@ -44,12 +44,6 @@ export const getItemTableCols = <T>(
     },
   ];
 
-  tableType === itemTableType.main &&
-    columns.push({
-      label: "Main Menu Filter",
-      key: "isMainFilter",
-    });
-
   columns.push({
     key: "actions",
     label: "Actions",

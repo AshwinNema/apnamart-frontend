@@ -9,9 +9,9 @@ import { setNestedPath } from "@/app/_utils";
 
 export const Header = () => {
   const filterState = useContext(FilterContext);
-  if (!filterState) return;
+  if (!filterState) return null;
   const { mainConfig: config, setMainConfig: setConfig } = filterState;
-  const setData = useCallback(setNestedPath(setConfig), [setConfig]);
+  const setData = setNestedPath(setConfig);
   return (
     <div className="flex justify-between items-center">
       <div className="font-bold">{getItemFilterHeader(config)}</div>
