@@ -4,11 +4,7 @@ import {
   multiplePathSetter,
   setKeyVal,
 } from "@/app/_utils";
-import {
-  AutoCompleteProps,
-  autoCompleteState,
-  TextInputState,
-} from "../interface";
+import { AutoCompleteProps, autoCompleteState } from "../interface";
 import { ZodSchema } from "zod";
 import React from "react";
 import { HTTP_METHODS, makeDataRequest } from "@/app/_services";

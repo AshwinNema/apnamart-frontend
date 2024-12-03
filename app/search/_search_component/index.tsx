@@ -1,44 +1,23 @@
 "use client";
-import { useParams } from "next/navigation";
-import { Fragment, useCallback, useEffect, useState } from "react";
-import { queryProducts } from "./helpers";
-import {
-  mainConfig,
-  getDefaultMainConfig,
-} from "./helpers/interfaces & constants & enums";
+import { Fragment } from "react";
+import { MainContext } from "./helpers";
 import { Card, CardBody, Divider } from "@nextui-org/react";
-import { ProductItem } from "./subcomponents";
+import { ProductItem } from "./subcomponents/product-item";
 import { PaginationComponent } from "@/app/_custom-components";
 import { setNestedPath } from "@/app/_utils";
-import { useAppSelector } from "@/lib/main/hooks";
+import { ProductFilter } from "./subcomponents/product-filter";
+import useConfigManager from "./useConfigManager";
+
 const ProductSearch = ({ type }: { type: "item" | "sub category" }) => {
-  const params = useParams();
-  const { id } = params;
-  const [config, setConfig] = useState<mainConfig>(getDefaultMainConfig());
-  const user = useAppSelector((state) => state.user);
-  const queryData = useCallback(
-    (page: number) => {
-      if (!Number(id)) return;
-
-      queryProducts(
-        {
-          page,
-          limit: config.limit,
-          [type === "item" ? "itemId" : "subCategoryId"]: Number(id),
-        },
-        setConfig,
-      );
-    },
-    [type, id],
-  );
-
-  useEffect(() => {
-    queryData(config.page);
-  }, [user]);
+  const [config, setConfig, queryData] = useConfigManager(type);
 
   return (
-    <>
-      <Card classNames={{ base: ["m-3"] }}>
+    <div className={`m-3 flex gap-3`}>
+      <MainContext.Provider value={{ config, setConfig }}>
+        {type === "item" && <ProductFilter />}
+      </MainContext.Provider>
+
+      <Card className="w-full">
         <CardBody>
           {config.results.map((productDetails, index) => {
             return (
@@ -60,7 +39,7 @@ const ProductSearch = ({ type }: { type: "item" | "sub category" }) => {
           )}
         </CardBody>
       </Card>
-    </>
+    </div>
   );
 };
 

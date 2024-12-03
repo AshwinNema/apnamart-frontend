@@ -53,7 +53,7 @@ export const ProductDetails = () => {
                 return (
                   <div
                     className={`border-styledBorder border-[0.5px] border-solid p-2`}
-                    key={details.id}
+                    key={stageDetails.id}
                   >
                     {!!stageDetails.header && (
                       <div className="font-normal text-xl mb-3">
