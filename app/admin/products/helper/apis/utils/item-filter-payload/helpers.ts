@@ -2,7 +2,6 @@ import {
   modalCreateUpdatePayloadParams,
   modalCreateUpdatePayload,
   updateFilter,
-  MainModalState,
 } from "../../../interfaces & enums";
 import * as _ from "lodash";
 
@@ -10,7 +9,6 @@ import * as _ from "lodash";
 export const processNewFilterItem = (
   item: modalCreateUpdatePayloadParams["config"]["filterItems"][number],
   newFilters: modalCreateUpdatePayload["newFilters"],
-  mainFilterItemId: MainModalState["mainFilterItemId"],
 ) => {
   const options = item.options.map((option) => {
     const optionData = _.omit(option, ["id"]);
@@ -18,8 +16,7 @@ export const processNewFilterItem = (
   });
   const data = {
     options,
-    ..._.omit(item, ["id", "deletedOptions", "options", "isMainFilter"]),
-    isMainFilter: mainFilterItemId === item.id,
+    ..._.omit(item, ["id", "deletedOptions", "options"]),
   };
   newFilters?.push(data);
 };
@@ -28,9 +25,8 @@ export const processNewFilterItem = (
 export const getUpdateFilterItem = (
   item: modalCreateUpdatePayloadParams["config"]["filterItems"][number],
   originalFilterItems: modalCreateUpdatePayloadParams["config"]["originalFilterItems"],
-  mainFilterItemId: MainModalState["mainFilterItemId"],
 ): updateFilter => {
-  const { id, name, options, deletedOptions } = item;
+  const { id, name, options, deletedOptions, filterType } = item;
   const originalItem = originalFilterItems[id];
   const originalOptionsMap = originalItem.options;
   const { createOptions, updateOptions } = options.reduce(
@@ -76,17 +72,14 @@ export const getUpdateFilterItem = (
 
   const updateItemPayload: updateFilter = {
     id: id as number,
-    isMainFilter: mainFilterItemId === id,
   };
 
-  const isMainFilter = mainFilterItemId === id;
-
-  if (isMainFilter != originalItem.isMainFilter) {
-    updateItemPayload.name = name;
-    updateItemPayload.isMainFilter = isMainFilter;
-  }
   if (name != originalItem.name) {
     updateItemPayload.name = name;
+  }
+
+  if (filterType != originalItem.filterType) {
+    updateItemPayload.filterType = filterType;
   }
   if (createOptions?.length) {
     updateItemPayload.createOptions = createOptions;

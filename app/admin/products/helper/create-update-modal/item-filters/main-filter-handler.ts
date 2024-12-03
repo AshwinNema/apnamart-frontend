@@ -35,11 +35,8 @@ export const mainItemFilterHandler = (
             name: data.name,
             id,
             options: data.options,
-            isMainFilter: data.isMainFilter,
+            filterType: data.filterType,
           });
-          if (data.isMainFilter) {
-            draft.mainFilterItemId = id;
-          }
         }),
       );
 
@@ -69,11 +66,8 @@ export const mainItemFilterHandler = (
               name: data.name,
               options: data.options,
               deletedOptions,
-              isMainFilter: data.isMainFilter,
+              filterType: data.filterType,
             };
-            if (data.isMainFilter) {
-              draft.mainFilterItemId = filterItems[updateIndex].id;
-            }
           }
         }),
       );

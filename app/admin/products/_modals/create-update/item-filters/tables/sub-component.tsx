@@ -1,6 +1,5 @@
 import { TableActions } from "@/app/_custom-components";
 import { itemTableType, MainModalContext } from "@/app/admin/products/helper";
-import { Checkbox } from "@nextui-org/react";
 import { useContext } from "react";
 import { itemTableProps } from ".";
 
@@ -21,29 +20,10 @@ export const TableSubComponent = <
 }) => {
   const mainState = useContext(MainModalContext);
   if (!mainState) return <></>;
-  const { setAllData } = mainState;
   switch (columnKey) {
     case "name":
       return <div className="text-lg">{data.name}</div>;
 
-    case "isMainFilter":
-      return (
-        <div className="flex justify-center">
-          <Checkbox
-            isSelected={data.id === mainState?.config?.mainFilterItemId}
-            onValueChange={(value) => {
-              setAllData &&
-                setAllData((prevConfig) => {
-                  return {
-                    ...prevConfig,
-                    mainFilterItemId: value ? data.id : null,
-                  };
-                });
-            }}
-            color="primary"
-          />
-        </div>
-      );
     case "actions":
       const label =
         tableType === itemTableType.main ? "Filter" : "Filter Option";

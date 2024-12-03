@@ -1,4 +1,5 @@
 import { tabKeys } from "@/lib/product/slices/component-details.slice";
+import { itemFilterType } from "./enums";
 // Terminology -
 // Filter Item - This is the main filter for the item
 // Filter option - This is tthe option for the filter item
@@ -12,12 +13,13 @@ export interface FilterItemOption {
 export interface DatabaseFilterItemOption extends Omit<FilterItemOption, "id"> {
   id: number;
 }
+
 // base for filter item as stored in the modal. id a string when it is first created in the modal, when data is received from the database, id becomes number
 export interface FilterItem {
   id: number | string;
   name: string;
   options: FilterItemOption[];
-  isMainFilter: boolean;
+  filterType: itemFilterType;
 }
 // filter item as per database
 export interface DatabaseFilterItem
@@ -62,7 +64,7 @@ export interface updateFilter {
   createOptions?: CreateFilterItemOption[];
   deleteOptions?: number[];
   updateOptions?: UpdateFilterItemOption[];
-  isMainFilter?: boolean;
+  filterType?: itemFilterType;
 }
 // MainModalState contains originalFilterItems that are the items that are stored in the database
 export interface originalFilterItem

@@ -5,16 +5,63 @@ import {
   storageAttributes,
 } from "@/app/_services";
 import { appEndPoints } from "@/app/_utils";
-import { setMainConfig } from "./interfaces & constants & enums";
+import {
+  mainConfig,
+  queryProductsData,
+  setMainConfig,
+} from "./interfaces & constants & enums";
 import { produce } from "immer";
+import { isPriceFilterSelected } from "./price-filter";
 
-export const queryProducts = (
-  query: {
-    page: number;
-    limit: number;
-    itemId?: number;
-    subCategoryId?: number;
-  },
+export const getQueryProductsQuery = (
+  page: number,
+  config: mainConfig,
+  type: "item" | "sub category",
+  id: number,
+) => {
+  const query: Parameters<queryProductsData>[0] = {
+    page,
+    limit: config.limit,
+    [type === "item" ? "itemId" : "subCategoryId"]: Number(id),
+  };
+  const { selectedOptions, priceFilter } = config;
+  const optionLength = Object.keys(selectedOptions).length;
+  if (optionLength) {
+    query.filterOptions = Object.keys(selectedOptions).join(",");
+  }
+
+  if (
+    priceFilter &&
+    isPriceFilterSelected(
+      priceFilter.options,
+      config.minPriceId,
+      config.maxPriceId,
+    )
+  ) {
+    const { options } = priceFilter;
+    const optionLength = options.length;
+    if (Number(config.minPriceId)) {
+      query.minPrice = Number(
+        options.find((option) => `${option.id}` === `${config.minPriceId}`)
+          ?.name,
+      );
+    }
+
+    const lastOptionId = options[optionLength - 1]?.id;
+
+    if (`${config.maxPriceId}` !== `${lastOptionId}`) {
+      query.maxPrice = Number(
+        options.find((option) => `${option.id}` === `${config.maxPriceId}`)
+          ?.name,
+      );
+    }
+  }
+
+  return query;
+};
+
+export const queryProducts: queryProductsData = (
+  query,
   setConfig: setMainConfig,
 ) => {
   const user = getLocalStorageKey(storageAttributes.user);

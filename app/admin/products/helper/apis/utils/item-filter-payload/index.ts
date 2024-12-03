@@ -12,13 +12,7 @@ export const processUpdateItemFilterPayload = (
 ): Partial<modalCreateUpdatePayload> => {
   const {
     tab,
-    config: {
-      id,
-      deletedOriginalItems,
-      filterItems,
-      originalFilterItems,
-      mainFilterItemId,
-    },
+    config: { id, deletedOriginalItems, filterItems, originalFilterItems },
   } = params;
   const finalItemUpdatePayload: Partial<modalCreateUpdatePayload> = {};
   if (!id || tab !== tabKeys.items) return finalItemUpdatePayload;
@@ -38,7 +32,7 @@ export const processUpdateItemFilterPayload = (
     ) => {
       switch (typeof item.id) {
         case "string":
-          processNewFilterItem(item, newFilters, mainFilterItemId);
+          processNewFilterItem(item, newFilters);
           break;
 
         case "number":
@@ -46,7 +40,6 @@ export const processUpdateItemFilterPayload = (
             const updateFilterPayload = getUpdateFilterItem(
               item,
               originalFilterItems,
-              mainFilterItemId,
             );
             if (Object.keys(updateFilterPayload).length > 1) {
               updateFilters?.push(updateFilterPayload);

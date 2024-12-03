@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { ZodError, ZodSchema, z } from "zod";
+import { ZodError, ZodSchema, ZodObject } from "zod";
 import { getLocalStorageKey, storageAttributes } from "../_services";
 import { browserTheme } from "../layout-components/theme-switch";
 import { errorToast } from ".";
@@ -22,7 +22,7 @@ export const getZodErrMsg = (error: ZodError<any>) => {
 
 export const validateZodSchema = <T>(
   validationData: T,
-  validation: ZodSchema<T>,
+  validation: ZodSchema<T> | ZodObject<any>,
   throwErr?: boolean,
   errorIcon?: toastErrorIcons,
 ) => {

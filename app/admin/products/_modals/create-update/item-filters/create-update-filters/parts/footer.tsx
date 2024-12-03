@@ -29,17 +29,6 @@ const Footer = ({
 
   return (
     <div className="flex flex-col gap-4 mt-4 mb-4">
-      {!mainConfig.createUpdateFilterOption && (
-        <div className="flex justify-end">
-          <Checkbox
-            isSelected={config.isMainFilter}
-            onValueChange={setNestedPath(setConfig)("isMainFilter")}
-            color="primary"
-          >
-            Is Main Filter?
-          </Checkbox>
-        </div>
-      )}
       <Button
         startContent={<RiColorFilterFill />}
         variant="bordered"

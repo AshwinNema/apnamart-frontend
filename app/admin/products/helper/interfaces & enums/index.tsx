@@ -12,7 +12,7 @@ import {
   updateFilter,
 } from "./interface-parts";
 import { tabKeys } from "@/lib/product/slices/component-details.slice";
-import { bodyState, createUpdateFilterState } from "./enums";
+import { bodyState, createUpdateFilterState, itemFilterType } from "./enums";
 export * from "./interface-parts";
 export * from "./enums";
 // for documentation please refer  app/admin/products/_modals/create-update/index.tsx
@@ -33,8 +33,8 @@ export interface MainModalState {
   subCatList: autoCompleteState["itemList"];
   categoryVal: string;
   subCategoryVal: string;
-  mainFilterItemId: null | string | number;
 }
+
 // Api params while query entity data
 export interface getDataQuery {
   limit: number;
@@ -62,7 +62,8 @@ export interface createUpdateItemState {
   optionId?: string | number | bigint | null;
   filterId?: string | number | bigint | null;
   deletedOptions: DatabaseFilterItemOption[];
-  isMainFilter: boolean;
+  filterType: itemFilterType;
+  filterTypeVal: string;
 }
 // Main params that are passed for the create update function that is used for performing entity crud
 export interface createUpdateParams {

@@ -2,9 +2,10 @@ import { z } from "zod";
 import * as _ from "lodash";
 import {
   createUpdateItemState,
+  itemFilterType,
   MainModalState,
 } from "../../interfaces & enums";
-import { errorToast, getZodErrMsg, toastErrorIcons } from "@/app/_utils";
+import { errorToast, toastErrorIcons, validateZodSchema } from "@/app/_utils";
 
 export const itemFilterSchema = z.object({
   name: z
@@ -31,14 +32,18 @@ export const itemFilterSchema = z.object({
       },
       { message: "All options must have a unique name" },
     ),
-  isMainFilter: z.boolean(),
+  filterType: z.enum([
+    itemFilterType.normal,
+    itemFilterType.userMenu,
+    itemFilterType.price,
+  ]),
 });
 
 export const validateFilter = (
   config: createUpdateItemState,
   filterItems: MainModalState["filterItems"],
 ) => {
-  const details = _.pick(config, ["name", "options", "isMainFilter"]);
+  const details = _.pick(config, ["name", "options", "filterType"]);
 
   const duplicateName = filterItems.filter(
     (item) => item.id !== config.filterId && item.name === config.name,
@@ -53,12 +58,12 @@ export const validateFilter = (
       error: true,
     };
   }
-  const { error, data } = itemFilterSchema.safeParse(details);
-  if (error) {
-    errorToast({
-      msg: getZodErrMsg(error),
-      iconType: toastErrorIcons.validation,
-    });
-  }
+  const { error, data } = validateZodSchema(
+    details,
+    itemFilterSchema,
+    true,
+    toastErrorIcons.validation,
+  );
+
   return { error, data };
 };

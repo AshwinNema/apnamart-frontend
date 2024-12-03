@@ -22,8 +22,10 @@ export const MainBodyAutoCompletes = () => {
           inputVal={mainConfig.categoryVal}
           setInputVal={setData("categoryVal")}
           onSelectionChange={(key) => {
+            const convertedKey = key ? Number(key) : null;
+            if (convertedKey === categoryId) return;
             setMultiplePaths(setAllData)([
-              ["categoryId", key ? Number(key) : null],
+              ["categoryId", convertedKey],
               ["subCategoryId", null],
               ["subCategoryVal", ""],
             ]);
@@ -34,20 +36,22 @@ export const MainBodyAutoCompletes = () => {
       )}
 
       {tab === tabKeys.items && (
-        <AutoComplete
-          label="Sub Category"
-          selectedKey={subCategoryId ? `${subCategoryId}` : null}
-          list={mainConfig.subCatList}
-          inputVal={mainConfig.subCategoryVal}
-          setInputVal={setData("subCategoryVal")}
-          onSelectionChange={(key) => {
-            setMultiplePaths(setAllData)([
-              ["subCategoryId", key ? Number(key) : null],
-            ]);
-          }}
-          isClearable={false}
-          fullWidth={true}
-        />
+        <>
+          <AutoComplete
+            label="Sub Category"
+            selectedKey={subCategoryId ? `${subCategoryId}` : null}
+            list={mainConfig.subCatList}
+            inputVal={mainConfig.subCategoryVal}
+            setInputVal={setData("subCategoryVal")}
+            onSelectionChange={(key) => {
+              setMultiplePaths(setAllData)([
+                ["subCategoryId", key ? Number(key) : null],
+              ]);
+            }}
+            isClearable={false}
+            fullWidth={true}
+          />
+        </>
       )}
     </>
   );

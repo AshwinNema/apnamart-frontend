@@ -40,7 +40,7 @@ export const getCreateUpdatePayload = ({
         options: item.options.map((option) => ({
           name: option.name,
         })),
-        isMainFilter: config.mainFilterItemId === item.id,
+        filterType: item.filterType,
       };
     });
   }

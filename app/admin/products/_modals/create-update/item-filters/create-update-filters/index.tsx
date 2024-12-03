@@ -1,4 +1,4 @@
-import { TextInput } from "@/app/_custom-components";
+import { AutoComplete, TextInput } from "@/app/_custom-components";
 import { setNestedPath } from "@/app/_utils";
 import { useCallback, useContext, useEffect, useState } from "react";
 import {
@@ -11,8 +11,9 @@ import {
   handleDeleteFilterItemOption,
   MainModalContext,
   restoreFilterItemOption,
+  filterTypeOptions,
 } from "../../../../helper";
-import Footer from "./footer";
+import { Footer, CommonInputs } from "./parts";
 import { ItemTable } from "../tables";
 import { DeletedDataViewer } from "../deleted-data-viewer";
 import { produce } from "immer";
@@ -41,22 +42,8 @@ const CreateUpdateFilter = () => {
   }, [mainConfig.updateFilterDetails, setMainConfig]);
   return (
     <div className="mt-5">
-      <TextInput
-        label="Name"
-        variant="underlined"
-        className="mb-3"
-        value={
-          mainConfig.createUpdateFilterOption
-            ? config.optionCreateUpdateName
-            : config.name
-        }
-        setData={(val: string) => {
-          if (mainConfig.createUpdateFilterOption) {
-            return setData("optionCreateUpdateName")(val);
-          }
-          return setData("name")(val);
-        }}
-      />
+      <CommonInputs config={config} setData={setData} />
+
       <ItemTable
         tableType={itemTableType.options}
         onClick={(data: itemFilterTabletem) => {
