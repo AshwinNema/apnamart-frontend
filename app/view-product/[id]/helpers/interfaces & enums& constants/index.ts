@@ -34,3 +34,10 @@ export type mainContext = {
   setConfig: setMainConfig;
   notifier: Subject<notifier>;
 };
+
+export interface productBtnConfig {
+  modalType: modalTypes;
+  showAddCartLoader: boolean;
+}
+
+export type setProductBtnConfig = Dispatch<SetStateAction<productBtnConfig>>;

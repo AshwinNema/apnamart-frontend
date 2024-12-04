@@ -1,7 +1,4 @@
-import {
-  mainConfig,
-  setMainConfig,
-} from "./interfaces & constants & enums";
+import { mainConfig, setMainConfig } from "./interfaces & constants & enums";
 import { createContext } from "react";
 
 export * from "./api";

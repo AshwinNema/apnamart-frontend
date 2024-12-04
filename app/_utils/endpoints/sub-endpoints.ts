@@ -76,4 +76,5 @@ export const customer = {
   CUSTOMER_MENU: `${backendService}customer/category-subcategory-item-menu`,
   ADD_REMOVE_WISHLIST_ITEM: `${backendService}customer/add-remove-wishlist-item/`,
   ADD_REMOVE_CART_ITEM: `${backendService}customer/add-remove-cart-item/`,
+  CART_ITEM_COUNT: `${backendService}customer/cart-item-count`,
 };

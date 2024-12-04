@@ -13,6 +13,7 @@ import { FcShop } from "react-icons/fc";
 import UserProfile from "../user-profile";
 import { UserRoleMenu } from "../user-role-menu";
 import { SpinnerLink } from "@/app/_custom-components";
+import { UserShoppingCart } from "./user-shopping-cart";
 
 export const MainNavBar = ({
   openModal,
@@ -65,9 +66,12 @@ export const MainNavBar = ({
           ) : null}
 
           {!!user ? (
-            <NavbarItem>
-              <UserProfile />
-            </NavbarItem>
+            <>
+              <UserShoppingCart />
+              <NavbarItem>
+                <UserProfile />
+              </NavbarItem>
+            </>
           ) : null}
         </NavbarContent>
       </Navbar>
