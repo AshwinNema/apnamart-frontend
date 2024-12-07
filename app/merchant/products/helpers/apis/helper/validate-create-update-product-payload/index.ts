@@ -19,11 +19,13 @@ export const validateAndGetCreateUpdateProductPayload = (
     deletedImgs,
     uploadedImgs,
   } = config;
+
   const basicDetails = _.pick(config, [
     "name",
     "price",
     "itemId",
     "highlights",
+    "allowedUnitsPerOrder",
   ]);
   const filterOptions = Object.values(selectedOptions);
   const deletedProductImgIds = deletedImgs.map(

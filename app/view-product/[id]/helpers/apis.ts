@@ -7,7 +7,11 @@ import {
 } from "@/app/_services";
 import { appEndPoints, errorToast, setVal } from "@/app/_utils";
 
-export const getProductData = (id: number, setData: setVal) => {
+export const getProductData = (
+  id: number,
+  setData: setVal,
+  onOperationComplete?: () => void,
+) => {
   const user = getLocalStorageKey(storageAttributes.user);
   makeDataRequest(
     HTTP_METHODS.GET,
@@ -20,14 +24,17 @@ export const getProductData = (id: number, setData: setVal) => {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      onOperationComplete && onOperationComplete();
     });
 };
 
 export const addRemoveCartProduct = (
   productId: number,
-  query: { connect: boolean; quantity?: number },
+  query: { connect: boolean },
   onFailure?: () => void,
-  onSuccess?: () => void,
+  onSuccess?: (res: number) => void,
   reqConfig?: fetchConfig,
 ) => {
   makeDataRequest(
@@ -42,7 +49,7 @@ export const addRemoveCartProduct = (
         onFailure && onFailure();
         return;
       }
-      onSuccess && onSuccess();
+      onSuccess && onSuccess(Object.keys(res.cartItems || {}).length);
     })
     .catch((err) => {
       errorToast({ msg: err.msg });

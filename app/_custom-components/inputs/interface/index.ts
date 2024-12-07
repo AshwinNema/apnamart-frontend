@@ -27,6 +27,11 @@ export interface TextInputProps {
   type?: string;
   isReadOnly?: boolean;
   color?: InputProps["color"];
+  showClearIcon?: boolean;
+  radius?: InputProps["radius"];
+  size?: InputProps["size"];
+  onBlur?: () => void;
+  disabled?: InputProps["disabled"];
 }
 
 export interface TextInputState {

@@ -60,6 +60,7 @@ export const setUpdateProductData = (
       draft.id = updateData.id;
       draft.name = updateData.name;
       draft.price = `${updateData.price}`;
+      draft.allowedUnitsPerOrder = `${updateData.allowedUnitsPerOrder}`;
       draft.category = updateData.item.category.name;
       draft.categoryId = updateData.item.category.id;
       draft.item = updateData.item.name;

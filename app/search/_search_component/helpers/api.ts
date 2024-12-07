@@ -90,5 +90,12 @@ export const queryProducts: queryProductsData = (
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      setConfig(
+        produce((draft) => {
+          draft.isDataLoaded = true;
+        }),
+      );
     });
 };

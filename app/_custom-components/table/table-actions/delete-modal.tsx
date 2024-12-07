@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonProps,
   Modal,
   ModalBody,
   ModalContent,
@@ -13,12 +14,16 @@ export const DeleteModal = ({
   deleteModalHeadertext,
   modalBodyMsg,
   deleteData,
+  deleteBtnText = "Delete",
+  deleteBtnColor = "danger",
 }: {
   isOpen?: boolean;
   onOpenChange: () => void;
   deleteModalHeadertext: string;
   modalBodyMsg: string;
   deleteData: () => void;
+  deleteBtnText?: string;
+  deleteBtnColor?: ButtonProps["color"];
 }) => {
   return (
     <>
@@ -33,8 +38,12 @@ export const DeleteModal = ({
               <ModalBody>{modalBodyMsg}</ModalBody>
 
               <ModalFooter>
-                <Button onClick={() => deleteData()} color="danger" fullWidth>
-                  Delete
+                <Button
+                  onClick={() => deleteData()}
+                  color={deleteBtnColor}
+                  fullWidth
+                >
+                  {deleteBtnText}
                 </Button>
                 <Button fullWidth color="secondary" onPress={onClose}>
                   Cancel

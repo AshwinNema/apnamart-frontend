@@ -46,6 +46,7 @@ export interface descriptionDetails {
 export interface queriedProduct {
   id: number;
   name: string;
+  allowedUnitsPerOrder: number;
   price: number;
   photos: uploadedImgDetails[];
   description: descriptionDetails;

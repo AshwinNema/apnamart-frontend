@@ -16,6 +16,7 @@ import { Subject } from "rxjs";
 import { ProductDetails } from "./components/product-details";
 import styles from "./styles.module.css";
 import { ProductBtns } from "./components/product-btns";
+import { Skeleton } from "@nextui-org/react";
 
 const MainComponent = () => {
   const { id } = useParams();
@@ -31,23 +32,30 @@ const MainComponent = () => {
       router.push("/");
       return;
     }
-    getProductData(productId, setData("details"));
+    getProductData(productId, setData("details"), () => {
+      setData("isDataLoaded")(true);
+    });
   }, [id, user]);
 
   return (
     <>
-      <MainContext.Provider value={{ config, setConfig, notifier }}>
-        <div className={`${styles["product-item-container"]}`}>
-          <div>
-            <ProductImages />
-            <ProductBtns />
+      <Skeleton
+        className={`${!config.isDataLoaded && "h-svh"}`}
+        isLoaded={config.isDataLoaded}
+      >
+        <MainContext.Provider value={{ config, setConfig, notifier }}>
+          <div className={`${styles["product-item-container"]}`}>
+            <div>
+              <ProductImages />
+              <ProductBtns />
+            </div>
+            <div className="relative">
+              <ProductDetails />
+              <MagnifiedImg />
+            </div>
           </div>
-          <div className="relative">
-            <ProductDetails />
-            <MagnifiedImg />
-          </div>
-        </div>
-      </MainContext.Provider>
+        </MainContext.Provider>
+      </Skeleton>
     </>
   );
 };
