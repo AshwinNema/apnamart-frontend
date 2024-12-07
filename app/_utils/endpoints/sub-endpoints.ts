@@ -77,4 +77,6 @@ export const customer = {
   ADD_REMOVE_WISHLIST_ITEM: `${backendService}customer/add-remove-wishlist-item/`,
   ADD_REMOVE_CART_ITEM: `${backendService}customer/add-remove-cart-item/`,
   CART_ITEM_COUNT: `${backendService}customer/cart-item-count`,
+  CART_ITEM_LIST: `${backendService}customer/cart-item-list`,
+  INCREASE_DECREASE_CART_ITEM_COUNT: `${backendService}customer/increase-decrease-cart-item-count/`,
 };

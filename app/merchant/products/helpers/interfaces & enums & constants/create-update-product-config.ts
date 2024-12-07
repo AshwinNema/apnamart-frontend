@@ -21,6 +21,7 @@ export interface createUpdateProductConfig {
   id?: number;
   name: string;
   price: string;
+  allowedUnitsPerOrder: string;
   category: string;
   categoryId: number | null;
   categoryList: productEntityList[];
@@ -57,6 +58,7 @@ export const getDefaultCreateUpdateProductConfig =
     category: "",
     categoryId: null,
     categoryList: [],
+    allowedUnitsPerOrder: "1",
     item: "",
     itemId: null,
     itemList: [],

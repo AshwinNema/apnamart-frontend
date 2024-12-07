@@ -45,6 +45,24 @@ export const ProductPriceNameRow = () => {
       </div>
 
       <TextInput
+        value={config.allowedUnitsPerOrder}
+        setData={setNestedPath(setConfig)("allowedUnitsPerOrder")}
+        type="number"
+        className="mb-3"
+        variant="flat"
+        classNames={{ mainWrapper: ["w-full"] }}
+        validationSchema={z.coerce
+          .number({
+            message: "Allowed units per order must be a number",
+          })
+          .min(1, {
+            message: "Allowed units per order cannot be less than 1",
+          })}
+        fullWidth={true}
+        isRequired={true}
+        label="Allowed units per order"
+      />
+      <TextInput
         value={config.price}
         setData={setNestedPath(setConfig)("price")}
         type="number"

@@ -57,7 +57,7 @@ export const HighlightPoint = ({ id, data }: { id: string; data: string }) => {
                       (item) => item.id === id,
                     );
                     if (pointerIndex != -1)
-                      draft.data[pointerIndex].data = data;
+                      draft.data[pointerIndex].data = data as string;
                   }),
                 );
               }}

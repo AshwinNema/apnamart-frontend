@@ -7,7 +7,11 @@ import {
 } from "@/app/_services";
 import { appEndPoints, errorToast, setVal } from "@/app/_utils";
 
-export const getProductData = (id: number, setData: setVal) => {
+export const getProductData = (
+  id: number,
+  setData: setVal,
+  onOperationComplete?: () => void,
+) => {
   const user = getLocalStorageKey(storageAttributes.user);
   makeDataRequest(
     HTTP_METHODS.GET,
@@ -20,6 +24,9 @@ export const getProductData = (id: number, setData: setVal) => {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      onOperationComplete && onOperationComplete();
     });
 };
 

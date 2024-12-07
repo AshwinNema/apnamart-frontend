@@ -34,7 +34,6 @@ export const imgHover = (
 ) => {
   const onMouseHover = (e: MouseEvent) => {
     if (!e.target) return;
-
     const imgDimensions = (
       e.target as HTMLImageElement
     ).getBoundingClientRect();

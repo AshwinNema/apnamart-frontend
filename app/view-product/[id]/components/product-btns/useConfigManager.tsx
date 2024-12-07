@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/main/hooks";
 import { modalTypes } from "@/app/layout-components/login-signup/constants";
 import { produce } from "immer";
 import { useParams, useRouter } from "next/navigation";
-import { setCartCount } from "@/lib/main/slices/cart-count/cart-count";
+import { setCartCount } from "@/lib/main/slices/cart-count/cart-count.slice";
 
 const useConfigManager = (): [
   () => void,
@@ -28,6 +28,7 @@ const useConfigManager = (): [
   const [config, setConfig] = useState<productBtnConfig>({
     modalType: modalTypes.login,
     showAddCartLoader: false,
+    showBuyNowSpinner: false,
   });
 
   useEffect(() => {

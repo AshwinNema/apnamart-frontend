@@ -21,6 +21,10 @@ export const getTableColumns = () => {
       label: "Price",
     },
     {
+      key: "allowedUnitsPerOrder",
+      label: "Allowed Units Per Order",
+    },
+    {
       key: "available",
       label: "Is product on sale?",
     },

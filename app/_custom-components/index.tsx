@@ -27,6 +27,7 @@ export const ImageComponent = ({
   alt,
   className,
   isBlurred = false,
+  onImgClick,
 }: {
   width: number | string;
   height: number | string;
@@ -34,12 +35,16 @@ export const ImageComponent = ({
   alt: string;
   className?: string;
   isBlurred?: boolean;
+  onImgClick?: () => void;
 }) => {
   return (
     <Image
       isBlurred={isBlurred}
       as={NextImage}
       width={width}
+      onClick={() => {
+        onImgClick && onImgClick();
+      }}
       height={height}
       src={src}
       alt={alt}

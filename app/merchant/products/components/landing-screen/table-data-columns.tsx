@@ -25,6 +25,8 @@ export const ProductTableDataColumns = ({
       return <div>{data?.item?.category?.name}</div>;
     case "item.name":
       return <div>{data?.item?.name}</div>;
+    case "allowedUnitsPerOrder":
+      return <div className="flex justify-center">{data[columnKey]}</div>;
     case "actions":
       return (
         <div className="flex">

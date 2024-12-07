@@ -5,7 +5,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import { UserRole } from "@/lib/main/slices/user/user.slice";
 import { HTTP_METHODS, makeDataRequest } from "@/app/_services";
 import { appEndPoints } from "@/app/_utils";
-import { setCartCount } from "@/lib/main/slices/cart-count/cart-count";
+import { setCartCount } from "@/lib/main/slices/cart-count/cart-count.slice";
 import useEventLoaderEmitter from "@/app/_custom-components/loaders/event-loader/useEventLoaderEmitter";
 import { EventLoader, loaderEvents } from "@/app/_custom-components";
 
@@ -14,7 +14,6 @@ export const UserShoppingCart = () => {
   const cartCount = useAppSelector((state) => state.cartCount);
   const eventEmitter = useEventLoaderEmitter();
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     if (user?.role !== UserRole.customer) {
       dispatch(setCartCount(0));

@@ -4,17 +4,25 @@ import styles from "../../styles.module.css";
 import { useCallback, useContext } from "react";
 import { MainContext } from "../../helpers";
 import { Button, Spinner } from "@nextui-org/react";
-import { useAppSelector } from "@/lib/main/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/main/hooks";
 import { setNestedPath } from "@/app/_utils";
 import useConfigManager from "./useConfigManager";
+import { setCartCheckoutItems } from "@/lib/main/slices/checkout-items/checkout-items.slice";
+import { useRouter } from "next/navigation";
+import { produce } from "immer";
 
 export const ProductBtns = () => {
   const mainContext = useContext(MainContext);
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+
   const [cartBtnPress, config, setConfig, isOpen, onOpenChange] =
     useConfigManager();
   const user = useAppSelector((state) => state.user);
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
+
   if (!mainContext) return null;
+
   return (
     <>
       <div
@@ -25,7 +33,7 @@ export const ProductBtns = () => {
       >
         <Button
           radius="none"
-          className="text-white"
+          className={`text-white ${config.showAddCartLoader && "bg-gray-700"}`}
           size="lg"
           color="warning"
           onPress={cartBtnPress}
@@ -42,7 +50,32 @@ export const ProductBtns = () => {
           )}
         </Button>
 
-        <Button radius="none" className="text-white bg-buyNowButton" size="lg">
+        <Button
+          onPress={() => {
+            const {
+              config: { details },
+            } = mainContext;
+            if (!details) return;
+            setConfig(
+              produce((draft) => {
+                draft.showBuyNowSpinner = true;
+              }),
+            );
+            dispatch(
+              setCartCheckoutItems([
+                {
+                  count: 1,
+                  details,
+                },
+              ]),
+            );
+            router.push("/checkout");
+          }}
+          radius="none"
+          className={`text-white ${config.showBuyNowSpinner ? "bg-gray-700" : "bg-buyNowButton"}`}
+          size="lg"
+        >
+          {config.showBuyNowSpinner && <Spinner />}
           Buy Now
         </Button>
       </div>

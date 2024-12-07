@@ -14,6 +14,7 @@ export interface mainConfig {
   smallerImgHeight: number;
   buttonLeftMargin: number;
   modalType: modalTypes;
+  isDataLoaded: boolean;
 }
 
 export const getDefaultMainConfig = (): mainConfig => ({
@@ -22,6 +23,7 @@ export const getDefaultMainConfig = (): mainConfig => ({
   smallerImgHeight: 1,
   buttonLeftMargin: 0,
   modalType: modalTypes.login,
+  isDataLoaded: false,
 });
 
 export * from "./notifications";
@@ -38,6 +40,7 @@ export type mainContext = {
 export interface productBtnConfig {
   modalType: modalTypes;
   showAddCartLoader: boolean;
+  showBuyNowSpinner: boolean;
 }
 
 export type setProductBtnConfig = Dispatch<SetStateAction<productBtnConfig>>;

@@ -32,7 +32,7 @@
 
 .create-product-name-price-photo-row {
   display: grid;
-  grid-template-columns: 8fr 2fr;
+  grid-template-columns: 8fr 2fr 2fr;
   align-items: center;
   gap: 2rem;
 }
@@ -51,4 +51,13 @@
 .customer-menu-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.user-card-grid {
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+}
+
+.nonShadowInput {
+  --tw-ring-shadow: none !important;
 }

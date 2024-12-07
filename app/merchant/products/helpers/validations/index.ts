@@ -33,6 +33,9 @@ const basicProductValidation = z.object({
   price: z.coerce
     .number({ message: "Price must be a number" })
     .positive({ message: "Price must be frater than 0" }),
+  allowedUnitsPerOrder: z.coerce
+    .number({ message: "Allowed units per order must be a number" })
+    .positive({ message: "Allowed units per order must be frater than 0" }),
   filterOptions: z.array(z.number().positive()),
   specification: z.union([
     requiredStringValidation("Specification"),

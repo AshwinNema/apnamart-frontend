@@ -10,7 +10,6 @@ import {
   MainContext,
   notifierTypes,
   productImgConfig,
-  setProductImgConfig,
 } from "../../../helpers";
 import { produce } from "immer";
 const useEventsManager = (details: {

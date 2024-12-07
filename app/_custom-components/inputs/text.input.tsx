@@ -8,13 +8,13 @@ import styles from "@/app/styles.module.css";
 
 export const TextInput = ({
   value,
-  validationSchema,
   Icon,
   className = "",
   variant = "bordered",
   autoFocus = false,
   labelPlacement = "inside",
   fullWidth = false,
+  showClearIcon = true,
   type = "text",
   color = "default",
   ...props
@@ -27,10 +27,10 @@ export const TextInput = ({
   });
   const setDataFunc = useCallback(setNestedPath(setConfig), [setConfig]);
   const isInvalid = () =>
-    invalidTextInputCheck(value, validationSchema, setDataFunc);
+    invalidTextInputCheck(value, props.validationSchema, setDataFunc);
 
   const EndContent = () => {
-    return !!value && !props.isReadOnly ? (
+    return !!value && !props.isReadOnly && showClearIcon ? (
       <ClearIcon onClick={() => props.setData && props.setData("")} />
     ) : null;
   };
@@ -55,12 +55,20 @@ export const TextInput = ({
       errorMessage={`${config.errorMsg}`}
       isRequired={props.isRequired}
       isClearable={false}
+      disabled={props.disabled}
       fullWidth={fullWidth}
       isReadOnly={props.isReadOnly}
+      radius={props.radius}
       type={type}
+      size={props.size}
       endContent={<EndContent />}
       onValueChange={(newVal) => {
-        if (type === "number" && `${Number(newVal)}` !== newVal) return;
+        if (
+          type === "number" &&
+          newVal !== "" &&
+          `${Number(newVal)}` !== newVal
+        )
+          return;
         props.setData && props.setData(newVal);
       }}
       label={config.label}
@@ -68,6 +76,7 @@ export const TextInput = ({
       placeholder={config.placeholder}
       variant={variant}
       onBlur={() => {
+        props.onBlur && props.onBlur();
         setDataFunc("invalid")(isInvalid());
       }}
     />
