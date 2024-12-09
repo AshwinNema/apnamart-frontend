@@ -7,6 +7,7 @@ export const getUserCartProducts = (
 ) => {
   makeDataRequest(HTTP_METHODS.GET, appEndPoints.CART_ITEM_LIST)
     .then((res) => {
+      if (!res) return;
       setData(res);
     })
     .catch((err) => {

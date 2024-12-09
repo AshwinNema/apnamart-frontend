@@ -7,12 +7,14 @@ import { Fragment, useEffect } from "react";
 import styles from "@/app/styles.module.css";
 import { Card } from "@nextui-org/react";
 import { MenuItem } from "./menu-item";
+import { usePathname } from "next/navigation";
 
 export const CustomerMenu = () => {
   const user = useAppSelector((state) => state.user) as UserInterface | null;
   const productMenu = useAppSelector((state) => state.productMenu);
   const menuLength = productMenu.length;
   const dispatch = useAppDispatch();
+  const path = usePathname();
 
   useEffect(() => {
     if ((user && user?.role !== UserRole.customer) || menuLength) return;
@@ -26,7 +28,12 @@ export const CustomerMenu = () => {
   }, [user?.role, menuLength]);
 
   if (user && user?.role !== UserRole.customer) return null;
-
+  if (
+    path.startsWith("/checkout") ||
+    path.startsWith("/cart") ||
+    path.startsWith("/profile")
+  )
+    return null;
   return (
     <>
       <div className="m-3 flex justify-center">

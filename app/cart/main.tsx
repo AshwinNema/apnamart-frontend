@@ -32,45 +32,47 @@ const Main = () => {
     !config.isCartLoaded || (config.isCartLoaded && !!productLength);
 
   return (
-    <MainContext.Provider
-      value={{
-        config,
-        setConfig,
-      }}
-    >
-      {showCartItems ? (
-        <div className="mb-3">
-          <div className={`mx-[10svh] gap-5 ${styles["user-card-grid"]}`}>
-            {!config.isCartLoaded ? (
-              <LoaderSkeleton />
-            ) : (
-              <>
-                <Card radius="none">
-                  {config.products.map((product, index) => {
-                    return (
-                      <Fragment key={product.details.id}>
-                        <CartItem index={index} product={product} />
-                      </Fragment>
-                    );
-                  })}
-                </Card>
-                <PriceDetailsCard />
-              </>
+    <div className="mt-3">
+      <MainContext.Provider
+        value={{
+          config,
+          setConfig,
+        }}
+      >
+        {showCartItems ? (
+          <div className="mb-3">
+            <div className={`mx-[10svh] gap-5 ${styles["user-card-grid"]}`}>
+              {!config.isCartLoaded ? (
+                <LoaderSkeleton />
+              ) : (
+                <>
+                  <Card radius="none">
+                    {config.products.map((product, index) => {
+                      return (
+                        <Fragment key={product.details.id}>
+                          <CartItem index={index} product={product} />
+                        </Fragment>
+                      );
+                    })}
+                  </Card>
+                  <PriceDetailsCard />
+                </>
+              )}
+            </div>
+            {config.isCartLoaded && (
+              <div className="sticky top-[64px] bottom-0 z-[10]">
+                <div className={`mx-[10svh] gap-5 ${styles["user-card-grid"]}`}>
+                  <PlaceOrderCard />
+                  <div></div>
+                </div>
+              </div>
             )}
           </div>
-          {config.isCartLoaded && (
-            <div className="sticky top-[64px] bottom-0 z-[10]">
-              <div className={`mx-[10svh] gap-5 ${styles["user-card-grid"]}`}>
-                <PlaceOrderCard />
-                <div></div>
-              </div>
-            </div>
-          )}
-        </div>
-      ) : (
-        <EmptyCart />
-      )}
-    </MainContext.Provider>
+        ) : (
+          <EmptyCart />
+        )}
+      </MainContext.Provider>
+    </div>
   );
 };
 

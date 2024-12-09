@@ -10,7 +10,7 @@ import { location, processQueryLocations } from "../../address/utils";
 export default function LocationAutoCompleteInput({
   setLocation,
 }: {
-  setLocation: (pos: [number, number], address: String) => void;
+  setLocation: (pos: [number, number], address: string) => void;
 }) {
   const [locationList, setLocationList] = useState<location[]>([]);
   const trackSelection = useRef(false);

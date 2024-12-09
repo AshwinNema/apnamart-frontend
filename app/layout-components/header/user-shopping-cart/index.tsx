@@ -11,7 +11,7 @@ import { EventLoader, loaderEvents } from "@/app/_custom-components";
 
 export const UserShoppingCart = () => {
   const user = useAppSelector((state) => state.user);
-  const cartCount = useAppSelector((state) => state.cartCount);
+  const cartCount = useAppSelector((state) => state.cartCount.count);
   const eventEmitter = useEventLoaderEmitter();
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -30,7 +30,7 @@ export const UserShoppingCart = () => {
         dispatch(setCartCount(typeof res === "number" ? res : 0));
       })
       .catch(() => {});
-  }, [user]);
+  }, [user, dispatch]);
 
   return (
     <>
