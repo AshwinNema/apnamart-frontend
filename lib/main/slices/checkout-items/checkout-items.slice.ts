@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface checkOutItem {
+export interface checkoutItem {
   count: number;
   details: {
     id: number;
@@ -13,7 +13,7 @@ export interface checkOutItem {
   };
 }
 
-const initialState: checkOutItem[] = [];
+const initialState: checkoutItem[] = [];
 
 export const cartCheckoutItemSlice = createSlice({
   name: "cartCheckoutItems",

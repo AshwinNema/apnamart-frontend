@@ -37,7 +37,7 @@ export default function UserAddress() {
   const displayMap = useMemo(
     () => (
       <MainMap
-        className="h-[40vh] min-h-[250px]"
+        className="h-[40svh] min-h-[250px]"
         center={[addressDetails.latitude, addressDetails.longtitude]}
         zoom={addressDetails.zoom}
         scrollWheelZoom={true}
