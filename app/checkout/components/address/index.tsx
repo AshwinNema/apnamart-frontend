@@ -8,10 +8,12 @@ import { AddressFooter } from "./address-footer";
 import { Header } from "./header";
 import useConfigManager from "./useConfigManager";
 import { produce } from "immer";
+import { useTheme } from "next-themes";
+import { browserTheme } from "@/app/layout-components/theme-switch";
 
 export const Address = () => {
   const [config, setConfig] = useConfigManager();
-
+  const { theme } = useTheme();
   const displayMap = useMemo(
     () => (
       <MainMap
@@ -34,11 +36,11 @@ export const Address = () => {
       <AccordionItem
         key={"1"}
         classNames={{
-          title: "text-white ml-5",
-          subtitle: "text-white ml-5",
+          title: "text-white ml-5 font-medium",
+          subtitle: "text-slate-300 ml-5 text-xs",
           heading: "bg-primary",
           indicator: "mr-5",
-          content: "p-5 bg-slate-200",
+          content: `p-5 ${theme === browserTheme.dark ? "bg-slate-900" : "bg-slate-200"}`,
         }}
         indicator={({ isOpen }) => (
           <>
@@ -59,7 +61,7 @@ export const Address = () => {
                 radius="none"
                 className="bg-white text-primary font-medium"
               >
-                Edit
+                Change
               </Button>
             )}
           </>

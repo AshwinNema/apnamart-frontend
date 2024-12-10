@@ -4,7 +4,11 @@ import { IoSaveSharp } from "react-icons/io5";
 import { AddressDetailsDrawer } from "./address-drawer";
 import styles from "@/app/styles.module.css";
 import { useContext } from "react";
-import { AddressContext, MainContext } from "../../helpers";
+import {
+  AddressContext,
+  checkIsAreaDeliverable,
+  MainContext,
+} from "../../helpers";
 import { produce } from "immer";
 
 export const AddressFooter = () => {
@@ -56,17 +60,21 @@ export const AddressFooter = () => {
         size="sm"
         variant="solid"
         onPress={() => {
-          mainContext.setConfig(
-            produce((draft) => {
-              draft.address = addressContext.config.details;
-              draft.selectedStage = null;
-            }),
-          );
-          addressContext.setConfig(
-            produce((draft) => {
-              draft.accordionVal = new Set([]);
-            }),
-          );
+          const details = addressContext.config.details;
+          const { latitude, longtitude } = details;
+          checkIsAreaDeliverable({ latitude, longtitude }, () => {
+            mainContext.setConfig(
+              produce((draft) => {
+                draft.address = details;
+                draft.selectedStage = null;
+              }),
+            );
+            addressContext.setConfig(
+              produce((draft) => {
+                draft.accordionVal = new Set([]);
+              }),
+            );
+          });
         }}
         endContent={<IoSaveSharp />}
       >

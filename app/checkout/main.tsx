@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Modals, Address } from "./components";
+import { Modals, Address, OrderSummary } from "./components";
 import { useAppDispatch, useAppSelector } from "@/lib/main/hooks";
 import {
   getDefaultConfig,
@@ -13,6 +13,7 @@ import { produce } from "immer";
 import { getUserCartProducts } from "../cart/helpers";
 import { setNestedPath } from "../_utils";
 import * as _ from "lodash";
+import { ComponentSkeleton } from "../_custom-components";
 
 const Main = () => {
   const cartCheckoutItems = useAppSelector((state) => state.cartCheckoutItems);
@@ -26,11 +27,14 @@ const Main = () => {
       setConfig(
         produce((draft) => {
           draft.cartItems = cartCheckoutItems;
+          draft.areCartItemsLoaded = true;
         }),
       );
       return;
     }
-    getUserCartProducts(setData("cartItems"));
+    getUserCartProducts(setData("cartItems"), () => {
+      setData("areCartItemsLoaded")(true);
+    });
   }, [cartCheckoutItems, dispatch]);
 
   useEffect(() => {
@@ -40,11 +44,16 @@ const Main = () => {
   return (
     <>
       <Modals />
-      <MainContext.Provider value={{ config, setConfig }}>
-        <div className="mx-[10svh] mt-5">
-          <Address />
-        </div>
-      </MainContext.Provider>
+      {!config.areCartItemsLoaded ? (
+        <ComponentSkeleton />
+      ) : (
+        <MainContext.Provider value={{ config, setConfig }}>
+          <div className="mx-[10svh] mt-5">
+            <Address />
+            <OrderSummary />
+          </div>
+        </MainContext.Provider>
+      )}
     </>
   );
 };

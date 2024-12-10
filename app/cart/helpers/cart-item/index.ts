@@ -13,11 +13,12 @@ export const cartItemMethods = (
   product: cartProduct,
   setConfig: setMainConfig,
 ) => {
-  const { startEndLoad, updateCartVal, quantityExceedErr } = cartItemHelpers(
-    setCartConfig,
-    product,
-    setConfig,
-  );
+  const {
+    startEndLoad,
+    updateCartVal,
+    quantityExceedErr,
+    belowPermissibleLimits,
+  } = cartItemHelpers(setCartConfig, product, setConfig);
 
   const setInputVal = (val: string) => {
     !val &&
@@ -27,7 +28,10 @@ export const cartItemMethods = (
         }),
       );
     if (!val || val === "-") return;
-
+    if (Number(val) <= 0) {
+      belowPermissibleLimits();
+      return;
+    }
     if (val && Number(val) > product.details.allowedUnitsPerOrder) {
       quantityExceedErr();
       return;
@@ -49,7 +53,7 @@ export const cartItemMethods = (
     switch (change) {
       case -1:
         if (product.count === 1) {
-          errorToast({ msg: "Count of the product cannot be less than 1" });
+          belowPermissibleLimits();
           return;
         }
         break;

@@ -27,6 +27,7 @@ export interface mainConfig {
     otherAddress: string;
   };
   selectedStage: null | number;
+  areCartItemsLoaded: boolean;
 }
 
 export type setMainConfig = Dispatch<SetStateAction<mainConfig>>;
@@ -42,6 +43,7 @@ export const getDefaultConfig = (): mainConfig => ({
     otherAddress: "",
   },
   selectedStage: null,
+  areCartItemsLoaded: false,
 });
 
 export interface addressConfig extends AddressDisplayState {
@@ -77,3 +79,11 @@ export const getDefaultAddressDrawerConfig = (): addressDrawerConfig => ({
 export type setAddressDrawerConfig = Dispatch<
   SetStateAction<addressDrawerConfig>
 >;
+
+export interface orderSummaryConfig {
+  accordionVal: Set<string>;
+}
+
+export const defaultOrderSummaryConfig = (): orderSummaryConfig => ({
+  accordionVal: new Set(),
+});

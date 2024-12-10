@@ -80,3 +80,9 @@ export const customer = {
   CART_ITEM_LIST: `${backendService}customer/cart-item-list`,
   INCREASE_DECREASE_CART_ITEM_COUNT: `${backendService}customer/increase-decrease-cart-item-count/`,
 };
+
+export const deliveryArea = {
+  UPDATE_DELIVERY_AREA: `${backendService}delivery-area`,
+  GET_ALL_DELIVERY_AREAS: `${backendService}delivery-area`,
+  CHECK_IS_AREA_DELIVERABLE: `${backendService}delivery-area/is-area-deliverable`,
+};

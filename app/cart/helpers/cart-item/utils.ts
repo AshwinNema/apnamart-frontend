@@ -51,9 +51,17 @@ export const cartItemHelpers = (
       msg: `You can order only ${product.details.allowedUnitsPerOrder} units of the ${product.details.name}`,
     });
   };
+
+  const belowPermissibleLimits = () => {
+    errorToast({
+      msg: `Count of item cannot be less than one`,
+    });
+  };
+
   return {
     startEndLoad,
     updateCartVal,
     quantityExceedErr,
+    belowPermissibleLimits,
   };
 };
