@@ -1,10 +1,16 @@
-"use client";
-import { useAppSelector } from "@/lib/main/hooks";
+import { UserRole } from "@/lib/main/slices/user/user.slice";
+import { ComponentSkeleton, ProtectedRoute } from "../_custom-components";
+import dynamic from "next/dynamic";
 
 const Page = () => {
-  const cartCheckoutItems = useAppSelector((state) => state.cartCheckoutItems);
-  console.log(cartCheckoutItems);
-  return <></>;
+  const MainComponent = dynamic(() => import("./main"), {
+    loading: () => <ComponentSkeleton />,
+  });
+  return (
+    <ProtectedRoute allowedRole={UserRole.customer}>
+      <MainComponent />
+    </ProtectedRoute>
+  );
 };
 
 export default Page;

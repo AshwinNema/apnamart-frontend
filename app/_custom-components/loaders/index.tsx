@@ -37,11 +37,13 @@ export const Spinner = () => {
 
 export const ComponentSkeleton = ({
   height = "h-svh",
+  isLoaded,
 }: {
   height?: string;
+  isLoaded?: boolean;
 }) => {
   return (
-    <Skeleton>
+    <Skeleton isLoaded={isLoaded}>
       <div className={`${height}`}></div>
     </Skeleton>
   );

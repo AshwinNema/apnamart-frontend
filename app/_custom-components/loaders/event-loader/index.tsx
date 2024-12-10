@@ -18,7 +18,7 @@ export type eventEmitterSubject =
       type: loaderEvents.stopSpinner;
     };
 
-export * from "./useEventLoaderEmitter";
+export { default as useEventLoaderEmitter } from "./useEventLoaderEmitter";
 export const EventLoader = ({
   emitter,
 }: {

@@ -22,6 +22,7 @@ export const PriceDetailsCard = () => {
   return (
     <div>
       <Card
+        radius="none"
         classNames={{
           header: ["font-medium", "text-leadText"],
           footer: ["font-medium", "text-lg"],
