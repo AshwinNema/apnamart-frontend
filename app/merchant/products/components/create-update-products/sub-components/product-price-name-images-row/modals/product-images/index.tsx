@@ -34,6 +34,7 @@ export const ProductImages = ({
     <>
       <Modal
         size="5xl"
+        scrollBehavior="inside"
         hideCloseButton
         isOpen={isOpen}
         onOpenChange={onOpenChange}
