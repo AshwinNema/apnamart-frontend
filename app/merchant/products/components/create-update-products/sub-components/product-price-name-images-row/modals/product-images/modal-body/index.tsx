@@ -27,13 +27,14 @@ export const MainModalBody = () => {
   }, [modalContext?.isOpen]);
 
   if (!mainContext || !modalContext) return null;
-  const { config } = modalContext;
+  const { config, setConfig } = modalContext;
 
   return (
     <ModalBody>
       <UploadViewImgToggler
         viewImgsState={viewImgsState}
         setViewImgsState={setViewImgsState}
+        setConfig={setConfig}
       />
       {config.view === "upload images" ? (
         <>
@@ -43,9 +44,14 @@ export const MainModalBody = () => {
         </>
       ) : (
         <>
-          {viewImgsState === "uploaded" && <UploadedImages />}
+          {viewImgsState === "uploaded" && (
+            <UploadedImages modalContext={modalContext} />
+          )}
           {viewImgsState === "deleted" && (
-            <DeletedImgViewer setViewImgsState={setViewImgsState} />
+            <DeletedImgViewer
+              setViewImgsState={setViewImgsState}
+              modalContext={modalContext}
+            />
           )}
         </>
       )}

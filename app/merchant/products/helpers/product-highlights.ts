@@ -41,7 +41,7 @@ export const addNewHighlightPointer = (
     produce((draft) => {
       draft.data.push({
         id: v4(),
-        data: newHighlightPoint,
+        data: newHighlightPoint as string,
       });
       draft.newHightlightPoint = "";
       draft.showAddNewBtn = true;

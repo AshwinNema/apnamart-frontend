@@ -1,11 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
 import { createUpdateProductConfig } from "./create-update-product-config";
-import { queriedProduct, uploadedImgDetails } from "./landing-screen";
+import { queriedProduct } from "./landing-screen";
 
 export * from "./specifications";
 export * from "./create-update-product-config";
 export * from "./description";
 export * from "./landing-screen";
+export * from "./uploaded-imgs";
 
 export interface mainConfig {
   currentState: "create" | "update" | "main screen";
@@ -36,26 +37,6 @@ export interface productFilterModalState {
 export type setProductFilterModalState = Dispatch<
   SetStateAction<productFilterModalState>
 >;
-
-export interface productImgsModalState {
-  view: "upload images" | "view images";
-  deletedImgs: uploadedImgDetails[];
-  uploadedImgs: uploadedImgDetails[];
-  cachedFiles: File[];
-  productImages: File[];
-}
-
-export type setProductImgsModalState = Dispatch<
-  SetStateAction<productImgsModalState>
->;
-
-export const getDefaultProductImgsModalState = (): productImgsModalState => ({
-  view: "upload images",
-  deletedImgs: [],
-  uploadedImgs: [],
-  cachedFiles: [],
-  productImages: [],
-});
 
 export interface productHighlightModalState {
   data: { id: string; data: string }[];

@@ -80,3 +80,17 @@ export const customer = {
   CART_ITEM_LIST: `${backendService}customer/cart-item-list`,
   INCREASE_DECREASE_CART_ITEM_COUNT: `${backendService}customer/increase-decrease-cart-item-count/`,
 };
+
+export const deliveryArea = {
+  UPDATE_DELIVERY_AREA: `${backendService}delivery-area`,
+  GET_ALL_DELIVERY_AREAS: `${backendService}delivery-area`,
+  CHECK_IS_AREA_DELIVERABLE: `${backendService}delivery-area/is-area-deliverable`,
+};
+
+export const checkout = {
+  CREATE_CHECKOUT_SESSION: `${backendService}checkout`,
+  UPDATE_CHECKOUT_DELIVERY_ADDRESS: `${backendService}checkout/address/`,
+  END_CHECKOUT_SESSION: `${backendService}checkout/end/`,
+  CHANGE_CHECKOUT_ITEM_QUANTITY: `${backendService}checkout/quantity-change/`,
+  REMOVE_CHECKOUT_ITEM: `${backendService}checkout/delete-item/`
+};

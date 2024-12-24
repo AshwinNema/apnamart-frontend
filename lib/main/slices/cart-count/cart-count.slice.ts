@@ -2,12 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const cartCountSlice = createSlice({
   name: "cartCount",
-  initialState: 0,
+  initialState: {
+    count: 0,
+    isFetched: false,
+  },
   reducers: {
-    setCartCount(_, action) {
-      return action.payload;
+    setCartCount(state, action) {
+      state.count = action.payload;
+      state.isFetched = true;
+    },
+    setCartCountLoaded(state) {
+      state.isFetched = true;
     },
   },
 });
 
-export const { setCartCount } = cartCountSlice.actions;
+export const { setCartCount, setCartCountLoaded } = cartCountSlice.actions;
