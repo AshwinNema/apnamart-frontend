@@ -1,5 +1,8 @@
-import { checkoutItem } from "@/lib/main/slices/checkout-items/checkout-items.slice";
-import { cartItemHelpers, MainContext } from "../../../helpers";
+import {
+  cartCheckoutItem,
+  cartItemHelpers,
+  MainContext,
+} from "../../../helpers";
 import { useContext, useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { produce } from "immer";
@@ -12,18 +15,18 @@ export const CartItemBtns = ({
   item,
   index,
 }: {
-  item: checkoutItem;
+  item: cartCheckoutItem;
   index: number;
 }) => {
-  const [config, setConfig] = useState({ count: "1" });
+  const [config, setConfig] = useState({ count: "1", isLoading: false });
 
   useEffect(() => {
     setConfig(
       produce((draft) => {
-        draft.count = `${item.count}`;
+        draft.count = `${item.quantity}`;
       }),
     );
-  }, [item.count]);
+  }, [item.quantity]);
   const context = useContext(MainContext);
   const { theme } = useTheme();
   if (!context) return null;
@@ -42,7 +45,7 @@ export const CartItemBtns = ({
         size="sm"
         radius="full"
         onPress={increaseDecreaseItemCount(-1)}
-        disabled={item.count === 1}
+        isDisabled={item.quantity === 1 || config.isLoading}
       >
         -
       </Button>
@@ -53,11 +56,12 @@ export const CartItemBtns = ({
         className="w-[3rem] outline-none focus:outline-styledBorder focus:border-styledBorder border-styledBorder border-[1px] text-center"
         showClearIcon={false}
         setData={setInputVal}
+        isReadOnly={config.isLoading}
         onBlur={() => {
           !config.count &&
             setConfig(
               produce((draft) => {
-                draft.count = `${item.count}`;
+                draft.count = `${item.quantity}`;
               }),
             );
         }}
@@ -74,6 +78,7 @@ export const CartItemBtns = ({
         onPress={increaseDecreaseItemCount(1)}
         size="sm"
         radius="full"
+        isDisabled={config.isLoading}
       >
         +
       </Button>

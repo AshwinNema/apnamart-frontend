@@ -10,8 +10,6 @@ import {
 } from "@nextui-org/react";
 import { useContext, useState } from "react";
 import { getTotalPrice, MainContext } from "../../helpers";
-import { useAppDispatch } from "@/lib/main/hooks";
-import { setCartCheckoutItems } from "@/lib/main/slices/checkout-items/checkout-items.slice";
 
 export const PriceDetailsCard = () => {
   const context = useContext(MainContext);
@@ -51,7 +49,6 @@ export const PriceDetailsCard = () => {
 
 export const PlaceOrderCard = () => {
   const context = useContext(MainContext);
-  const dispatch = useAppDispatch();
   const [showLoader, setShowLoader] = useState(false);
   const router = useRouter();
   if (!context) return null;
@@ -68,7 +65,6 @@ export const PlaceOrderCard = () => {
           <Button
             radius="none"
             onPress={() => {
-              dispatch(setCartCheckoutItems(context.config.products));
               setShowLoader(true);
               router.push("/checkout");
             }}

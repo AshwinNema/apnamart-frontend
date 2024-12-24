@@ -26,16 +26,6 @@ export const AddressContext = createContext<null | {
   setConfig: setAddressConfig;
 }>(null);
 
-export const setInitialAddress = (
-  setData: setVal,
-  address: UserInterface["address"],
-) => {
-  if (!address) return;
-  const keys = Object.keys(getDefaultConfig().address);
-  const addressData = _.pick(address, keys);
-  setData(addressData);
-};
-
 export const saveAddressDrawerVals = (
   details: addressDrawerConfig,
   setConfig: setAddressConfig,

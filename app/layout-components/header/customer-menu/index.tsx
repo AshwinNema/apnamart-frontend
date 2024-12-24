@@ -12,7 +12,7 @@ import { usePathname } from "next/navigation";
 export const CustomerMenu = () => {
   const user = useAppSelector((state) => state.user) as UserInterface | null;
   const productMenu = useAppSelector((state) => state.productMenu);
-  const menuLength = productMenu.length;
+  const menuLength = productMenu?.length || 0;
   const dispatch = useAppDispatch();
   const path = usePathname();
 

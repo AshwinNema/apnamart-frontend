@@ -5,7 +5,10 @@ import { FaCartShopping } from "react-icons/fa6";
 import { UserRole } from "@/lib/main/slices/user/user.slice";
 import { HTTP_METHODS, makeDataRequest } from "@/app/_services";
 import { appEndPoints } from "@/app/_utils";
-import { setCartCount } from "@/lib/main/slices/cart-count/cart-count.slice";
+import {
+  setCartCount,
+  setCartCountLoaded,
+} from "@/lib/main/slices/cart-count/cart-count.slice";
 import useEventLoaderEmitter from "@/app/_custom-components/loaders/event-loader/useEventLoaderEmitter";
 import { EventLoader, loaderEvents } from "@/app/_custom-components";
 
@@ -29,7 +32,10 @@ export const UserShoppingCart = () => {
       .then((res) => {
         dispatch(setCartCount(typeof res === "number" ? res : 0));
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => {
+        dispatch(setCartCountLoaded());
+      });
   }, [user, dispatch]);
 
   return (

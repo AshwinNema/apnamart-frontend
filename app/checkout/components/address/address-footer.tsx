@@ -4,12 +4,10 @@ import { IoSaveSharp } from "react-icons/io5";
 import { AddressDetailsDrawer } from "./address-drawer";
 import styles from "@/app/styles.module.css";
 import { useContext } from "react";
-import {
-  AddressContext,
-  checkIsAreaDeliverable,
-  MainContext,
-} from "../../helpers";
+import { AddressContext, updateDeliveryArea, MainContext } from "../../helpers";
 import { produce } from "immer";
+import * as _ from "lodash";
+import { addressType } from "@/lib/profile/slices/address-slice";
 
 export const AddressFooter = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -60,21 +58,36 @@ export const AddressFooter = () => {
         size="sm"
         variant="solid"
         onPress={() => {
-          const details = addressContext.config.details;
-          const { latitude, longtitude } = details;
-          checkIsAreaDeliverable({ latitude, longtitude }, () => {
-            mainContext.setConfig(
-              produce((draft) => {
-                draft.address = details;
-                draft.selectedStage = null;
-              }),
-            );
-            addressContext.setConfig(
-              produce((draft) => {
-                draft.accordionVal = new Set([]);
-              }),
-            );
-          });
+          const addressDetails = addressContext.config.details;
+
+          const updateDetails = _.pick(addressDetails, [
+            "latitude",
+            "longtitude",
+            "addressType",
+            "addressLine1",
+            "addressLine2",
+            "otherAddress",
+          ]);
+          updateDeliveryArea(
+            mainContext.config.checkoutId as number,
+            {
+              ...updateDetails,
+              addressType: updateDetails.addressType as addressType,
+            },
+            () => {
+              mainContext.setConfig(
+                produce((draft) => {
+                  draft.address = addressDetails;
+                  draft.selectedStage = null;
+                }),
+              );
+              addressContext.setConfig(
+                produce((draft) => {
+                  draft.accordionVal = new Set([]);
+                }),
+              );
+            },
+          );
         }}
         endContent={<IoSaveSharp />}
       >

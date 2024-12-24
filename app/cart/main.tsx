@@ -60,7 +60,7 @@ const Main = () => {
               )}
             </div>
             {config.isCartLoaded && (
-              <div className="sticky top-[64px] bottom-0 z-[10]">
+              <div className="sticky bottom-0 z-[10]">
                 <div className={`mx-[10svh] gap-5 ${styles["user-card-grid"]}`}>
                   <PlaceOrderCard />
                   <div></div>

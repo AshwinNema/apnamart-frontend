@@ -77,7 +77,7 @@ export const OrderSummary = () => {
         >
           {cartItems.map((item, index) => {
             return (
-              <Fragment key={item.details.id}>
+              <Fragment key={item.id}>
                 <OrderSummaryItem index={index} item={item} />
               </Fragment>
             );
