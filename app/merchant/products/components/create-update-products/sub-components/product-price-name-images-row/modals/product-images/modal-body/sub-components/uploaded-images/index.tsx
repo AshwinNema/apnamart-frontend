@@ -1,4 +1,5 @@
 import {
+  deleteUploadedImg,
   goBackward,
   goForward,
   ProductImgsModalContextType,
@@ -8,10 +9,16 @@ import { UploadedImg } from "./uploaded-img";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { Button } from "@nextui-org/react";
 import useConfigManager from "./useConfigManager";
+import styles from "@/app/styles.module.css";
 
-export const UploadedImages = ({modalContext}:{modalContext: ProductImgsModalContextType}) => {
+export const UploadedImages = ({
+  modalContext,
+}: {
+  modalContext: ProductImgsModalContextType;
+}) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [config, setConfig, uploadImgAction] = useConfigManager(modalContext);
+
   return (
     <>
       <div className="relative overflow-hidden">
@@ -32,18 +39,21 @@ export const UploadedImages = ({modalContext}:{modalContext: ProductImgsModalCon
             transform: `translateX(-${modalContext.config.translateUploadImgsX}px)`,
           }}
           ref={containerRef}
-          className="flex gap-3 relative"
+          className={`flex gap-3 relative ${styles["animatedTransition"]}`}
         >
           {modalContext.config.uploadedImgs.map((imgDetails, index) => {
             return (
               <Fragment key={imgDetails.cloudinary_public_id}>
                 <UploadedImg
-                  config={config}
-                  setConfig={modalContext.setConfig}
                   takeAction={(details) => {
-                    uploadImgAction(
-                      details,
-                      index,
+                    uploadImgAction(details, index);
+                  }}
+                  deleteImg={() => {
+                    deleteUploadedImg(
+                      modalContext.setConfig,
+                      imgDetails,
+                      config.itemWidth,
+                      setConfig,
                     );
                   }}
                   imgDetails={imgDetails}

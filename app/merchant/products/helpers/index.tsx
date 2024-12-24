@@ -51,7 +51,8 @@ export type ProductImgsModalContextType = {
   isOpen: boolean;
 };
 
-export const ProductImgsModalContext = createContext<null | ProductImgsModalContextType>(null);
+export const ProductImgsModalContext =
+  createContext<null | ProductImgsModalContextType>(null);
 
 export const ProductHighlightModalContext = createContext<null | {
   config: productHighlightModalState;

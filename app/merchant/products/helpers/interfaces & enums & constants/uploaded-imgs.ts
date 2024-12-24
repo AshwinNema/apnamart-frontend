@@ -34,9 +34,10 @@ export interface uploadedImgsConfig {
   showBackArrow: boolean;
   itemLeft: number[];
   scrollWidth: number;
-  hasScrolled: boolean;
+  hasInteracted: boolean;
   totalVisibleElements: number;
   lastVisibleIndex: number;
+  itemWidth: number;
 }
 
 export type setUploadedImgsConfig = Dispatch<
@@ -48,9 +49,10 @@ export const defaultUploadedImgsConfig = (): uploadedImgsConfig => ({
   showBackArrow: false,
   itemLeft: new Array(25).fill(0),
   scrollWidth: 0,
-  hasScrolled: false,
+  hasInteracted: false,
   totalVisibleElements: 1,
   lastVisibleIndex: -1,
+  itemWidth: 0,
 });
 
 export type uploadImgActions = {
@@ -62,20 +64,27 @@ export type uploadImgActions = {
 };
 
 export interface uploadImgProps {
-  config: uploadedImgsConfig;
   imgDetails: uploadedImgDetails;
   index: number;
-  setConfig: setProductImgsModalState;
   takeAction: (details: uploadImgActions) => void;
+  deleteImg: () => void;
 }
 
 export interface deletedImgProps {
   imageDetails: uploadedImgDetails;
   config: uploadedImgsConfig;
   index: number;
+  setConfig: setUploadedImgsConfig;
   handleImageIntersection: (
     isIntersecting: boolean,
     bounds: DOMRect,
     index: number,
   ) => void;
 }
+
+export type deleteImgsHook = [
+  uploadedImgsConfig,
+  setUploadedImgsConfig,
+  (isIntersecting: boolean, bounds: DOMRect, index: number) => void,
+  () => void,
+];

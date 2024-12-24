@@ -8,16 +8,16 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import { MdAutoDelete } from "react-icons/md";
 import { GrOverview } from "react-icons/gr";
 import { MainViewToggler } from "./sub-components";
-import {produce} from "immer"
+import { produce } from "immer";
 
 export const UploadViewImgToggler = ({
   viewImgsState,
   setViewImgsState,
-  setConfig
+  setConfig,
 }: {
   viewImgsState: "uploaded" | "deleted";
   setViewImgsState: Dispatch<SetStateAction<"uploaded" | "deleted">>;
-  setConfig: setProductImgsModalState
+  setConfig: setProductImgsModalState;
 }) => {
   const mainContext = useContext(MainCreateUpdateProductContext);
   const modalContext = useContext(ProductImgsModalContext);
@@ -39,16 +39,17 @@ export const UploadViewImgToggler = ({
                     <span>
                       <Button
                         onPress={() => {
-                          setConfig(produce((draft) => {
-                            draft.translateUploadImgsX = 0
-                            draft.translateDeletedImgsX = 0
-                          }))
+                          setConfig(
+                            produce((draft) => {
+                              draft.translateUploadImgsX = 0;
+                              draft.translateDeletedImgsX = 0;
+                            }),
+                          );
                           setViewImgsState((prevView) => {
                             return prevView === "deleted"
                               ? "uploaded"
                               : "deleted";
                           });
-                         
                         }}
                         className="bg-transparent cursor-pointer"
                       >

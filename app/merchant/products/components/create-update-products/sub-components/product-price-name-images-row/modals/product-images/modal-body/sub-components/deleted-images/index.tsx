@@ -5,6 +5,7 @@ import { produce } from "immer";
 import useConfigManager from "./useConfigManager";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { DeletedImg } from "./deleted-img";
+import styles from "@/app/styles.module.css";
 
 export const DeletedImgViewer = ({
   setViewImgsState,
@@ -13,7 +14,8 @@ export const DeletedImgViewer = ({
   setViewImgsState: Dispatch<SetStateAction<"uploaded" | "deleted">>;
   modalContext: ProductImgsModalContextType;
 }) => {
-  const [config, handleImageIntersection, goForward] = useConfigManager();
+  const [config, setConfig, handleImageIntersection, goForward] =
+    useConfigManager();
   useEffect(() => {
     modalContext?.config?.deletedImgs?.length === 0 &&
       setViewImgsState("uploaded");
@@ -49,7 +51,7 @@ export const DeletedImgViewer = ({
         style={{
           transform: `translateX(-${modalContext.config.translateDeletedImgsX}px)`,
         }}
-        className={`flex gap-3 relative`}
+        className={`flex gap-3 relative ${styles["animatedTransition"]}`}
       >
         {modalContext.config.deletedImgs.map((imageDetails, index) => {
           return (
@@ -59,6 +61,7 @@ export const DeletedImgViewer = ({
                 imageDetails={imageDetails}
                 config={config}
                 handleImageIntersection={handleImageIntersection}
+                setConfig={setConfig}
               />
             </Fragment>
           );

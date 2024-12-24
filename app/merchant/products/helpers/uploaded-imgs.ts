@@ -2,6 +2,7 @@ import {
   uploadedImgsConfig,
   setUploadedImgsConfig,
   setProductImgsModalState,
+  uploadImgProps,
 } from "./interfaces & enums & constants";
 import { produce } from "immer";
 
@@ -19,25 +20,26 @@ export const goForward = (
   setModalConfig: setProductImgsModalState,
   setConfig: setUploadedImgsConfig,
 ) => {
-  const width = config.itemLeft[1] - config.itemLeft[0];
+  const width = config.itemWidth;
   setConfig(
     produce((draft) => {
-      draft.hasScrolled = true;
+      draft.hasInteracted = true;
     }),
   );
   setModalConfig(
     produce((draft) => {
       const lastIndex = draft.uploadedImgs.length - 1;
-      if (draft.lastVisibleUploadIndex === lastIndex) return
+
+      if (draft.lastVisibleUploadIndex === lastIndex) return;
       let scrollWidth = config.scrollWidth;
       let nextLast = draft.lastVisibleUploadIndex + config.totalVisibleElements;
-    
+
       if (nextLast > lastIndex) {
         scrollWidth = (lastIndex - draft.lastVisibleUploadIndex) * width;
-        nextLast = lastIndex
+        nextLast = lastIndex;
       }
       draft.translateUploadImgsX += scrollWidth;
-      draft.lastVisibleUploadIndex = nextLast
+      draft.lastVisibleUploadIndex = nextLast;
     }),
   );
 };
@@ -56,6 +58,43 @@ export const goBackward = (
         0,
         draft.translateUploadImgsX - config.scrollWidth,
       );
+    }),
+  );
+};
+
+export const deleteUploadedImg = (
+  setConfig: setProductImgsModalState,
+  imgDetails: uploadImgProps["imgDetails"],
+  width: number,
+  setUploadConfig: setUploadedImgsConfig,
+) => {
+  setUploadConfig(
+    produce((draft) => {
+      draft.hasInteracted = true;
+    }),
+  );
+
+  setConfig(
+    produce((draft) => {
+      const lastIndex = draft.uploadedImgs.length - 1;
+      draft.deletedImgs.push(imgDetails);
+      draft.uploadedImgs = draft.uploadedImgs.filter(
+        (newUploadedImgDetails) =>
+          imgDetails.cloudinary_public_id !==
+          newUploadedImgDetails.cloudinary_public_id,
+      );
+      draft.lastVisibleUploadIndex = Math.min(
+        draft.lastVisibleUploadIndex,
+        lastIndex,
+      );
+      draft.lastVisibleUploadIndex = Math.max(draft.lastVisibleUploadIndex, 0);
+      if (lastIndex === draft.lastVisibleUploadIndex) {
+        draft.translateUploadImgsX = Math.max(
+          draft.translateUploadImgsX - width,
+          0,
+        );
+        draft.lastVisibleUploadIndex -= 1;
+      }
     }),
   );
 };

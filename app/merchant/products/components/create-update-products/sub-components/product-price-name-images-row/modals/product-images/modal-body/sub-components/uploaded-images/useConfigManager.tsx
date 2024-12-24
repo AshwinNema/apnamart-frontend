@@ -19,14 +19,14 @@ const useConfigManager = (
     defaultUploadedImgsConfig(),
   );
 
-  const width = config.itemLeft[1] - config.itemLeft[0];
   useEffect(() => {
-    if (config.hasScrolled || !modalContext) return;
+    if (config.hasInteracted || !modalContext) return;
 
     setConfig(
       produce((draft) => {
-        if (draft.hasScrolled) return;
+        if (draft.hasInteracted) return;
         const { lastVisibleIndex } = draft;
+        draft.itemWidth = draft.itemLeft[1] - draft.itemLeft[0];
         draft.scrollWidth =
           draft.itemLeft[lastVisibleIndex + 1] - draft.itemLeft[0];
         draft.totalVisibleElements = lastVisibleIndex + 1;
@@ -38,10 +38,10 @@ const useConfigManager = (
       }),
     );
   }, [
-    config.hasScrolled,
+    config.hasInteracted,
     config.itemLeft[0],
+    config.itemLeft[1],
     config.lastVisibleIndex,
-    modalContext,
   ]);
 
   const uploadImgAction = useCallback(
@@ -55,7 +55,7 @@ const useConfigManager = (
             setConfig(
               produce((draft) => {
                 draft.itemLeft[index] = bounds.left;
-                if (!draft.hasScrolled && isIntersecting) {
+                if (!draft.hasInteracted && isIntersecting) {
                   draft.lastVisibleIndex = Math.max(
                     draft.lastVisibleIndex,
                     index,
@@ -82,7 +82,7 @@ const useConfigManager = (
           break;
       }
     },
-    [modalContext, width],
+    [modalContext],
   );
 
   return [config, setConfig, uploadImgAction];

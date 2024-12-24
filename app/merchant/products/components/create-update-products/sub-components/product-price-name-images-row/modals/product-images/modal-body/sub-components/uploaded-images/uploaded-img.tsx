@@ -1,20 +1,15 @@
-import {
-  uploadImgProps,
-} from "@/app/merchant/products/helpers";
+import { uploadImgProps } from "@/app/merchant/products/helpers";
 import { Button, Tooltip } from "@nextui-org/react";
 import { useEffect, useRef } from "react";
-import { produce } from "immer";
 import { ImageComponent } from "@/app/_custom-components";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
 export const UploadedImg = ({
   imgDetails,
   index,
-  setConfig,
   takeAction,
-  config,
+  deleteImg,
 }: uploadImgProps) => {
-  const width = config.itemLeft[1] - config.itemLeft[0];
   const containerRef = useRef<null | HTMLDivElement>(null);
   const hasIntersected = useRef(false);
 
@@ -51,10 +46,7 @@ export const UploadedImg = ({
   }, [index]);
 
   return (
-    <div
-      className={`flex gap-3 items-center min-w-[250px]`}
-      ref={containerRef}
-    >
+    <div className={`flex gap-3 items-center min-w-[250px]`} ref={containerRef}>
       <ImageComponent
         src={imgDetails.url}
         width={200}
@@ -64,33 +56,7 @@ export const UploadedImg = ({
       <Tooltip color="danger" content="Remove uploaded image">
         <Button
           onPress={() => {
-            setConfig(
-              produce((draft) => {
-                const lastIndex = draft.uploadedImgs.length - 1;
-                draft.deletedImgs.push(imgDetails);
-                draft.uploadedImgs = draft.uploadedImgs.filter(
-                  (newUploadedImgDetails) =>
-                    imgDetails.cloudinary_public_id !==
-                    newUploadedImgDetails.cloudinary_public_id,
-                );
-                draft.lastVisibleUploadIndex = Math.min(
-                  draft.lastVisibleUploadIndex,
-                  lastIndex,
-                );
-                draft.lastVisibleUploadIndex = Math.max(
-                  draft.lastVisibleUploadIndex,
-                  0,
-                );
-
-                if (lastIndex === draft.lastVisibleUploadIndex) {
-                  draft.translateUploadImgsX = Math.max(
-                    draft.translateUploadImgsX - width,
-                    0,
-                  );
-                  draft.lastVisibleUploadIndex -= 1
-                }
-              }) ,
-            );
+            deleteImg();
           }}
           isIconOnly={true}
           className="bg-transparent"

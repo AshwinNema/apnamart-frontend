@@ -2,26 +2,24 @@ import {
   defaultUploadedImgsConfig,
   ProductImgsModalContext,
   uploadedImgsConfig,
+  deleteImgsHook,
 } from "@/app/merchant/products/helpers";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { produce } from "immer";
 
-const useConfigManager = (): [
-  uploadedImgsConfig,
-  (isIntersecting: boolean, bounds: DOMRect, index: number) => void,
-  () => void,
-] => {
+const useConfigManager = (): deleteImgsHook => {
   const modalContext = useContext(ProductImgsModalContext);
   const [config, setConfig] = useState<uploadedImgsConfig>(
     defaultUploadedImgsConfig(),
   );
-  const width = config.itemLeft[1] - config.itemLeft[0];
+
   useEffect(() => {
-    if (config.hasScrolled || !modalContext) return;
+    if (config.hasInteracted || !modalContext) return;
     const { lastVisibleIndex } = config;
     setConfig(
       produce((draft) => {
-        if (draft.hasScrolled) return;
+        if (draft.hasInteracted) return;
+        draft.itemWidth = config.itemLeft[1] - config.itemLeft[0];
         draft.scrollWidth =
           draft.itemLeft[lastVisibleIndex + 1] - draft.itemLeft[0];
         draft.totalVisibleElements = lastVisibleIndex + 1;
@@ -33,8 +31,9 @@ const useConfigManager = (): [
       }),
     );
   }, [
-    config.hasScrolled,
+    config.hasInteracted,
     config.itemLeft[0],
+    config.itemLeft[1],
     modalContext,
     config.lastVisibleIndex,
   ]);
@@ -45,7 +44,7 @@ const useConfigManager = (): [
       setConfig(
         produce((draft) => {
           draft.itemLeft[index] = bounds.left;
-          if (!draft.hasScrolled && isIntersecting) {
+          if (!draft.hasInteracted && isIntersecting) {
             draft.lastVisibleIndex = Math.max(draft.lastVisibleIndex, index);
           }
         }),
@@ -65,16 +64,17 @@ const useConfigManager = (): [
           }),
         );
     },
-    [modalContext, width],
+    [modalContext],
   );
 
   const goForward = useCallback(() => {
     if (!modalContext) return;
     setConfig(
       produce((draft) => {
-        draft.hasScrolled = true;
+        draft.hasInteracted = true;
       }),
     );
+    const width = config.itemWidth;
     modalContext.setConfig(
       produce((draft) => {
         const lastIndex = draft.deletedImgs.length - 1;
@@ -94,8 +94,8 @@ const useConfigManager = (): [
         draft.lastVisibleDeletedIndex = lastVisibleDeletedIndex;
       }),
     );
-  }, [modalContext, width]);
-  return [config, handleImageIntersection, goForward];
+  }, [modalContext]);
+  return [config, setConfig, handleImageIntersection, goForward];
 };
 
 export default useConfigManager;
