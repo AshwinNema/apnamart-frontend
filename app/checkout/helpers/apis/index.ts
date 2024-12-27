@@ -6,6 +6,7 @@ import { produce } from "immer";
 import { addressType } from "@/lib/profile/slices/address-slice";
 
 export * from "./session";
+export * from "./payment";
 
 export const updateDeliveryArea = (
   sessionId: number,

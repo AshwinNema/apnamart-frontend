@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Modals, Address, OrderSummary } from "./components";
+import { Modals, Address, OrderSummary, PaymentOptions } from "./components";
 import { useAppDispatch, useAppSelector } from "@/lib/main/hooks";
 import {
   createCheckoutSession,
@@ -50,7 +50,7 @@ const Main = () => {
           <div className="mx-[10svh] mt-5">
             <Address />
             <OrderSummary />
-            {/* <PaymentOptions /> */}
+            <PaymentOptions />
           </div>
         </MainContext.Provider>
       )}

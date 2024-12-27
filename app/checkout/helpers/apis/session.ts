@@ -1,5 +1,6 @@
 import { HTTP_METHODS, makeDataRequest } from "@/app/_services";
 import { appEndPoints } from "@/app/_utils";
+import { paymentOptions } from "../interfaces & enums & constants";
 
 export const endCheckoutSession = (sessionId: number) => {
   makeDataRequest(
@@ -53,4 +54,25 @@ export const removeCheckoutItem = (itemId: number, onSuccess?: () => void) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+export const changePaymentMode = (
+  sessionId: number,
+  paymentMode: paymentOptions,
+  onSuccess?: (res: {
+    razorpayPaymentId?: string;
+    stripePaymentId?: string;
+    totalPrice: number;
+  }) => void,
+) => {
+  makeDataRequest(
+    HTTP_METHODS.PUT,
+    `${appEndPoints.CHANGE_CHECKOUT_PAYMENT_MODE}${sessionId}`,
+    { paymentMode },
+  )
+    .then((res) => {
+      if (!res) return;
+      onSuccess && onSuccess(res);
+    })
+    .catch((err) => {});
 };

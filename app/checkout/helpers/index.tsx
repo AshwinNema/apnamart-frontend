@@ -2,24 +2,25 @@ import { createContext } from "react";
 import {
   addressConfig,
   addressDrawerConfig,
-  getDefaultConfig,
   mainConfig,
   setAddressConfig,
   setMainConfig,
 } from "./interfaces & enums & constants";
-import { UserInterface } from "@/lib/main/slices/user/user.slice";
-import { setVal, successToast, validateZodSchema } from "@/app/_utils";
+import { successToast, validateZodSchema } from "@/app/_utils";
 import { produce } from "immer";
 import * as _ from "lodash";
 import { drawerValidation } from "@/app/profile/address/utils";
 export * from "./order-summary";
 export * from "./interfaces & enums & constants";
 export * from "./apis";
+export * from "./checkout";
 
-export const MainContext = createContext<null | {
+export type MainContextType = {
   config: mainConfig;
   setConfig: setMainConfig;
-}>(null);
+};
+
+export const MainContext = createContext<null | MainContextType>(null);
 
 export const AddressContext = createContext<null | {
   config: addressConfig;

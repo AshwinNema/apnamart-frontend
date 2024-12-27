@@ -14,7 +14,6 @@ export const cartItemHelpers = (
     SetStateAction<{ count: string; isLoading: boolean }>
   >,
 ) => {
-
   const updateCartItemQuantity = (change?: -1 | 1, quantity?: number) => {
     setCartConfig(
       produce((draft) => {
@@ -22,16 +21,18 @@ export const cartItemHelpers = (
       }),
     );
 
-    const body: {change?: -1 | 1, quantity?: number} = {}
-    if (change) body.change = change
-    if (quantity) body.quantity = quantity
+    const body: { change?: -1 | 1; quantity?: number } = {};
+    if (change) body.change = change;
+    if (quantity) body.quantity = quantity;
     changeCheckoutItemQuantity(
       item.id,
       body,
       (quantity) => {
-        setConfig(produce((draft) => {
-          draft.cartItems[index].quantity = quantity
-        }))
+        setConfig(
+          produce((draft) => {
+            draft.cartItems[index].quantity = quantity;
+          }),
+        );
       },
       () => {
         setCartConfig(
@@ -41,7 +42,7 @@ export const cartItemHelpers = (
         );
       },
     );
-  }
+  };
 
   const setInputVal = (val: string) => {
     !val &&
@@ -54,11 +55,11 @@ export const cartItemHelpers = (
     if (!val || val === "-") return;
 
     const numberVal = Number(val);
-    updateCartItemQuantity(undefined, numberVal)
+    updateCartItemQuantity(undefined, numberVal);
   };
 
   const increaseDecreaseItemCount = (change: -1 | 1) => () => {
-    updateCartItemQuantity(change)
+    updateCartItemQuantity(change);
   };
   return { increaseDecreaseItemCount, setInputVal };
 };
