@@ -61,7 +61,7 @@ export const PaymentOptions = () => {
                       () => {
                         loaderEmitter.next({
                           type: loaderEvents.routeNavigation,
-                          route: "/payment-sucess",
+                          route: "/payment-success",
                         });
                       },
                     );

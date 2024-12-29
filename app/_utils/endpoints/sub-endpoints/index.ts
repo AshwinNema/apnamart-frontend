@@ -53,5 +53,5 @@ export const checkout = {
   CHANGE_CHECKOUT_ITEM_QUANTITY: `${backendService}checkout/quantity-change/`,
   REMOVE_CHECKOUT_ITEM: `${backendService}checkout/delete-item/`,
   CHANGE_CHECKOUT_PAYMENT_MODE: `${backendService}checkout/change-paymentMode/`,
-  VERIFY_RAZORPAY_PAYMENT: `${backendService}checkout/payment/verify-razorpay-signature/`,
+  VERIFY_RAZORPAY_PAYMENT: `${backendService}checkout/payment/verify-razorpay-signature`,
 };

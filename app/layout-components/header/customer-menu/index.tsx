@@ -20,6 +20,8 @@ export const CustomerMenu = () => {
     if ((user && user?.role !== UserRole.customer) || menuLength) return;
     makeDataRequest(HTTP_METHODS.GET, appEndPoints.CUSTOMER_MENU)
       .then((res) => {
+        if (!res) return
+
         dispatch(setMenuOptions(res));
       })
       .catch((err) => {
@@ -31,7 +33,8 @@ export const CustomerMenu = () => {
   if (
     path.startsWith("/checkout") ||
     path.startsWith("/cart") ||
-    path.startsWith("/profile")
+    path.startsWith("/profile") ||
+    path.startsWith("/payment-success")
   )
     return null;
   return (

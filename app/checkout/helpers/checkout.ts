@@ -6,7 +6,6 @@ import {
   verifyRazorpaypayment,
 } from ".";
 import { produce } from "immer";
-import * as _ from "lodash";
 
 declare global {
   interface Window {
@@ -23,13 +22,13 @@ export const changeCheckoutPaymentMethod = (
   changePaymentMode(context.config.checkoutId as number, paymentType, (res) => {
     switch (paymentType) {
       case paymentOptions.razorpay:
-        if (res.razorpayPaymentId) {
+        if (res.razorPayOrderId) {
           const options = {
             key: process.env.NEXT_PUBLIC_RAZORPAY_PAYMENT_ID,
             amount: res.totalPrice * 100,
             currency: "INR",
             name: "Apnamart",
-            order_id: res.razorpayPaymentId,
+            order_id: res.razorPayOrderId,
             prefill: {
               name: user.name,
               email: user.email,
@@ -39,11 +38,7 @@ export const changeCheckoutPaymentMethod = (
               razorpay_order_id: string;
               razorpay_signature: string;
             }) => {
-              verifyRazorpaypayment(
-                context.config.checkoutId as number,
-                _.pick(response, ["razorpay_signature", "razorpay_payment_id"]),
-                onPaymentSuccess,
-              );
+              verifyRazorpaypayment(response, onPaymentSuccess);
             },
           };
           const razorPay = new window.Razorpay(options);
@@ -54,7 +49,6 @@ export const changeCheckoutPaymentMethod = (
       default:
         break;
     }
-    console.log(res, "this is the res");
     context.setConfig(
       produce((draft) => {
         draft.paymentMode = paymentType;

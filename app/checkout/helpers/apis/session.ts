@@ -60,7 +60,7 @@ export const changePaymentMode = (
   sessionId: number,
   paymentMode: paymentOptions,
   onSuccess?: (res: {
-    razorpayPaymentId?: string;
+    razorPayOrderId?: string;
     stripePaymentId?: string;
     totalPrice: number;
   }) => void,
