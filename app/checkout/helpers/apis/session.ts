@@ -63,6 +63,7 @@ export const changePaymentMode = (
     razorPayOrderId?: string;
     stripePaymentId?: string;
     totalPrice: number;
+    stripeClientSecret?: string;
   }) => void,
 ) => {
   makeDataRequest(

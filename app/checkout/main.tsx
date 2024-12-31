@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Modals, Address, OrderSummary, PaymentOptions } from "./components";
 import { useAppDispatch, useAppSelector } from "@/lib/main/hooks";
 import {
+  componentNotifier,
   createCheckoutSession,
   endCheckoutSession,
   getDefaultConfig,
@@ -14,10 +15,13 @@ import { setNestedPath } from "../_utils";
 import * as _ from "lodash";
 import { ComponentSkeleton } from "../_custom-components";
 import { setCartCheckoutItems } from "@/lib/main/slices/checkout-items/checkout-items.slice";
+import { OtherPaymentOptions } from "./components/payment-options/other-payment-options";
+import { Subject } from "rxjs";
 
 const Main = () => {
   const mountingState = useRef(0);
   const cartCheckoutItems = useAppSelector((state) => state.cartCheckoutItems);
+  const notifier = useMemo(() => new Subject<componentNotifier>(), []);
   const dispatch = useAppDispatch();
   const [config, setConfig] = useState<mainConfig>(getDefaultConfig());
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
@@ -46,11 +50,12 @@ const Main = () => {
       {!config.areCartItemsLoaded ? (
         <ComponentSkeleton />
       ) : (
-        <MainContext.Provider value={{ config, setConfig }}>
+        <MainContext.Provider value={{ config, setConfig, notifier }}>
           <div className="mx-[10svh] mt-5">
             <Address />
             <OrderSummary />
             <PaymentOptions />
+            <OtherPaymentOptions />
           </div>
         </MainContext.Provider>
       )}

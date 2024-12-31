@@ -2,6 +2,7 @@ import { createContext } from "react";
 import {
   addressConfig,
   addressDrawerConfig,
+  componentNotifier,
   mainConfig,
   setAddressConfig,
   setMainConfig,
@@ -10,6 +11,7 @@ import { successToast, validateZodSchema } from "@/app/_utils";
 import { produce } from "immer";
 import * as _ from "lodash";
 import { drawerValidation } from "@/app/profile/address/utils";
+import { Subject } from "rxjs";
 export * from "./order-summary";
 export * from "./interfaces & enums & constants";
 export * from "./apis";
@@ -18,6 +20,7 @@ export * from "./checkout";
 export type MainContextType = {
   config: mainConfig;
   setConfig: setMainConfig;
+  notifier: Subject<componentNotifier>;
 };
 
 export const MainContext = createContext<null | MainContextType>(null);

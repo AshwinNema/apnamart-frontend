@@ -6,6 +6,8 @@ import {
   verifyRazorpaypayment,
 } from ".";
 import { produce } from "immer";
+import { getLocalStorageKey, storageAttributes } from "@/app/_services";
+import { browserTheme } from "@/app/layout-components/theme-switch";
 
 declare global {
   interface Window {
@@ -23,6 +25,18 @@ export const changeCheckoutPaymentMethod = (
     switch (paymentType) {
       case paymentOptions.razorpay:
         if (res.razorPayOrderId) {
+          const isDarkTheme =
+            getLocalStorageKey(storageAttributes.theme) === browserTheme.dark;
+          const additionalOptions: {
+            theme?: {
+              color: string;
+            };
+          } = {};
+          if (isDarkTheme) {
+            additionalOptions.theme = {
+              color: "#30313d",
+            };
+          }
           const options = {
             key: process.env.NEXT_PUBLIC_RAZORPAY_PAYMENT_ID,
             amount: res.totalPrice * 100,
@@ -40,15 +54,29 @@ export const changeCheckoutPaymentMethod = (
             }) => {
               verifyRazorpaypayment(response, onPaymentSuccess);
             },
+            ...additionalOptions,
           };
           const razorPay = new window.Razorpay(options);
           razorPay.open();
         }
         break;
 
+      case paymentOptions.stripe:
+        res.stripeClientSecret &&
+          context.setConfig(
+            produce((draft) => {
+              draft.stripeClientSecret = res.stripeClientSecret;
+            }),
+          );
+
+        break;
       default:
         break;
     }
+    context.notifier.next({
+      type: "payment mode change",
+      details: paymentType,
+    });
     context.setConfig(
       produce((draft) => {
         draft.paymentMode = paymentType;

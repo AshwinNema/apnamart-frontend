@@ -21,6 +21,7 @@ export interface mainConfig {
   selectedStage: null | number;
   areCartItemsLoaded: boolean;
   paymentMode: paymentOptions;
+  stripeClientSecret?: string;
 }
 
 export const getDefaultConfig = (): mainConfig => ({

@@ -22,3 +22,8 @@ export const paymentSelectOptions: { label: string; key: paymentOptions }[] = [
   },
   { label: "Stripe", key: paymentOptions.stripe },
 ];
+
+export type componentNotifier = {
+  type: "payment mode change";
+  details: paymentOptions;
+};
