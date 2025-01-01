@@ -1,5 +1,4 @@
 import {
-  backendService,
   auth,
   user,
   category,
@@ -8,19 +7,21 @@ import {
   merchant,
   product,
   customer,
+  deliveryArea,
+  checkout,
 } from "./sub-endpoints";
 
 export const appEndPoints = {
   ...auth,
   ...user,
-  UPDATE_DELIVERY_AREA: `${backendService}delivery-area`,
-  GET_ALL_DELIVERY_AREAS: `${backendService}delivery-area`,
+  ...deliveryArea,
   ...category,
   ...subcategory,
   ...items,
   ...merchant,
   ...product,
   ...customer,
+  ...checkout,
 };
 
 const webSocketService = `${process.env.NEXT_PUBLIC_WEBSOCKET_URL}`;

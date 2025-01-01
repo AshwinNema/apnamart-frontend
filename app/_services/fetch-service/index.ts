@@ -80,7 +80,7 @@ export const makeDataRequest = async (
       return dataResponse;
     })
     .catch((err) => {
-      errorToast({ msg: err.message });
+      showToast && errorToast({ msg: err.message });
     });
   if (showLoader) {
     return trackPromise(promise);

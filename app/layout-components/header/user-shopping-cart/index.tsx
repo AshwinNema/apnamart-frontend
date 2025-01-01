@@ -5,20 +5,29 @@ import { FaCartShopping } from "react-icons/fa6";
 import { UserRole } from "@/lib/main/slices/user/user.slice";
 import { HTTP_METHODS, makeDataRequest } from "@/app/_services";
 import { appEndPoints } from "@/app/_utils";
-import { setCartCount } from "@/lib/main/slices/cart-count/cart-count.slice";
+import {
+  setCartCount,
+  setCartCountLoaded,
+  clearCartCount,
+} from "@/lib/main/slices/cart-count/cart-count.slice";
 import useEventLoaderEmitter from "@/app/_custom-components/loaders/event-loader/useEventLoaderEmitter";
 import { EventLoader, loaderEvents } from "@/app/_custom-components";
+import { usePathname } from "next/navigation";
 
 export const UserShoppingCart = () => {
   const user = useAppSelector((state) => state.user);
-  const cartCount = useAppSelector((state) => state.cartCount);
+  const path = usePathname();
+  const cartCount = useAppSelector((state) => state.cartCount.count);
+  const cartCountLoaded = useAppSelector((state) => state.cartCount.isFetched);
   const eventEmitter = useEventLoaderEmitter();
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (user?.role !== UserRole.customer) {
-      dispatch(setCartCount(0));
+      dispatch(clearCartCount());
       return;
     }
+    if (cartCountLoaded && !path.startsWith("/payment-success")) return;
     makeDataRequest(
       HTTP_METHODS.GET,
       appEndPoints.CART_ITEM_COUNT,
@@ -29,8 +38,11 @@ export const UserShoppingCart = () => {
       .then((res) => {
         dispatch(setCartCount(typeof res === "number" ? res : 0));
       })
-      .catch(() => {});
-  }, [user]);
+      .catch(() => {})
+      .finally(() => {
+        dispatch(setCartCountLoaded());
+      });
+  }, [user, dispatch, path, cartCountLoaded]);
 
   return (
     <>

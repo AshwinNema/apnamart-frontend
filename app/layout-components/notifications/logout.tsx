@@ -54,9 +54,6 @@ export default function Logout({ onClose }: { onClose: () => void }) {
         showToast: false,
       },
     ).finally(() => {
-      removeSessionStorageKey(
-        sessionStorageAttributes.pendingMerchantRegistration,
-      );
       clearUserStorage();
       dispatch(setUser(null));
       !path.startsWith("/search") && router.push("/");

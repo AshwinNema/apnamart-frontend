@@ -46,6 +46,8 @@ export const removeSessionStorageKey = (key: sessionStorageAttributes) => {
 export const clearUserStorage = () => {
   removeLocalStorageKey(storageAttributes.tokens);
   removeLocalStorageKey(storageAttributes.user);
+  removeSessionStorageKey(sessionStorageAttributes.userFetch);
+  removeSessionStorageKey(sessionStorageAttributes.pendingMerchantRegistration);
   return null;
 };
 

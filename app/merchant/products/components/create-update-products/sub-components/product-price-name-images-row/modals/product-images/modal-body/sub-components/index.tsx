@@ -9,7 +9,7 @@ import { produce } from "immer";
 
 export * from "./uploaded-images";
 export * from "./upload-view-img-toggler";
-export * from "./deleted-imagss";
+export * from "./deleted-images";
 
 export const ImgUpload = ({
   allowedImgsLength,

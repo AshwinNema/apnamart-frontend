@@ -23,6 +23,7 @@ export * from "./specifications";
 export * from "./descriptions";
 export * from "./update-product-data-setter";
 export * from "./product-highlights";
+export * from "./uploaded-imgs";
 
 export const MainContext = createContext<{
   config: mainConfig;
@@ -43,12 +44,15 @@ export const CreateUpdateDescriptionContext = createContext<null | {
   descriptionEventsEmitter: Subject<descriptionStateEvents>;
 }>(null);
 
-export const ProductImgsModalContext = createContext<null | {
+export type ProductImgsModalContextType = {
   config: productImgsModalState;
   setConfig: setProductImgsModalState;
   uploadRef: MutableRefObject<FileUploadWithPreview | null>;
   isOpen: boolean;
-}>(null);
+};
+
+export const ProductImgsModalContext =
+  createContext<null | ProductImgsModalContextType>(null);
 
 export const ProductHighlightModalContext = createContext<null | {
   config: productHighlightModalState;
