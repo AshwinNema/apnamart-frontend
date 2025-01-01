@@ -49,9 +49,9 @@ export const deliveryArea = {
 export const checkout = {
   CREATE_CHECKOUT_SESSION: `${backendService}checkout`,
   UPDATE_CHECKOUT_DELIVERY_ADDRESS: `${backendService}checkout/address/`,
-  END_CHECKOUT_SESSION: `${backendService}checkout/end/`,
   CHANGE_CHECKOUT_ITEM_QUANTITY: `${backendService}checkout/quantity-change/`,
   REMOVE_CHECKOUT_ITEM: `${backendService}checkout/delete-item/`,
   CHANGE_CHECKOUT_PAYMENT_MODE: `${backendService}checkout/change-paymentMode/`,
   VERIFY_RAZORPAY_PAYMENT: `${backendService}checkout/payment/verify-razorpay-signature`,
+  PLACE_ORDER: `${backendService}checkout/place-order/`,
 };

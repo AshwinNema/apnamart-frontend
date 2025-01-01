@@ -8,20 +8,26 @@ import { appEndPoints } from "@/app/_utils";
 import {
   setCartCount,
   setCartCountLoaded,
+  clearCartCount,
 } from "@/lib/main/slices/cart-count/cart-count.slice";
 import useEventLoaderEmitter from "@/app/_custom-components/loaders/event-loader/useEventLoaderEmitter";
 import { EventLoader, loaderEvents } from "@/app/_custom-components";
+import { usePathname } from "next/navigation";
 
 export const UserShoppingCart = () => {
   const user = useAppSelector((state) => state.user);
+  const path = usePathname();
   const cartCount = useAppSelector((state) => state.cartCount.count);
+  const cartCountLoaded = useAppSelector((state) => state.cartCount.isFetched);
   const eventEmitter = useEventLoaderEmitter();
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (user?.role !== UserRole.customer) {
-      dispatch(setCartCount(0));
+      dispatch(clearCartCount());
       return;
     }
+    if (cartCountLoaded && !path.startsWith("/payment-success")) return;
     makeDataRequest(
       HTTP_METHODS.GET,
       appEndPoints.CART_ITEM_COUNT,
@@ -36,7 +42,7 @@ export const UserShoppingCart = () => {
       .finally(() => {
         dispatch(setCartCountLoaded());
       });
-  }, [user, dispatch]);
+  }, [user, dispatch, path, cartCountLoaded]);
 
   return (
     <>

@@ -7,6 +7,10 @@ export const cartCountSlice = createSlice({
     isFetched: false,
   },
   reducers: {
+    clearCartCount(state) {
+      state.count = 0;
+      state.isFetched = false;
+    },
     setCartCount(state, action) {
       state.count = action.payload;
       state.isFetched = true;
@@ -17,4 +21,5 @@ export const cartCountSlice = createSlice({
   },
 });
 
-export const { setCartCount, setCartCountLoaded } = cartCountSlice.actions;
+export const { setCartCount, setCartCountLoaded, clearCartCount } =
+  cartCountSlice.actions;

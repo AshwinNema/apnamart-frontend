@@ -26,6 +26,23 @@ export const PaymentOptions = () => {
     if (!context) return;
     context?.config?.selectedStage === 2 && setAccordionVal(new Set(["1"]));
     context?.config?.selectedStage !== 2 && setAccordionVal(new Set([]));
+    const subscription = context.notifier.subscribe((details) => {
+      switch (details.type) {
+        case "route navigation":
+          loaderEmitter.next({
+            type: loaderEvents.routeNavigation,
+            route: details.details,
+          });
+          break;
+
+        default:
+          break;
+      }
+    });
+    
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [context?.config?.selectedStage]);
 
   if (!context) return null;

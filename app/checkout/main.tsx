@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "@/lib/main/hooks";
 import {
   componentNotifier,
   createCheckoutSession,
-  endCheckoutSession,
   getDefaultConfig,
   mainConfig,
   MainContext,
@@ -19,7 +18,7 @@ import { OtherPaymentOptions } from "./components/payment-options/other-payment-
 import { Subject } from "rxjs";
 
 const Main = () => {
-  const mountingState = useRef(0);
+  const hasMounted = useRef(false);
   const cartCheckoutItems = useAppSelector((state) => state.cartCheckoutItems);
   const notifier = useMemo(() => new Subject<componentNotifier>(), []);
   const dispatch = useAppDispatch();
@@ -27,23 +26,13 @@ const Main = () => {
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
 
   useEffect(() => {
-    if (mountingState.current) return;
-    mountingState.current += 1;
+    if (hasMounted.current) return;
+    hasMounted.current = true;
     createCheckoutSession(cartCheckoutItems, setConfig, () => {
       setData("areCartItemsLoaded")(true), dispatch(setCartCheckoutItems([]));
     });
   }, [cartCheckoutItems, dispatch]);
 
-  useEffect(() => {
-    return () => {
-      const value = mountingState.current;
-      const sessionEnded = value === 2 && config.checkoutId;
-      if (value == 1) {
-        mountingState.current += 1;
-      }
-      sessionEnded && endCheckoutSession(config.checkoutId as number);
-    };
-  }, [config.checkoutId]);
   return (
     <>
       <Modals />

@@ -2,18 +2,15 @@ import { HTTP_METHODS, makeDataRequest } from "@/app/_services";
 import { appEndPoints } from "@/app/_utils";
 import { paymentOptions } from "../interfaces & enums & constants";
 
-export const endCheckoutSession = (sessionId: number) => {
-  makeDataRequest(
-    HTTP_METHODS.PUT,
-    appEndPoints.END_CHECKOUT_SESSION + sessionId,
-    undefined,
-    undefined,
-    {
-      showToast: false,
-    },
-  )
-    .then((res) => {})
-    .catch((err) => {});
+export const placeOrder = (sessionId: number, onSuccess?: () => void) => {
+  makeDataRequest(HTTP_METHODS.POST, `${appEndPoints.PLACE_ORDER}${sessionId}`)
+    .then((res) => {
+      if (!res) return;
+      onSuccess && onSuccess();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const changeCheckoutItemQuantity = (

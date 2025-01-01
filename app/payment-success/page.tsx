@@ -1,12 +1,14 @@
-"use client"
+"use client";
 import { Card, CardBody, CardHeader } from "@nextui-org/react";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+import { paymentOptions } from "../checkout/helpers";
 
 const Page = () => {
   const router = useRouter();
-
+  const params = useSearchParams();
+  const isCashPayment = params.get("paymentMode") === paymentOptions.cash;
   useEffect(() => {
     setTimeout(() => {
       router.push("/");
@@ -29,12 +31,16 @@ const Page = () => {
                 <IoMdCheckmarkCircleOutline className="fill-successTheme scale-[3] " />
               </div>
 
-              <div className="mt-10 ">Payment Successful</div>
+              <div className="mt-10 ">
+                {isCashPayment ? "Order placed" : "Payment Successful"}{" "}
+              </div>
             </div>
           </CardHeader>
           <CardBody className="text-leadText">
-            Thank you for your purchase. Your payment has been processed
-            successfully.
+            Thank you for your purchase.{" "}
+            {isCashPayment
+              ? "Your order is successfully placed."
+              : "Your payment has been processed successfully."}
           </CardBody>
         </Card>
       </div>

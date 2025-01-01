@@ -1,9 +1,10 @@
 import { useContext, useEffect } from "react";
-import { MainContext, paymentOptions } from "../../../helpers";
+import { MainContext, paymentOptions, placeOrder } from "../../../helpers";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { StripeCheckout } from "./stripe-checkout";
 import {
+  Button,
   Modal,
   ModalBody,
   ModalContent,
@@ -75,6 +76,24 @@ export const OtherPaymentOptions = () => {
           </>
         </ModalContent>
       </Modal>
+      {context.config.paymentMode === paymentOptions.cash &&
+        context.config.selectedStage === 2 && (
+          <div className="my-5 flex justify-end mx-2">
+            <Button
+              onPress={() => {
+                placeOrder(context.config.checkoutId as number, () => {
+                  context.notifier.next({
+                    type: "route navigation",
+                    details: `/payment-success?paymentMode=${paymentOptions.cash}`,
+                  });
+                });
+              }}
+              className="bg-buyNowButton text-white"
+            >
+              Confirm Order
+            </Button>
+          </div>
+        )}
     </>
   );
 };
