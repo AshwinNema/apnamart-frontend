@@ -3,9 +3,10 @@ import { Button } from "@nextui-org/react";
 import { Dispatch, Fragment, SetStateAction, useEffect } from "react";
 import { produce } from "immer";
 import useConfigManager from "./useConfigManager";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { FaAngleRight } from "react-icons/fa";
 import { DeletedImg } from "./deleted-img";
 import styles from "@/app/styles.module.css";
+import { BackArrow } from "@/app/_custom-components";
 
 export const DeletedImgViewer = ({
   setViewImgsState,
@@ -24,29 +25,23 @@ export const DeletedImgViewer = ({
   if (!modalContext?.config?.deletedImgs?.length) return null;
   return (
     <div className="relative overflow-hidden">
-      {config.showBackArrow && (
-        <Button
-          onPress={() => {
-            modalContext.setConfig(
-              produce((draft) => {
-                draft.lastVisibleDeletedIndex = Math.max(
-                  draft.lastVisibleDeletedIndex - config.totalVisibleElements,
-                  config.totalVisibleElements - 1,
-                );
-                draft.translateDeletedImgsX = Math.max(
-                  draft.translateDeletedImgsX - config.scrollWidth,
-                  0,
-                );
-              }),
-            );
-          }}
-          radius="full"
-          isIconOnly
-          className={`absolute z-[10] top-[50%] text-center cursor-pointer flex justify-center items-center`}
-        >
-          <FaAngleLeft />
-        </Button>
-      )}
+      <BackArrow
+        showArrow={config.showBackArrow}
+        goBackward={() => {
+          modalContext.setConfig(
+            produce((draft) => {
+              draft.lastVisibleDeletedIndex = Math.max(
+                draft.lastVisibleDeletedIndex - config.totalVisibleElements,
+                config.totalVisibleElements - 1,
+              );
+              draft.translateDeletedImgsX = Math.max(
+                draft.translateDeletedImgsX - config.scrollWidth,
+                0,
+              );
+            }),
+          );
+        }}
+      />
       <div
         style={{
           transform: `translateX(-${modalContext.config.translateDeletedImgsX}px)`,

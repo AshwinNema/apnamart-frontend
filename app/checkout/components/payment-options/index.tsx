@@ -39,7 +39,7 @@ export const PaymentOptions = () => {
           break;
       }
     });
-    
+
     return () => {
       subscription.unsubscribe();
     };

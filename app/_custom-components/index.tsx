@@ -6,6 +6,7 @@ import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { UserRole } from "@/lib/main/slices/user/user.slice";
 import { Spinner } from "./loaders";
+
 export * from "./inputs";
 export * from "./leaflet";
 export * from "./drawer";
@@ -17,6 +18,7 @@ export * from "./chatbox";
 export * from "./pagination";
 export * from "./custom-icons";
 export * from "./img-viewer";
+export * from "./arrows";
 
 export { default as CustomImagePreviewer } from "./image-previewer";
 

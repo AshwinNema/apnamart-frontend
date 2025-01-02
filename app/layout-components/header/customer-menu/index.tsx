@@ -11,7 +11,7 @@ import { usePathname } from "next/navigation";
 
 export const CustomerMenu = () => {
   const user = useAppSelector((state) => state.user) as UserInterface | null;
-  const productMenu = useAppSelector((state) => state.productMenu);
+  const productMenu = useAppSelector((state) => state.productMenu.items);
   const menuLength = productMenu?.length || 0;
   const dispatch = useAppDispatch();
   const path = usePathname();
@@ -20,9 +20,9 @@ export const CustomerMenu = () => {
     if ((user && user?.role !== UserRole.customer) || menuLength) return;
     makeDataRequest(HTTP_METHODS.GET, appEndPoints.CUSTOMER_MENU)
       .then((res) => {
-        if (!res) return
+        if (!res) return;
 
-        dispatch(setMenuOptions(res));
+        dispatch(setMenuOptions({ isLoaded: true, items: res }));
       })
       .catch((err) => {
         console.log(err);

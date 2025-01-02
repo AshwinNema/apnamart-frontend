@@ -6,10 +6,9 @@ import {
 } from "@/app/merchant/products/helpers";
 import React, { Fragment } from "react";
 import { UploadedImg } from "./uploaded-img";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { Button } from "@nextui-org/react";
 import useConfigManager from "./useConfigManager";
 import styles from "@/app/styles.module.css";
+import { BackArrow, NextArrow } from "@/app/_custom-components";
 
 export const UploadedImages = ({
   modalContext,
@@ -22,18 +21,13 @@ export const UploadedImages = ({
   return (
     <>
       <div className="relative overflow-hidden">
-        {config.showBackArrow && (
-          <Button
-            onPress={() => {
-              goBackward(config, modalContext.setConfig);
-            }}
-            radius="full"
-            isIconOnly
-            className={`absolute z-[10] top-[50%] text-center cursor-pointer flex justify-center items-center`}
-          >
-            <FaAngleLeft />
-          </Button>
-        )}
+        <BackArrow
+          showArrow={config.showBackArrow}
+          goBackward={() => {
+            goBackward(config, modalContext.setConfig);
+          }}
+        />
+
         <div
           style={{
             transform: `translateX(-${modalContext.config.translateUploadImgsX}px)`,
@@ -63,18 +57,12 @@ export const UploadedImages = ({
             );
           })}
         </div>
-        {config.showNextArrow && (
-          <Button
-            onPress={() => {
-              goForward(config, modalContext.setConfig, setConfig);
-            }}
-            radius="full"
-            isIconOnly
-            className={`absolute z-[10] right-0 top-[50%] text-center cursor-pointer flex justify-center items-center`}
-          >
-            <FaAngleRight />
-          </Button>
-        )}
+        <NextArrow
+          showArrow={config.showNextArrow}
+          goForward={() => {
+            goForward(config, modalContext.setConfig, setConfig);
+          }}
+        />
       </div>
 
       {!modalContext.config.uploadedImgs.length ? (
