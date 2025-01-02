@@ -9,6 +9,7 @@ export interface subCategory {
   id: number;
   name: string;
   items: item[];
+  photo: string;
 }
 
 export interface menuOption {
@@ -18,13 +19,20 @@ export interface menuOption {
   subCategory: subCategory[];
 }
 
-const initialState: menuOption[] = [];
+interface menuDetails {
+  isLoaded: boolean;
+  items: menuOption[];
+}
+const initialState: menuDetails = {
+  isLoaded: false,
+  items: [],
+};
 
 export const productMenuSlice = createSlice({
   name: "productMenu",
   initialState: initialState,
   reducers: {
-    setMenuOptions(_, { payload }: { payload: menuOption[] }) {
+    setMenuOptions(_, { payload }: { payload: menuDetails }) {
       return payload;
     },
   },

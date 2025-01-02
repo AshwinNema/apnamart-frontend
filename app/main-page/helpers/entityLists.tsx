@@ -3,8 +3,8 @@ import { LiaFirstOrderAlt } from "react-icons/lia";
 import { AiFillProduct } from "react-icons/ai";
 import { FcBusinessman } from "react-icons/fc";
 import { FaMapLocationDot } from "react-icons/fa6";
-import { routes } from "../_utils";
 import React from "react";
+import { routes } from "@/app/_utils";
 
 export interface entityListElement {
   key: string;
