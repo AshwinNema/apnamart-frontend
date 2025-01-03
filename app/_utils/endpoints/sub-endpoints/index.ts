@@ -29,6 +29,7 @@ export const merchant = {
   APPROVE_MERCHANT_REGISTRATION: `${backendService}merchant/registration/approve/`,
   QUERY_MERCHANTS: `${backendService}merchant`,
   BLOCK_UNBLOCK_MERCHANT: `${backendService}merchant/block-unblock`,
+  QUERY_MERCHANT_ORDERS: `${backendService}merchant/orders`,
 };
 
 export const customer = {

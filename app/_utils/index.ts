@@ -71,3 +71,10 @@ export const sortDatesInAscendingOrder = <T extends object>(
   if (t1 < t2) return -1;
   return 0;
 };
+
+export const convertFirstLetterToUpperCase = (str: string) => {
+  if (!str || typeof str !== "string") return "";
+  return str.split("_").reduce((acc, curr) => {
+    return acc + " " + curr.charAt(0).toUpperCase() + curr.slice(1);
+  }, "");
+};
