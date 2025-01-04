@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Dropdown,
   DropdownTrigger,
@@ -6,48 +6,16 @@ import {
   DropdownItem,
   User,
 } from "@nextui-org/react";
-import { useAppDispatch, useAppSelector } from "@/lib/main/hooks";
-import { usePathname, useRouter } from "next/navigation";
-import { handleAction } from "./notifications/logout";
-import { commonRoleRoutes, setNestedPath } from "../_utils";
-import { Spinner } from "../_custom-components";
+import { EventLoader } from "../../_custom-components";
 import { ImProfile } from "react-icons/im";
 import { IoIosLogOut } from "react-icons/io";
+import { FaFirstOrderAlt } from "react-icons/fa6";
+import { UserRole } from "@/lib/main/slices/user/user.slice";
+import useDataManager, { dropDownItemKeys } from "./useDataManager";
 
 export default function UserProfile() {
-  const user = useAppSelector((state) => state.user);
-  const [config, setConfig] = useState({ showSpinner: false });
-  const path = usePathname();
-  const setData = setNestedPath(setConfig);
-
-  useEffect(() => {
-    setData("showSpinner")(false);
-  }, [path]);
-  const dispatch = useAppDispatch();
-  const router = useRouter();
-  enum dropDownItemKeys {
-    signIn = "Signed as",
-    updateProfile = "Update Profile",
-    logout = "Logout",
-  }
-
-  const optionSelect = (key: string | number) => {
-    switch (key) {
-      case dropDownItemKeys.updateProfile:
-        if (!path.startsWith(commonRoleRoutes.profile)) {
-          setData("showSpinner")(true);
-        }
-        router.push(commonRoleRoutes.profile);
-        break;
-      case dropDownItemKeys.logout:
-        dispatch(handleAction());
-        break;
-      default:
-        break;
-    }
-  };
-
-  const description = `@${user?.email?.split?.("@")[0]}`;
+ const [user, optionSelect, emitter] = useDataManager()
+ const description = `@${user?.email?.split?.("@")[0]}`;
   return (
     <>
       <Dropdown placement="bottom-start">
@@ -75,6 +43,7 @@ export default function UserProfile() {
             <p className="font-bold">Signed in as</p>
             <p className="font-bold">{description}</p>
           </DropdownItem>
+
           <DropdownItem
             startContent={<ImProfile className="scale-[1.5]" />}
             key={dropDownItemKeys.updateProfile}
@@ -82,6 +51,18 @@ export default function UserProfile() {
           >
             Profile
           </DropdownItem>
+
+          {user?.role === UserRole.customer ? (
+            <DropdownItem
+              key={dropDownItemKeys.orders}
+              startContent={<FaFirstOrderAlt className="scale-[1.5]" />}
+              description="View your orders"
+            >
+              Orders
+            </DropdownItem>
+          ) : (
+            <></>
+          )}
           <DropdownItem
             startContent={<IoIosLogOut className="scale-[1.5]" />}
             description="Logout of the platform"
@@ -92,8 +73,7 @@ export default function UserProfile() {
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-
-      {config.showSpinner && <Spinner />}
+      <EventLoader emitter={emitter} />
     </>
   );
 }

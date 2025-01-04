@@ -60,14 +60,38 @@ export const webSocketReadyState = {
   CLOSED_STATE: 3,
 };
 
-export const sortDatesInAscendingOrder = <T extends object>(
-  first: T,
-  second: T,
-  dateKey: keyof T,
-) => {
-  const t1 = new Date(first[dateKey] as Date).getTime();
-  const t2 = new Date(second[dateKey] as Date).getDate();
-  if (t1 > t2) return 1;
-  if (t1 < t2) return -1;
-  return 0;
+export const convertFirstLetterToUpperCase = (str: string) => {
+  if (!str || typeof str !== "string") return "";
+  return str.split("_").reduce((acc, curr) => {
+    return acc + " " + curr.charAt(0).toUpperCase() + curr.slice(1);
+  }, "");
 };
+
+export function addOrdinalSuffix(num: number) {
+  const suffixes = ["th", "st", "nd", "rd"];
+  const suffixPosition = num % 100;
+  return (
+    `${num}` +
+    (suffixes[(suffixPosition - 20) % 10] ||
+      suffixes[suffixPosition] ||
+      suffixes[0])
+  );
+}
+
+export function getMonthName(monthIndex: number) {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  return monthNames[monthIndex];
+}

@@ -29,6 +29,7 @@ export const merchant = {
   APPROVE_MERCHANT_REGISTRATION: `${backendService}merchant/registration/approve/`,
   QUERY_MERCHANTS: `${backendService}merchant`,
   BLOCK_UNBLOCK_MERCHANT: `${backendService}merchant/block-unblock`,
+  QUERY_MERCHANT_ORDERS: `${backendService}merchant/orders`,
 };
 
 export const customer = {
@@ -38,6 +39,7 @@ export const customer = {
   CART_ITEM_COUNT: `${backendService}customer/cart-item-count`,
   CART_ITEM_LIST: `${backendService}customer/cart-item-list`,
   INCREASE_DECREASE_CART_ITEM_COUNT: `${backendService}customer/increase-decrease-cart-item-count/`,
+  QUERY_CUSTOMER_ORDERS: `${backendService}customer/orders`,
 };
 
 export const deliveryArea = {
