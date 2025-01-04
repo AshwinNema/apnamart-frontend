@@ -39,6 +39,7 @@ export const customer = {
   CART_ITEM_COUNT: `${backendService}customer/cart-item-count`,
   CART_ITEM_LIST: `${backendService}customer/cart-item-list`,
   INCREASE_DECREASE_CART_ITEM_COUNT: `${backendService}customer/increase-decrease-cart-item-count/`,
+  QUERY_CUSTOMER_ORDERS: `${backendService}customer/orders`,
 };
 
 export const deliveryArea = {

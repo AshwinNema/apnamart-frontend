@@ -55,7 +55,6 @@ const useConfigManager = (): [
   const getData = useCallback(
     (page: number) => {
       queryMerchantOrders({ page, limit: config.limit }, (res) => {
-        console.log(res, "this is the res");
         setConfig((preConfig) => {
           return {
             ...preConfig,

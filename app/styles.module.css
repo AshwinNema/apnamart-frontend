@@ -69,3 +69,14 @@
   -o-transition: all 0.35s ease-in-out;
   transition: all 0.35s ease-in-out;
 }
+
+.customer-orders {
+  display: grid;
+  grid-template-columns: 7fr 2fr;
+}
+
+.order-item-grid {
+  display: grid;
+  grid-template-columns: 6fr 2fr;
+  align-items: center;
+}

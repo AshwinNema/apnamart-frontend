@@ -10,7 +10,9 @@ export const routes = {
     merchants: "/admin/merchants",
     deliveryArea: "/admin/delivery-area",
   },
-  [UserRole.customer]: {},
+  [UserRole.customer]: {
+    orders: "/orders",
+  },
 };
 
 export const commonRoleRoutes = {

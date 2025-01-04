@@ -4,13 +4,15 @@ export const PaginationComponent = ({
   page,
   totalPages,
   onChange,
+  containerClasName,
 }: {
   page: number;
   totalPages: number;
   onChange: (page: number) => void;
+  containerClasName?: string;
 }) => {
   return (
-    <div className="flex w-full justify-center">
+    <div className={`flex w-full justify-center ${containerClasName}`}>
       <Pagination
         isCompact
         showControls
