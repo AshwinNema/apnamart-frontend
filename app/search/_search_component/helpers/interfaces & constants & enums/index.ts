@@ -33,6 +33,7 @@ export interface mainConfig {
     [key: string]: filterOption;
   };
   isDataLoaded: boolean;
+  innerWidth: number;
 }
 
 export type setMainConfig = Dispatch<SetStateAction<mainConfig>>;
@@ -50,6 +51,7 @@ export const getDefaultMainConfig = (): mainConfig => ({
   maxPriceId: "max",
   selectedOptions: {},
   isDataLoaded: false,
+  innerWidth: window.innerWidth,
 });
 
 export type selectList = { label: string; key: number | string }[];

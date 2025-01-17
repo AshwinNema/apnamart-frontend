@@ -23,6 +23,7 @@ export const handleAction = () =>
     details: null,
     modalProps: {
       ...modalProps,
+      placement: "center",
     },
   });
 

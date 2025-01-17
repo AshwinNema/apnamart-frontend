@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Checkbox } from "@nextui-org/react";
+import { Checkbox } from "@nextui-org/react";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { modalTypes, roleCard, userRoleKeys, userRoles } from "../constants";
 import { ImageComponent } from "@/app/_custom-components";
@@ -24,7 +24,7 @@ export const RoleCard = ({
       <CardBody className="overflow-visible p-0">
         <ImageComponent
           isBlurred={selectedRole === role}
-          width={100}
+          width={200}
           height={200}
           alt={role}
           className="w-full object-contain"
@@ -70,7 +70,7 @@ export default function Roles({
         </div>
       ) : null}
 
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-3">
         <RoleCard
           {...userRoles.customer}
           selectedRole={selectedRole}

@@ -48,7 +48,7 @@ export default function LoginSignUpModal({
   return (
     <>
       <Modal
-        className="max-h-[90vh] max-w-[40vw]"
+        className="max-h-[90vh]"
         backdrop="blur"
         scrollBehavior="inside"
         isOpen={isOpen}

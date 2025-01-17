@@ -20,7 +20,7 @@ export const CategoryList = () => {
         <div className="font-bold text-xl mb-4">{details.name}</div>
         <div className="relative overflow-hidden">
           <BackArrow
-            showArrow={config.showBackArrow && config.hasInteracted}
+            showArrow={config.firstVisibleIndex > 0}
             goBackward={goBackward}
           />
           <div

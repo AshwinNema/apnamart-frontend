@@ -5,8 +5,6 @@ import {
   clearUserStorage,
   getLocalStorageKey,
   storageAttributes,
-  removeSessionStorageKey,
-  sessionStorageAttributes,
 } from "@/app/_services";
 import { FcShop } from "react-icons/fc";
 import { appEndPoints } from "@/app/_utils/endpoints";
@@ -30,7 +28,7 @@ export const handleAction = () =>
       backdrop: "blur",
       hideCloseButton: true,
       isDismissable: false,
-      className: `${modalProps.className}`,
+      className: `${modalProps.className} max-w-max`,
     },
   });
 

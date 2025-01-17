@@ -31,12 +31,7 @@ export const queryCustomerOrders = (
 };
 
 export const getFormattedOrderDate = (date: Date) => {
-  if (
-    !date ||
-
-    new Date(date).toString() === "Invalid Date"
-  )
-    return "";
+  if (!date || new Date(date).toString() === "Invalid Date") return "";
   const convertedDate = new Date(date);
   const day = convertedDate.getDate();
   const month = getMonthName(convertedDate.getMonth());

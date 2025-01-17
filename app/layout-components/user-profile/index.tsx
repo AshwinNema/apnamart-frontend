@@ -14,8 +14,8 @@ import { UserRole } from "@/lib/main/slices/user/user.slice";
 import useDataManager, { dropDownItemKeys } from "./useDataManager";
 
 export default function UserProfile() {
- const [user, optionSelect, emitter] = useDataManager()
- const description = `@${user?.email?.split?.("@")[0]}`;
+  const [user, optionSelect, emitter] = useDataManager();
+  const description = `@${user?.email?.split?.("@")[0]}`;
   return (
     <>
       <Dropdown placement="bottom-start">

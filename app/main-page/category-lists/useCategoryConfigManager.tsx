@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { categoryConfig, defaultCategoryConfig } from "../helpers";
 import { produce } from "immer";
 import { menuOption } from "@/lib/main/slices/product-menu/product-menu.slice";
@@ -12,22 +12,6 @@ const useCategoryConfigManager = (
   () => void,
 ] => {
   const [config, setConfig] = useState<categoryConfig>(defaultCategoryConfig());
-  useEffect(() => {
-    if (config.hasInteracted) return;
-    setConfig(
-      produce((draft) => {
-        if (draft.hasInteracted) return;
-        const width = draft.itemsLefts[1] - draft.itemsLefts[0];
-        draft.totalVisibleElements = draft.lastVisibleIndex + 1;
-        draft.scrollWidth = draft.totalVisibleElements * width;
-      }),
-    );
-  }, [
-    config.hasInteracted,
-    config.lastVisibleIndex,
-    config.itemsLefts[0],
-    config.itemsLefts[1],
-  ]);
 
   const handleItemInteraction = (
     index: number,
@@ -44,55 +28,64 @@ const useCategoryConfigManager = (
         if (index === 1) {
           draft.itemsLefts[1] = bounds.left;
         }
-        if (isIntersecting && index > draft.lastVisibleIndex) {
-          draft.lastVisibleIndex = index;
+      }),
+    );
+
+    const isInBounds = bounds.top >= 0 && bounds.bottom <= window.innerHeight;
+    const isLastOnScreen =
+      bounds.right <= window.innerWidth &&
+      bounds.right + bounds.width > window.innerWidth;
+    setConfig(
+      produce((draft) => {
+        if (isInBounds && index === lastIndex) {
+          draft.showNextArrow = !isIntersecting;
+        }
+        if (isInBounds && index !== lastIndex && isLastOnScreen) {
+          draft.showNextArrow = true;
         }
       }),
     );
-    index === 0 &&
-      setConfig(
-        produce((draft) => {
-          draft.showBackArrow = !isIntersecting;
-        }),
-      );
-
-    const isInBounds = bounds.top >= 0 && bounds.bottom <= window.innerHeight;
-
-    isInBounds &&
-      index === lastIndex &&
-      setConfig(
-        produce((draft) => {
-          draft.showNextArrow = !isIntersecting;
-        }),
-      );
   };
   const goForward = () => {
     const lastIndex = details.subCategory.length - 1;
     setConfig(
       produce((draft) => {
         draft.hasInteracted = true;
-        if (draft.lastVisibleIndex === lastIndex) return;
-        let scrollWidth = draft.scrollWidth;
-        let nextLast = draft.lastVisibleIndex + draft.totalVisibleElements;
-        if (nextLast > lastIndex) {
-          scrollWidth =
-            (lastIndex - draft.lastVisibleIndex) *
-            (draft.itemsLefts[1] - draft.itemsLefts[0]);
-          nextLast = lastIndex;
+        const width = draft.itemsLefts[1] - draft.itemsLefts[0];
+        const totalVisibleElements = Math.floor(
+          (window.innerWidth - draft.itemsLefts[0]) / width,
+        );
+
+        let elementsToSkip = totalVisibleElements;
+        if (draft.firstVisibleIndex + totalVisibleElements > lastIndex) return;
+        let firstVisibleIndex = draft.firstVisibleIndex;
+
+        firstVisibleIndex += elementsToSkip;
+
+        if (firstVisibleIndex > lastIndex) {
+          const extraElements = firstVisibleIndex - lastIndex;
+          elementsToSkip -= extraElements;
+          firstVisibleIndex -= extraElements;
         }
-        draft.translateX += scrollWidth;
-        draft.lastVisibleIndex = nextLast;
+
+        if (elementsToSkip === 0) return;
+        draft.firstVisibleIndex = firstVisibleIndex;
+        draft.translateX = draft.firstVisibleIndex * width;
       }),
     );
   };
   const goBackward = () => {
     setConfig(
       produce((draft) => {
-        draft.lastVisibleIndex = Math.max(
-          draft.lastVisibleIndex - draft.totalVisibleElements,
-          draft.totalVisibleElements - 1,
+        const width = draft.itemsLefts[1] - draft.itemsLefts[0];
+        const totalVisibleElements = Math.floor(
+          (window.innerWidth - draft.itemsLefts[0]) / width,
         );
-        draft.translateX = Math.max(0, draft.translateX - draft.scrollWidth);
+        draft.firstVisibleIndex = Math.max(
+          draft.firstVisibleIndex - totalVisibleElements,
+          0,
+        );
+        draft.translateX = draft.firstVisibleIndex * width;
       }),
     );
   };

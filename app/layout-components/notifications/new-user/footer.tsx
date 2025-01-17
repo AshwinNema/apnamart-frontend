@@ -38,7 +38,7 @@ const Footer = ({ onClose }: { onClose: () => void }) => {
   return (
     <>
       {count > 0 ? (
-        <ModalFooter>
+        <ModalFooter className="justify-start">
           <p className="italic">
             <span className="font-bold">Please note :</span>
             <FooterElementWrapper

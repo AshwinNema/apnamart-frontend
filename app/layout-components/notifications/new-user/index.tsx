@@ -25,7 +25,7 @@ export const handleAction = (details: details) =>
     modalProps: {
       ...modalProps,
       className: `${modalProps.className} p-11`,
-      placement: "top",
+      placement: "center",
     },
   });
 

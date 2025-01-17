@@ -95,3 +95,5 @@ export function getMonthName(monthIndex: number) {
   ];
   return monthNames[monthIndex];
 }
+
+export const isMobileScreen = () => window.innerWidth < 700;

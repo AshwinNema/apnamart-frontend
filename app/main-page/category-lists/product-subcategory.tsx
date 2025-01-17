@@ -17,9 +17,7 @@ export const ProductSubcategory = ({
 }) => {
   const emitter = useEventLoaderEmitter();
   const containerRef = useRef<null | HTMLDivElement>(null);
-  let { hoverProps, isHovered } = useHover({
-    onHoverStart: (e) => {},
-  });
+  let { hoverProps, isHovered } = useHover({});
   useEffect(() => {
     if (!containerRef.current) return;
     const observer = new IntersectionObserver(
