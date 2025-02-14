@@ -5,7 +5,7 @@ import useConfigManager from "./useConfigManager";
 import { ProductImg } from "./product-img";
 import styles from "../../styles.module.css";
 import { ProductSlideImages } from "./product-slide-images";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useParams } from "next/navigation";
 import { ProductLikedHeart } from "@/app/_shared-Components/product-liked-heart";
 

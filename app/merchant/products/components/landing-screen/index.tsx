@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect } from "react";
 import { getTableColumns, MainContext, queriedProduct } from "../../helpers";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { setNestedPath } from "@/app/_utils";
 import { RenderTable } from "@/app/_custom-components";
 import { ProductTableDataColumns } from "./table-data-columns";

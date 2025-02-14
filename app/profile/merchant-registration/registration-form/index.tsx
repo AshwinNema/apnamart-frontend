@@ -1,4 +1,4 @@
-import { CardBody, CardFooter, ScrollShadow } from "@nextui-org/react";
+import { CardBody, CardFooter, ScrollShadow } from "@heroui/react";
 import { StepperBackBtn, StepperNextBtn } from "./sub-components";
 import { StepperComponent } from "./stepper";
 import { MdArrowBackIosNew } from "react-icons/md";

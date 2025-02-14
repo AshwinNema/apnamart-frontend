@@ -5,7 +5,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import React from "react";
 import { tableProps } from "./interfaces";
 import { PaginationComponent } from "../pagination";

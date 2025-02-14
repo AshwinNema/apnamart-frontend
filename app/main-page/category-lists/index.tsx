@@ -1,7 +1,7 @@
 import { BackArrow, NextArrow } from "@/app/_custom-components";
 import { useAppSelector } from "@/lib/main/hooks";
 import { menuOption } from "@/lib/main/slices/product-menu/product-menu.slice";
-import { Skeleton } from "@nextui-org/react";
+import { Skeleton } from "@heroui/react";
 import { Fragment } from "react";
 import styles from "@/app/styles.module.css";
 import useCategoryConfigManager from "./useCategoryConfigManager";

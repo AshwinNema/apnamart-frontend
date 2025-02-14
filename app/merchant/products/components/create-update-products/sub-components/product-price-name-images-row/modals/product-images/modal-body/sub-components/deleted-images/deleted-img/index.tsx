@@ -3,7 +3,7 @@ import {
   deletedImgProps,
   ProductImgsModalContext,
 } from "@/app/merchant/products/helpers";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button, Tooltip } from "@heroui/react";
 import { MdSettingsBackupRestore } from "react-icons/md";
 import useConfigManager from "./useConfigManager";
 import { useRef, useContext } from "react";

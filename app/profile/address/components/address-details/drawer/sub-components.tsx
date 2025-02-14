@@ -1,5 +1,5 @@
 import { TextInput } from "@/app/_custom-components";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { addressTypeList, drawerVal } from "../../../utils";
 import { Fragment } from "react";
 import { addressType } from "@/lib/profile/slices/address-slice";

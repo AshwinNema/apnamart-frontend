@@ -10,7 +10,7 @@ import {
   ModalContent,
   ModalHeader,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useEffect } from "react";
 import { ComponentSkeleton } from "@/app/_custom-components";
 import dynamic from "next/dynamic";

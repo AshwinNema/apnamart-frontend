@@ -1,6 +1,6 @@
 import React from "react";
-import { Checkbox } from "@nextui-org/react";
-import { Card, CardBody, CardFooter } from "@nextui-org/react";
+import { Checkbox } from "@heroui/react";
+import { Card, CardBody, CardFooter } from "@heroui/react";
 import { modalTypes, roleCard, userRoleKeys, userRoles } from "../constants";
 import { ImageComponent } from "@/app/_custom-components";
 import { setVal } from "@/app/_utils";

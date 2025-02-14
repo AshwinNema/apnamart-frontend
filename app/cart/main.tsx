@@ -8,7 +8,7 @@ import {
 } from "./helpers";
 import { setNestedPath } from "../_utils";
 import styles from "@/app/styles.module.css";
-import { Card } from "@nextui-org/react";
+import { Card } from "@heroui/react";
 import {
   CartItem,
   EmptyCart,
@@ -16,11 +16,27 @@ import {
   PlaceOrderCard,
   PriceDetailsCard,
 } from "./sub-components";
+import { produce } from "immer";
 
 const Main = () => {
   const [config, setConfig] = useState<mainConfig>(getDefaultMainConfig());
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
   const productLength = config.products.length;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setConfig(
+        produce((draft) => {
+          draft.innerWidth = window.innerWidth;
+        }),
+      );
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     getUserCartProducts(setData("products"), () => {
@@ -41,7 +57,9 @@ const Main = () => {
       >
         {showCartItems ? (
           <div className="mb-3">
-            <div className={`mx-[10svh] gap-5 ${styles["user-card-grid"]}`}>
+            <div
+              className={` ${config.innerWidth > 750 ? `${styles["user-card-grid"]} mx-[10svh] gap-5` : "mx-[2svh]"}`}
+            >
               {!config.isCartLoaded ? (
                 <LoaderSkeleton />
               ) : (
@@ -60,8 +78,12 @@ const Main = () => {
               )}
             </div>
             {config.isCartLoaded && (
-              <div className="sticky bottom-0 z-[10]">
-                <div className={`mx-[10svh] gap-5 ${styles["user-card-grid"]}`}>
+              <div
+                className={`sticky bottom-0 z-[10] ${config.innerWidth <= 750 && "mx-[2svh]"}`}
+              >
+                <div
+                  className={`${config.innerWidth > 750 && "mx-[10svh]"}  gap-5 ${config.innerWidth > 750 && styles["user-card-grid"]}`}
+                >
                   <PlaceOrderCard />
                   <div></div>
                 </div>

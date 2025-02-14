@@ -1,4 +1,4 @@
-import { Card, CardBody, Divider } from "@nextui-org/react";
+import { Card, CardBody, Divider } from "@heroui/react";
 import { PriceFilter } from "./price-filter";
 import { ItemFilters } from "./item-filters";
 import { FilterHeader } from "./filter-header";

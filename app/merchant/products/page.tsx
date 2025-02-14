@@ -12,7 +12,7 @@ import {
   storageAttributes,
 } from "@/app/_services";
 import { UserInterface } from "@/lib/main/slices/user/user.slice";
-import { Card, CardBody, CardFooter } from "@nextui-org/react";
+import { Card, CardBody, CardFooter } from "@heroui/react";
 import { BiSolidErrorCircle } from "react-icons/bi";
 import { FcViewDetails } from "react-icons/fc";
 

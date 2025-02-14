@@ -9,7 +9,7 @@ import {
   setNotificationType,
 } from "@/lib/main/slices/notification/notification.slice";
 import { UserRole } from "@/lib/main/slices/user/user.slice";
-import { ModalBody, ModalHeader } from "@nextui-org/react";
+import { ModalBody, ModalHeader } from "@heroui/react";
 import Footer from "./footer";
 
 export interface details {

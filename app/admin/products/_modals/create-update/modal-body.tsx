@@ -1,6 +1,6 @@
 import { TextInput } from "@/app/_custom-components";
 import { setMultiplePaths, setNestedPath } from "@/app/_utils";
-import { ModalBody } from "@nextui-org/react";
+import { ModalBody } from "@heroui/react";
 import {
   bodyState,
   defaultModalBodyConfig as getDefaultConfig,

@@ -1,7 +1,7 @@
 "use client";
 import { Fragment } from "react";
 import { MainContext } from "./helpers";
-import { Card, CardBody, Divider } from "@nextui-org/react";
+import { Card, CardBody, Divider } from "@heroui/react";
 import { ProductItem } from "./subcomponents/product-item";
 import {
   ComponentSkeleton,

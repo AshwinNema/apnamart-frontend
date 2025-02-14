@@ -1,6 +1,6 @@
 import { errorToast, successToast } from "@/app/_utils";
 import { deletedItemDataViewerType } from "@/app/admin/products/helper";
-import { Chip, Tooltip } from "@nextui-org/react";
+import { Chip, Tooltip } from "@heroui/react";
 
 interface deletedFilterViewer<T, U, V> {
   type: deletedItemDataViewerType;

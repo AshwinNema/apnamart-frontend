@@ -1,5 +1,5 @@
 import { useAppSelector } from "@/lib/main/hooks";
-import { Link, ModalFooter } from "@nextui-org/react";
+import { Link, ModalFooter } from "@heroui/react";
 import { details } from ".";
 import { UserRole } from "@/lib/main/slices/user/user.slice";
 import { useEffect, useState } from "react";

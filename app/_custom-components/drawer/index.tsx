@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, ModalContent } from "@nextui-org/react";
+import { Modal, ModalContent } from "@heroui/react";
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
   isOpen: boolean;

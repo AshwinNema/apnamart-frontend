@@ -2,7 +2,7 @@
 import { ProtectedRoute, Spinner } from "@/app/_custom-components";
 import { browserTheme } from "@/app/layout-components/theme-switch";
 import { UserRole } from "@/lib/main/slices/user/user.slice";
-import { Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Card, CardBody, CardHeader } from "@heroui/react";
 import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 

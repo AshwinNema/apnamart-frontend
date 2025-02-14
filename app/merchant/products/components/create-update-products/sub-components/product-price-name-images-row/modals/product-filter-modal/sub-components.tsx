@@ -3,7 +3,7 @@ import {
   productFilterModalState,
   setProductFilterModalState,
 } from "@/app/merchant/products/helpers";
-import { Radio, RadioGroup } from "@nextui-org/react";
+import { Radio, RadioGroup } from "@heroui/react";
 import { Fragment, useState } from "react";
 import { produce } from "immer";
 

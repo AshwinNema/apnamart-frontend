@@ -4,7 +4,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { newRegistrationDetails } from "../../../../helper/interfaces & enums & constants";
 import { ImageComponent } from "@/app/_custom-components";
 import styles from "@/app/styles.module.css";

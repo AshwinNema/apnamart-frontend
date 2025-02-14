@@ -5,7 +5,7 @@ import {
   seriesDescription,
   seriesDescriptionTypeOptions,
 } from "@/app/merchant/products/helpers";
-import { Button, Select, SelectItem } from "@nextui-org/react";
+import { Button, Select, SelectItem } from "@heroui/react";
 import { useContext } from "react";
 import { produce } from "immer";
 import { v4 } from "uuid";

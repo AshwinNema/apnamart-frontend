@@ -1,5 +1,5 @@
 import { useProfileDispatch, useProfileSelector } from "@/lib/profile/hooks";
-import { Tooltip } from "@nextui-org/react";
+import { Tooltip } from "@heroui/react";
 import { ForwardToolTip } from "./forward-tooltip";
 import {
   immediateNextStepHandler,

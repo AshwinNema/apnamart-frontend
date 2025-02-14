@@ -1,5 +1,5 @@
 import { HTTP_METHODS } from "@/app/_services";
-import { TooltipProps } from "@nextui-org/react";
+import { TooltipProps } from "@heroui/react";
 import React from "react";
 
 export interface columns {

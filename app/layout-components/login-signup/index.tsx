@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Modal, ModalContent, ModalHeader } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader } from "@heroui/react";
 import { Footer, MainFormBody } from "./sub-components";
 import { keyVals, setMultiplePaths, setNestedPath } from "@/app/_utils";
 import { defaultConfig, modalTypes, userRoles } from "./constants";

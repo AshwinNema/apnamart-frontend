@@ -5,7 +5,7 @@ import {
   getDefaultAddressDrawerConfig,
   saveAddressDrawerVals,
 } from "../../helpers";
-import { Button, Drawer, DrawerBody, DrawerContent } from "@nextui-org/react";
+import { Button, Drawer, DrawerBody, DrawerContent } from "@heroui/react";
 import { TextInput } from "@/app/_custom-components";
 import { z } from "zod";
 import { setNestedPath } from "@/app/_utils";

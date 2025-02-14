@@ -1,6 +1,6 @@
 import { useProductSelector } from "@/lib/product/hooks";
 import { tabKeys } from "@/lib/product/slices/component-details.slice";
-import { Tooltip } from "@nextui-org/react";
+import { Tooltip } from "@heroui/react";
 import { bodyState, MainModalContext } from "../../../helper";
 import { VscFilterFilled } from "react-icons/vsc";
 import { useContext } from "react";

@@ -5,7 +5,7 @@ import {
   DropdownMenu,
   DropdownItem,
   User,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { EventLoader } from "../../_custom-components";
 import { ImProfile } from "react-icons/im";
 import { IoIosLogOut } from "react-icons/io";

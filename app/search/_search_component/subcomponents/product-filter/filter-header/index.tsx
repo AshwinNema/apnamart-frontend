@@ -1,4 +1,4 @@
-import { CardHeader, Chip } from "@nextui-org/react";
+import { CardHeader, Chip } from "@heroui/react";
 import { useContext, useEffect, useState } from "react";
 import { isPriceFilterSelected, MainContext } from "../../../helpers";
 import { produce } from "immer";

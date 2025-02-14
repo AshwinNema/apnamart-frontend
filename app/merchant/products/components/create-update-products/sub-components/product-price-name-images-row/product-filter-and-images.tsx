@@ -1,4 +1,4 @@
-import { Button, Tooltip, useDisclosure } from "@nextui-org/react";
+import { Button, Tooltip, useDisclosure } from "@heroui/react";
 import { useContext } from "react";
 import { FaFilter } from "react-icons/fa";
 import { CreateUpdateProductFilterModal } from "./modals/product-filter-modal";

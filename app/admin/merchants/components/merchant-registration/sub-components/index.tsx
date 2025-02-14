@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { FcApproval } from "react-icons/fc";
 import {
   merchantRegistrationSubComponentProps,

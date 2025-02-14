@@ -11,7 +11,7 @@ import { produce } from "immer";
 import { setKeyVal, validateZodSchema } from "@/app/_utils";
 import * as _ from "lodash";
 import { CancelUpdateKeyValIcons } from "@/app/merchant/products/components/common-components";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button, Tooltip } from "@heroui/react";
 import { MdOutlineRestore } from "react-icons/md";
 
 export const NonTextSeriesInput = ({

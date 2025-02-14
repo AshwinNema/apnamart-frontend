@@ -15,7 +15,7 @@ import {
   setNotificationType,
 } from "@/lib/main/slices/notification/notification.slice";
 import { setUser } from "@/lib/main/slices/user/user.slice";
-import { Button, ModalBody, ModalFooter, ModalHeader } from "@nextui-org/react";
+import { Button, ModalBody, ModalFooter, ModalHeader } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { TbLogout } from "react-icons/tb";
 

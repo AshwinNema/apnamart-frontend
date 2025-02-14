@@ -7,7 +7,7 @@ import {
 import { useProfileDispatch, useProfileSelector } from "@/lib/profile/hooks";
 import { ReactNode, useContext } from "react";
 import { ForwardToolTip } from "./forward-tooltip";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { BackwardToolTip } from "./stepper-arrows";
 import { MainProfileStateContext } from "@/app/profile/utils";
 import { stepperLastBtnText } from "../stepper";

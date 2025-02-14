@@ -1,5 +1,5 @@
 import { ProductImgsModalContextType } from "@/app/merchant/products/helpers";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { Dispatch, Fragment, SetStateAction, useEffect } from "react";
 import { produce } from "immer";
 import useConfigManager from "./useConfigManager";

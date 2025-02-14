@@ -4,7 +4,7 @@ import {
   notificationTypes,
   setNotificationType,
 } from "@/lib/main/slices/notification/notification.slice";
-import { Button, ModalBody, ModalFooter, ModalHeader } from "@nextui-org/react";
+import { Button, ModalBody, ModalFooter, ModalHeader } from "@heroui/react";
 import { TiBusinessCard } from "react-icons/ti";
 import { RiProfileLine } from "react-icons/ri";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";

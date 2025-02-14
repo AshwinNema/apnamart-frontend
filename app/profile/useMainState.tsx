@@ -1,4 +1,9 @@
-import { getTabOptions, mainProfileState, tabOption } from "./utils";
+import {
+  getTabOptions,
+  mainProfileState,
+  setUserStateDetails,
+  tabOption,
+} from "./utils";
 import {
   Dispatch,
   SetStateAction,
@@ -15,11 +20,7 @@ import { setUserDetails } from "@/lib/profile/slices/main-user-details.slice";
 import { setAddressDetails } from "@/lib/profile/slices/address-slice";
 import { getLocalStorageKey, storageAttributes } from "../_services";
 import { setProfileUser } from "@/lib/profile/slices/user.slice";
-import {
-  merchantRegistrationDetails,
-  setMerchantDetails,
-} from "@/lib/profile/slices/merchant-details.slice";
-import { stepList as merchantRegistrationStepList } from "./merchant-registration/registration-form/utils";
+import { produce } from "immer";
 
 const useMainState = (): [
   tabOption[],
@@ -29,6 +30,7 @@ const useMainState = (): [
   const user = useProfileSelector((state) => state.user);
   const [config, setConfig] = useState<mainProfileState>({
     businessRegistrationFile: null,
+    width: window.innerWidth,
   });
   const dispatch = useProfileDispatch();
   const params = useSearchParams();
@@ -70,33 +72,23 @@ const useMainState = (): [
   }, [selectedTab, tabOptions, dispatch]);
 
   useEffect(() => {
-    const details: Partial<merchantRegistrationDetails> = _.pick(
-      user?.merchantDetails || {},
-      [
-        "id",
-        "name",
-        "description",
-        "isMerchantBlocked",
-        "registrationStatus",
-        "latitude",
-        "longtitude",
-        "addressLine1",
-        "addressLine2",
-        "bankAcNo",
-        "gstIn",
-        "panCard",
-        "pinCode",
-        "photo",
-      ],
-    );
-    if (user?.merchantDetails?.photo) {
-      details.showImage = true;
-    }
-    if (user?.merchantDetails)
-      details.totalCompletedSteps = merchantRegistrationStepList.length;
-    dispatch(setMerchantDetails(details));
+    setUserStateDetails(user, dispatch);
   }, [user?.merchantDetails, dispatch]);
 
+  useEffect(() => {
+    const setWidth = () => {
+      setConfig(
+        produce((draft) => {
+          draft.width = window.innerWidth;
+        }),
+      );
+    };
+    setWidth();
+    window.addEventListener("resize", setWidth);
+    return () => {
+      window.removeEventListener("resize", setWidth);
+    };
+  }, []);
   return [tabOptions, config, setConfig];
 };
 

@@ -1,4 +1,4 @@
-import { Card, CardBody, Tab, Tabs } from "@nextui-org/react";
+import { Card, CardBody, Tab, Tabs } from "@heroui/react";
 import { tabList, tabOption } from "./helper";
 import { resetDetails } from "@/lib/product/slices/component-details.slice";
 import { StoreProvider } from "./storeProvider";

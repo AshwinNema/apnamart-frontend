@@ -1,6 +1,6 @@
 import { BackIcon, ToolTipBtn } from "@/app/_custom-components";
 import { RegistrationDetails } from "./registration-details";
-import { Button, Chip } from "@nextui-org/react";
+import { Button, Chip } from "@heroui/react";
 import { ApproveRegistrationBtn } from "..";
 import { produce } from "immer";
 import { merchantRegistrationStatus } from "@/lib/main/slices/user/user.slice";

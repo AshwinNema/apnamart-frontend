@@ -5,7 +5,7 @@ import { setMenuOptions } from "@/lib/main/slices/product-menu/product-menu.slic
 import { UserInterface, UserRole } from "@/lib/main/slices/user/user.slice";
 import { Fragment, useCallback, useEffect, useState } from "react";
 import styles from "@/app/styles.module.css";
-import { Card, Skeleton } from "@nextui-org/react";
+import { Card, Skeleton } from "@heroui/react";
 import { MenuItem } from "./menu-item";
 import { usePathname } from "next/navigation";
 import { produce } from "immer";

@@ -1,4 +1,4 @@
-import { Card, CardBody, Skeleton } from "@nextui-org/react";
+import { Card, CardBody, Skeleton } from "@heroui/react";
 import { MainCardContextState, MainCardProps } from "../interfaces & enums";
 import LocationAutoCompleteInput from "../auto-complete";
 import Header from "./header";

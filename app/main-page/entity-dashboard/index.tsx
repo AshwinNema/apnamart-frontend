@@ -5,7 +5,7 @@ import {
   CardHeader,
   Listbox,
   ListboxItem,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { entityConfig, entityData } from "../helpers";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";

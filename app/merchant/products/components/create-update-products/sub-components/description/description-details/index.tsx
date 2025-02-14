@@ -1,6 +1,6 @@
 import { errorToast } from "@/app/_utils";
 import { MainCreateUpdateProductContext } from "@/app/merchant/products/helpers";
-import { Button, Tooltip, useDisclosure } from "@nextui-org/react";
+import { Button, Tooltip, useDisclosure } from "@heroui/react";
 import { CurrentDescriptionDetailsModal } from "./modals/current-description";
 import { CreateUpdateDescription } from "./modals/create-update-description";
 import { useContext } from "react";

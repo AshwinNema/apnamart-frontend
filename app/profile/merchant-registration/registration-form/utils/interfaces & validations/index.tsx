@@ -1,5 +1,5 @@
 import { Merchantdetails } from "@/lib/main/slices/user/user.slice";
-import { InputProps, TooltipProps } from "@nextui-org/react";
+import { InputProps, TooltipProps } from "@heroui/react";
 import { ReactNode } from "react";
 import { FaTruckMoving } from "react-icons/fa";
 import { FcBusinessman } from "react-icons/fc";

@@ -40,7 +40,7 @@ const Main = () => {
         <ComponentSkeleton />
       ) : (
         <MainContext.Provider value={{ config, setConfig, notifier }}>
-          <div className="mx-[10svh] mt-5">
+          <div className="mn625:mx-[10svh] mt-5">
             <Address />
             <OrderSummary />
             <PaymentOptions />

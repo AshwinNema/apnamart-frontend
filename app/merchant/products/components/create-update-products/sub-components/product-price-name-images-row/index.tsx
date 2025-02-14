@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { setNestedPath } from "@/app/_utils";
 import { z } from "zod";
 import { BsHighlights } from "react-icons/bs";
-import { Button, Tooltip, useDisclosure } from "@nextui-org/react";
+import { Button, Tooltip, useDisclosure } from "@heroui/react";
 import { ProductHighlights } from "./modals/product-highlights";
 
 export const ProductPriceNameRow = () => {

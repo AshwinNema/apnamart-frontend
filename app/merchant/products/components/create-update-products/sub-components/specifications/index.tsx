@@ -3,7 +3,7 @@ import {
   MainCreateUpdateProductContext,
   specificationOptions,
 } from "@/app/merchant/products/helpers";
-import { Select, SelectItem } from "@nextui-org/react";
+import { Select, SelectItem } from "@heroui/react";
 import { useContext } from "react";
 import { produce } from "immer";
 import { SpecificationDetails } from "./specification-details";

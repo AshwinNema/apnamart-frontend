@@ -1,4 +1,4 @@
-import { ModalSlots, SlotsToClasses } from "@nextui-org/react";
+import { ModalSlots, SlotsToClasses } from "@heroui/react";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import * as _ from "lodash";
 

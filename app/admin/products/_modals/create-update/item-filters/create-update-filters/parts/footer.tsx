@@ -1,4 +1,4 @@
-import { Button, Checkbox } from "@nextui-org/react";
+import { Button, Checkbox } from "@heroui/react";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { IoColorFilterSharp } from "react-icons/io5";
 import { RiColorFilterFill } from "react-icons/ri";

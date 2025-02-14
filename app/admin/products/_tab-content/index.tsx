@@ -1,4 +1,4 @@
-import { Button, useDisclosure } from "@nextui-org/react";
+import { Button, useDisclosure } from "@heroui/react";
 import { MdCategory } from "react-icons/md";
 import React, { useEffect } from "react";
 import { queryTableData } from "../helper";

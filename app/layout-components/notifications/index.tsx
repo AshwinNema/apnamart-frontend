@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/lib/main/hooks";
-import { useDisclosure } from "@nextui-org/react";
+import { useDisclosure } from "@heroui/react";
 import { useEffect } from "react";
-import { Modal, ModalContent } from "@nextui-org/react";
+import { Modal, ModalContent } from "@heroui/react";
 import {
   notificationTypes,
   resetNotifications,

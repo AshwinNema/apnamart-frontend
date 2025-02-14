@@ -4,7 +4,7 @@ import {
   merchantSelectList,
   merchantSelectStatus,
 } from "../../helper";
-import { Select, SelectItem } from "@nextui-org/react";
+import { Select, SelectItem } from "@heroui/react";
 import { produce } from "immer";
 
 export const MerchantTypeSelect = (props: {

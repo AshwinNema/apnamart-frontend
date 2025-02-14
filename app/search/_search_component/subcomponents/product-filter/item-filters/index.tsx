@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, Checkbox } from "@nextui-org/react";
+import { Accordion, AccordionItem, Checkbox } from "@heroui/react";
 import { useContext } from "react";
 import { MainContext } from "../../../helpers";
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";

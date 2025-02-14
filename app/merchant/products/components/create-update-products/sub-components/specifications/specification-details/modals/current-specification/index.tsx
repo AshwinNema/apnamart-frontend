@@ -10,7 +10,7 @@ import {
   ModalBody,
   ModalContent,
   ModalHeader,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useContext } from "react";
 import { SpecificationPointers } from "./specification-pointers";
 import { TableActions } from "@/app/_custom-components";

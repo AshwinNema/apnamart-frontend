@@ -15,6 +15,7 @@ export interface mainConfig {
   buttonLeftMargin: number;
   modalType: modalTypes;
   isDataLoaded: boolean;
+  innerWidth: number;
 }
 
 export const getDefaultMainConfig = (): mainConfig => ({
@@ -24,6 +25,7 @@ export const getDefaultMainConfig = (): mainConfig => ({
   buttonLeftMargin: 0,
   modalType: modalTypes.login,
   isDataLoaded: false,
+  innerWidth: window.innerWidth,
 });
 
 export * from "./notifications";

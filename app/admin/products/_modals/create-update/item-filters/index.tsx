@@ -1,4 +1,4 @@
-import { ModalBody, ScrollShadow } from "@nextui-org/react";
+import { ModalBody, ScrollShadow } from "@heroui/react";
 import { useContext, useEffect, useState } from "react";
 import {
   bodyState,

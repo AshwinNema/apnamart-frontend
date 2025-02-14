@@ -16,7 +16,8 @@ import { Subject } from "rxjs";
 import { ProductDetails } from "./components/product-details";
 import styles from "./styles.module.css";
 import { ProductBtns } from "./components/product-btns";
-import { Skeleton } from "@nextui-org/react";
+import { Skeleton } from "@heroui/react";
+import { produce } from "immer";
 
 const MainComponent = () => {
   const { id } = useParams();
@@ -27,14 +28,37 @@ const MainComponent = () => {
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
 
   useEffect(() => {
+    const handleResize = () => {
+      setConfig(
+        produce((draft) => {
+          draft.innerWidth = window.innerWidth;
+        }),
+      );
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
     const productId = Number(id);
     if (!productId) {
       router.push("/");
       return;
     }
-    getProductData(productId, setData("details"), () => {
-      setData("isDataLoaded")(true);
-    });
+    getProductData(
+      productId,
+      setData("details"),
+      () => {
+        setData("isDataLoaded")(true);
+      },
+      () => {
+        router.push("/");
+      },
+    );
   }, [id, user]);
 
   return (
@@ -47,12 +71,18 @@ const MainComponent = () => {
           <div className={`${styles["product-item-container"]}`}>
             <div>
               <ProductImages />
-              <ProductBtns />
+              {config.innerWidth > 800 && <ProductBtns />}
             </div>
             <div className="relative">
               <ProductDetails />
-              <MagnifiedImg />
+              {config.innerWidth > 800 && <MagnifiedImg />}
             </div>
+
+            {config.innerWidth <= 800 && (
+              <div className="sticky bottom-0 z-[10] bg-white p-3 border-styledBorder border-t-[0.1rem]">
+                <ProductBtns />{" "}
+              </div>
+            )}
           </div>
         </MainContext.Provider>
       </Skeleton>

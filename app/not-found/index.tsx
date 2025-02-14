@@ -9,7 +9,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useTheme } from "next-themes";
 import { ImageComponent } from "../_custom-components";
 import { browserTheme } from "../layout-components/theme-switch";

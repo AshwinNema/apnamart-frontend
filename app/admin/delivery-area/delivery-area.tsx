@@ -1,7 +1,7 @@
 "use client";
 import { MainMap } from "@/app/_custom-components/leaflet";
 import { setNestedPath } from "@/app/_utils";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";

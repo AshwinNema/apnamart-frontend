@@ -12,14 +12,14 @@ import {
   styledBorder,
   buyNowButton,
 } from "./constants";
-const { nextui } = require("@nextui-org/react");
+const { heroui } = require("@heroui/react");
 
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -72,9 +72,16 @@ const config: Config = {
       fontSize: {
         supSmall: "0.6rem",
       },
+      screens:{
+        mbStart:{'max':'750px'},
+        mbEnd:{'min':'751px'},
+        mx625:{'max':'625px'},
+        mn625:{'min':'625px'},
+        mx475:{'max':'475px'},
+      }
     },
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [heroui()],
 };
 export default config;

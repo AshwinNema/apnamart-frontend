@@ -7,7 +7,7 @@ import {
   CardHeader,
   Divider,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useContext, useState } from "react";
 import { getTotalPrice, MainContext } from "../../helpers";
 

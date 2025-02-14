@@ -2,7 +2,7 @@ import { useAppSelector } from "@/lib/main/hooks";
 import { useEffect, useState } from "react";
 import { modalConfig, modalTypes } from "../../helpers";
 import { produce } from "immer";
-import { Modal, ModalContent, useDisclosure } from "@nextui-org/react";
+import { Modal, ModalContent, useDisclosure } from "@heroui/react";
 import { AddressModal, EmptyCartModel } from "./sub-components";
 import {
   EventLoader,

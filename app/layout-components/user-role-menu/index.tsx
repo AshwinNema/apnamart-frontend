@@ -7,7 +7,7 @@ import {
   DropdownMenu,
   DropdownItem,
   Button,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { setNestedPath } from "@/app/_utils";
 import { RxCross1 } from "react-icons/rx";
 import { usePathname, useRouter } from "next/navigation";

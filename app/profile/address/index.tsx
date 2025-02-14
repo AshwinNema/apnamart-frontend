@@ -1,6 +1,12 @@
 "use client";
-import { Card, CardBody } from "@nextui-org/react";
-import React, { useState, useMemo, useEffect, useCallback } from "react";
+import { Card, CardBody } from "@heroui/react";
+import React, {
+  useState,
+  useMemo,
+  useEffect,
+  useCallback,
+  useContext,
+} from "react";
 import { MainMap } from "../../_custom-components";
 import { setMultiplePaths } from "@/app/_utils";
 import { getAddress } from "./utils";
@@ -13,8 +19,10 @@ import {
   MainCardComponent,
 } from "../shared-components/shared-map";
 import { AddressDisplayState as config } from "../shared-components/shared-map";
+import { MainProfileStateContext } from "../utils";
 export default function UserAddress() {
   const addressDetails = useProfileSelector((state) => state.addressDetails);
+  const maincontext = useContext(MainProfileStateContext);
   const [config, setConfig] = useState<config>({
     flyToLocation: null,
     fly: false,
@@ -53,10 +61,13 @@ export default function UserAddress() {
     ),
     [addressDetails.latitude, addressDetails.longtitude, config.flyToLocation],
   );
-
+  if (!maincontext) return null;
   return (
     <>
-      <Card>
+      <Card
+        radius={`${maincontext.config.width > 750 ? "lg" : "none"}`}
+        shadow={`${maincontext.config.width > 750 ? "md" : "none"}`}
+      >
         <MainCardComponent
           componentType={componentTypes.profileAddress}
           setMultipleData={setMultipleData}

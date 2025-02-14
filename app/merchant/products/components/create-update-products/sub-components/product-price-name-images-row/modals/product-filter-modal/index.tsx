@@ -9,7 +9,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import { produce } from "immer";
 import { Filter } from "./sub-components";

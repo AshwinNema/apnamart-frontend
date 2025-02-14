@@ -5,7 +5,7 @@ import {
   mainConfig,
   queryCustomerOrders,
 } from "./helpers";
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardBody } from "@heroui/react";
 import styles from "@/app/styles.module.css";
 import { ImageComponent, PaginationComponent } from "../_custom-components";
 import { convertFirstLetterToUpperCase } from "../_utils";

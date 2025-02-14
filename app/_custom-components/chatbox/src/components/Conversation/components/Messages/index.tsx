@@ -1,6 +1,6 @@
-import { Button, ScrollShadow } from "@nextui-org/react";
+import { Button, ScrollShadow } from "@heroui/react";
 import { MainMsgComponent, MsgObserver } from "./sub-components";
-import { Fragment, useContext, useEffect, useRef, useState } from "react";
+import { Fragment, useContext, useEffect, useRef } from "react";
 import { WidgetContext } from "@/app/_custom-components/chatbox";
 import { useChatboxStore } from "../../../../store";
 import { eventDispatcherTypes } from "../../../../utils";

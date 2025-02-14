@@ -1,5 +1,5 @@
 import { HTTP_METHODS, makeDataRequest } from "@/app/_services";
-import { Tooltip, useDisclosure } from "@nextui-org/react";
+import { Tooltip, useDisclosure } from "@heroui/react";
 import { FaRegEdit } from "react-icons/fa";
 import { TableActionProps } from "..";
 import { RiDeleteBin6Fill } from "react-icons/ri";

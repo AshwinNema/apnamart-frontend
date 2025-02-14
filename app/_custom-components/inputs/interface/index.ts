@@ -1,5 +1,5 @@
 import { setVal } from "@/app/_utils";
-import { InputProps, InputSlots, SlotsToClasses } from "@nextui-org/react";
+import { InputProps, InputSlots, SlotsToClasses } from "@heroui/react";
 import {
   FileUploadWithPreview,
   ImageAddedEventDetail,

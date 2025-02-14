@@ -1,8 +1,6 @@
-import { IconInput } from "../_custom-components";
-import { Tabs, Tab, Badge, Avatar } from "@nextui-org/react";
+import { Tabs, Tab } from "@heroui/react";
 import { MainProfileStateContext, tabOption } from "./utils";
-import { BsPlusCircleFill } from "react-icons/bs";
-import { uploadProfileImage } from "./api";
+
 import useMainState from "./useMainState";
 import { useProfileDispatch, useProfileSelector } from "@/lib/profile/hooks";
 import { setTab, tabKeys } from "@/lib/profile/slices/component-state.slice";
@@ -15,35 +13,7 @@ function UserProfile() {
 
   if (!user?.role) return null;
   return (
-    <div className="mt-11">
-      <div className="flex ml-11 mb-11">
-        <Badge
-          className="bg-[transparent] border-0 cursor-pointer"
-          shape="circle"
-          content={
-            <>
-              <IconInput
-                Icon={BsPlusCircleFill}
-                accept="image/png, image/jpeg"
-                props={{
-                  className:
-                    "scale-[2] relative left-[1rem] bottom-[-1.5rem] cursor-pointer",
-                }}
-                callback={(file) => uploadProfileImage(file, dispatch)}
-              />
-            </>
-          }
-          placement="bottom-right"
-        >
-          <Avatar
-            radius="full"
-            size="lg"
-            className="scale-[2]"
-            src={`${user?.photo || ""}`}
-          />
-        </Badge>
-      </div>
-
+    <div>
       <MainProfileStateContext.Provider
         value={{
           config,
@@ -53,11 +23,16 @@ function UserProfile() {
         <div>
           <Tabs
             color="primary"
-            variant="bordered"
+            variant={`${config.width > 750 ? "bordered" : "solid"}`}
             aria-label="Options"
-            placement="start"
-            className=""
-            size="lg"
+            placement={`${config.width > 750 ? "start" : "top"}`}
+            classNames={{
+              base: `${config.width > 750 ? "mt-10 ml-3" : "w-full"}`,
+              panel: `${config.width > 750 ? "mt-10" : "pt-0"}`,
+              tabList: `${config.width > 750 ? "" : "w-full"}`,
+            }}
+            radius={`${config.width > 750 ? "sm" : "none"}`}
+            size={`${config.width > 750 ? "lg" : "md"}`}
             selectedKey={tab}
             onSelectionChange={(key) => {
               if (key === tabKeys.profile) {
@@ -73,10 +48,10 @@ function UserProfile() {
               return (
                 <Tab
                   key={tabOption.key}
-                  className={`min-h-16 w-full ${tabOption.additionalTabClass || ""}`}
+                  className={`min-h-16 w-full ${tabOption.additionalTabClass || ""} ${config.width > 750}`}
                   title={tabOption.title}
                 >
-                  <div className="-mt-[8rem]">
+                  <div >
                     <Content />
                   </div>
                 </Tab>

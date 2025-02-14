@@ -1,6 +1,6 @@
 import CustomDrawer from "@/app/_custom-components/drawer";
 import { useProfileSelector } from "@/lib/profile/hooks";
-import { ModalBody } from "@nextui-org/react";
+import { ModalBody } from "@heroui/react";
 import { z } from "zod";
 import { useEffect, useState } from "react";
 import { addressDrawerDefaultVal } from "../../utils";

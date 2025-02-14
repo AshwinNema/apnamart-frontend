@@ -6,13 +6,13 @@ export const ProductDetails = () => {
   const context = useContext(MainContext);
   if (!context) return null;
   const {
-    config: { details },
+    config: { details, innerWidth },
   } = context;
   const description = details?.description?.details;
   const specification = details?.specification;
 
   return (
-    <div className="mb-3">
+    <div className={`mb-3 ${innerWidth <= 800 && "mx-3 mt-3"}`}>
       <div className="text-lg font-normal">{details?.name}</div>
       <div className="my-5 text-3xl font-medium">
         {!!details?.price && <>₹{details?.price}</>}
@@ -38,7 +38,7 @@ export const ProductDetails = () => {
 
       {!!description && <Description description={description} />}
       {!!specification && (
-        <div className="max-w-[90%]">
+        <div className={`${innerWidth > 800 && "max-w-[90%]"}`}>
           {typeof specification === "string" ? (
             <div className="flex gap-10 mt-10">
               <div className="text-leadText">Specifications</div>

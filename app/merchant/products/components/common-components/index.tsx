@@ -1,6 +1,6 @@
 import { GiCancel } from "react-icons/gi";
 import { SiTicktick } from "react-icons/si";
-import { Tooltip } from "@nextui-org/react";
+import { Tooltip } from "@heroui/react";
 import { createUpdateKetValIconConfig } from "../../helpers";
 
 export const CancelUpdateKeyValIcons = ({

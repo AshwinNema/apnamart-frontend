@@ -1,5 +1,5 @@
 import { browserTheme } from "@/app/layout-components/theme-switch";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
 import { openPopup, polling } from "./dialog-utils";

@@ -5,7 +5,7 @@ import {
   productBtnConfig,
   setProductBtnConfig,
 } from "../../helpers";
-import { useDisclosure } from "@nextui-org/react";
+import { useDisclosure } from "@heroui/react";
 import { useAppDispatch, useAppSelector } from "@/lib/main/hooks";
 import { modalTypes } from "@/app/layout-components/login-signup/constants";
 import { produce } from "immer";

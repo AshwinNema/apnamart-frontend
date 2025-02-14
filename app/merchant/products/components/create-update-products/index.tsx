@@ -17,7 +17,7 @@ import {
   ProductPriceNameRow,
   Specifications,
 } from "./sub-components";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button, Tooltip } from "@heroui/react";
 import styles from "@/app/styles.module.css";
 
 export const CreateUpdateProducts = ({

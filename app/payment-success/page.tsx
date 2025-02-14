@@ -1,5 +1,5 @@
 "use client";
-import { Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Card, CardBody, CardHeader } from "@heroui/react";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";

@@ -1,4 +1,4 @@
-import { useDisclosure, UseDisclosureProps } from "@nextui-org/react";
+import { useDisclosure, UseDisclosureProps } from "@heroui/react";
 import { Dispatch, SetStateAction } from "react";
 import { uploadedImgDetails } from "../landing-screen";
 

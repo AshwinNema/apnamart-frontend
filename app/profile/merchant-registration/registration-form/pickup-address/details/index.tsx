@@ -1,4 +1,4 @@
-import { Button, useDisclosure } from "@nextui-org/react";
+import { Button, useDisclosure } from "@heroui/react";
 import { BiSolidEditLocation } from "react-icons/bi";
 import AddressDrawer from "./drawer";
 import { useProfileSelector } from "@/lib/profile/hooks";
