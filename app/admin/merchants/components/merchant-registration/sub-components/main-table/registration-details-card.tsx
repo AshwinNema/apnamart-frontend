@@ -1,10 +1,4 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-} from "@heroui/react";
+import { Button, Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
 import { newRegistrationDetails } from "../../../../helper/interfaces & enums & constants";
 import { ImageComponent } from "@/app/_custom-components";
 import styles from "@/app/styles.module.css";

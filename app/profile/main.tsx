@@ -48,10 +48,10 @@ function UserProfile() {
               return (
                 <Tab
                   key={tabOption.key}
-                  className={`min-h-16 w-full ${tabOption.additionalTabClass || ""} ${config.width > 750}`}
+                  className={`mbStart:min-h-10 mbEnd:min-h-16 w-full ${tabOption.additionalTabClass || ""} ${config.width > 750}`}
                   title={tabOption.title}
                 >
-                  <div >
+                  <div>
                     <Content />
                   </div>
                 </Tab>

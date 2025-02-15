@@ -49,7 +49,7 @@ const CreateUpdateModal = ({
   return (
     <Modal
       isOpen={isOpen}
-      className=""
+      placement="center"
       hideCloseButton={true}
       isDismissable={false}
       onOpenChange={() => {

@@ -72,13 +72,13 @@ const config: Config = {
       fontSize: {
         supSmall: "0.6rem",
       },
-      screens:{
-        mbStart:{'max':'750px'},
-        mbEnd:{'min':'751px'},
-        mx625:{'max':'625px'},
-        mn625:{'min':'625px'},
-        mx475:{'max':'475px'},
-      }
+      screens: {
+        mbStart: { max: "750px" },
+        mbEnd: { min: "751px" },
+        mx625: { max: "625px" },
+        mn625: { min: "625px" },
+        mx475: { max: "475px" },
+      },
     },
   },
   darkMode: "class",

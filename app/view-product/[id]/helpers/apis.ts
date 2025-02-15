@@ -11,7 +11,7 @@ export const getProductData = (
   id: number,
   setData: setVal,
   onOperationComplete?: () => void,
-  onFailure?: () => void
+  onFailure?: () => void,
 ) => {
   const user = getLocalStorageKey(storageAttributes.user);
   makeDataRequest(
@@ -22,13 +22,13 @@ export const getProductData = (
   )
     .then((res) => {
       if (!res) {
-        onFailure && onFailure()
-        return
+        onFailure && onFailure();
+        return;
       }
       setData(res);
     })
     .catch((err) => {
-      onFailure && onFailure()
+      onFailure && onFailure();
       console.log(err);
     })
     .finally(() => {

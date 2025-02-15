@@ -8,6 +8,13 @@
   grid-template-columns: 6fr 1fr;
 }
 
+@media (max-width: 600px) {
+  .product-autocomplete-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .merchant-registration-inputs {
   display: grid;
   grid-template-columns: 1fr 10fr;

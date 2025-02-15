@@ -41,7 +41,6 @@ export const Description = ({
 }: {
   description: queriedProduct["description"]["details"];
 }) => {
-
   const DescriptionPhoto = ({ photo }: { photo: uploadedImgDetails }) => {
     return (
       <div className="relative">
@@ -54,10 +53,10 @@ export const Description = ({
       </div>
     );
   };
-  const context = useContext(MainContext)
-  if (!context) return null
+  const context = useContext(MainContext);
+  if (!context) return null;
   return (
-    <div className={`${context.config.innerWidth > 800 && 'max-w-[90%]'}`}>
+    <div className={`${context.config.innerWidth > 800 && "max-w-[90%]"}`}>
       {typeof description === "string" ? (
         <div className="flex gap-10 mt-10">
           <div className="text-leadText">Description</div>

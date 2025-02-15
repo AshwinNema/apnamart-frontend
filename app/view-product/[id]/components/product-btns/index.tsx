@@ -22,13 +22,16 @@ export const ProductBtns = () => {
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
 
   if (!mainContext) return null;
-  if (!mainContext.config.details) return null
+  if (!mainContext.config.details) return null;
   return (
     <>
       <div
-        className={`mt-6 ${mainContext.config.innerWidth > 800 ? styles["cartBtns"] : 'flex gap-10'}`}
+        className={`mt-6 ${mainContext.config.innerWidth > 800 ? styles["cartBtns"] : "flex gap-10"}`}
         style={{
-          marginLeft: mainContext.config.innerWidth > 800 ? `${mainContext.config.buttonLeftMargin}px`:"0px",
+          marginLeft:
+            mainContext.config.innerWidth > 800
+              ? `${mainContext.config.buttonLeftMargin}px`
+              : "0px",
         }}
       >
         <Button
@@ -52,7 +55,6 @@ export const ProductBtns = () => {
         </Button>
 
         <Button
-         
           onPress={() => {
             const {
               config: { details },

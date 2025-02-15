@@ -62,7 +62,7 @@ export default function BasicDetails({}: {}) {
         {tab === tabKeys.settings ? (
           <>
             <PasswordInput
-              className="mb-4"
+              className="mbStart:mt-8 mb-4"
               password={userDetails.password}
               setData={setDetails("password")}
               placeholder="Enter your new password"

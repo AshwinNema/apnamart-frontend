@@ -42,8 +42,10 @@ export const SubDetailsViewer = ({
       loading: () => <ComponentSkeleton />,
     },
   );
+
   return (
     <Modal
+      placement="center"
       isOpen={isOpen}
       onOpenChange={(isOpen: boolean) => {
         if (!isOpen) clearSubDetailsType();

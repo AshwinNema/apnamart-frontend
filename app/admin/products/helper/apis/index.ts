@@ -12,13 +12,18 @@ export const queryTableData = (
   tabKey: tabKeys,
   query: getDataQuery,
   dispatch: ProductDispatch,
+  onOperationComplete?: () => void,
 ) => {
   let url = getQueryUrl(tabKey);
 
   makeDataRequest(HTTP_METHODS.GET, url, undefined, {
     ...query,
-  }).then((res) => {
-    if (!res) return;
-    dispatch(updateTableData(res));
-  });
+  })
+    .then((res) => {
+      if (!res) return;
+      dispatch(updateTableData(res));
+    })
+    .finally(() => {
+      onOperationComplete && onOperationComplete();
+    });
 };
