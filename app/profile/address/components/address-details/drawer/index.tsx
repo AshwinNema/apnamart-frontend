@@ -1,6 +1,6 @@
 import { TextInput } from "@/app/_custom-components";
 import { setMultiplePaths, setNestedPath } from "@/app/_utils";
-import { Button, Drawer, DrawerBody, DrawerContent } from "@nextui-org/react";
+import { Button, Drawer, DrawerBody, DrawerContent } from "@heroui/react";
 import { useCallback, useEffect, useState } from "react";
 import { z } from "zod";
 import { drawerVal, saveDrawerDetails } from "../../../utils";

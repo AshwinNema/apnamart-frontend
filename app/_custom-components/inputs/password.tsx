@@ -1,4 +1,4 @@
-import { Input } from "@nextui-org/react";
+import { Input } from "@heroui/react";
 import { ClearIcon } from "@/app/_utils/icons & logos";
 import { useState } from "react";
 import { passwordErrMsg, setVal } from "../../_utils";
@@ -13,12 +13,14 @@ export const PasswordInput = ({
   placeholder,
   label,
   variant = "bordered",
+  className,
 }: {
   password: string;
   setData: setVal;
   placeholder?: string;
   label?: string;
   variant?: "bordered" | "flat" | "faded" | "underlined";
+  className?: string;
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [invalid, setInvalid] = useState(false);
@@ -36,6 +38,7 @@ export const PasswordInput = ({
 
   return (
     <Input
+      className={className}
       startContent={<IoIosLock className="scale-150" />}
       value={password}
       isInvalid={invalid}

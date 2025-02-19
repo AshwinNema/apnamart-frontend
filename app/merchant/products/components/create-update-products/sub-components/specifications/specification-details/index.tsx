@@ -1,6 +1,6 @@
 import { errorToast } from "@/app/_utils";
 import { MainCreateUpdateProductContext } from "@/app/merchant/products/helpers";
-import { Button, Tooltip, useDisclosure } from "@nextui-org/react";
+import { Button, Tooltip, useDisclosure } from "@heroui/react";
 import { CurrentSpecificationDetailsModal } from "./modals/current-specification";
 import { CreateUpdateSpecification } from "./modals/create-update-specification";
 import { useContext } from "react";
@@ -25,7 +25,7 @@ export const SpecificationDetails = () => {
   const { specifications } = config;
   return (
     <>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 mx500:gap-0">
         {!config.specifications || Array.isArray(config.specifications) ? (
           <Tooltip
             color="primary"
@@ -46,7 +46,7 @@ export const SpecificationDetails = () => {
               isIconOnly
               className="bg-transparent"
             >
-              <PiPlusCircleDuotone className="scale-[3] fill-mainTheme" />
+              <PiPlusCircleDuotone className="scale-[3] fill-mainTheme mx500:scale-[2]" />
             </Button>
           </Tooltip>
         ) : null}
@@ -71,7 +71,7 @@ export const SpecificationDetails = () => {
               openCurrentSpecificationModal();
             }}
           >
-            <MdOutlinePreview className="scale-[3] fill-warningTheme" />
+            <MdOutlinePreview className="scale-[3] fill-warningTheme mx500:scale-[2]" />
           </Button>
         </Tooltip>
       </div>

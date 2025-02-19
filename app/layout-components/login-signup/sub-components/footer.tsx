@@ -1,4 +1,4 @@
-import { Button, ModalFooter } from "@nextui-org/react";
+import { Button, ModalFooter } from "@heroui/react";
 import { loginConfig, modalTypes } from "../constants";
 import { loginSignUp } from "../api";
 import { useAppDispatch } from "@/lib/main/hooks";

@@ -1,5 +1,5 @@
 import { ProductImgsModalContext } from "@/app/merchant/products/helpers";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button, Tooltip } from "@heroui/react";
 import { useContext } from "react";
 import { MdGridView } from "react-icons/md";
 import { ImUpload2 } from "react-icons/im";

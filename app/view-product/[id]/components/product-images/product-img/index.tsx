@@ -24,6 +24,7 @@ export const ProductImg = ({
   return (
     <Draggable
       position={{ x: 0, y: 0 }}
+      disabled={mainContext.config.innerWidth > 800}
       bounds={{
         left:
           index === (mainContext.config.details?.photos.length || 0) - 1
@@ -43,11 +44,14 @@ export const ProductImg = ({
       >
         {" "}
         <img
+          draggable={false}
           ref={imgRef}
-          className="w-[48svh] h-[48svh] m-auto align-top cursor-crosshair"
+          className={`w-[48svh] h-[48svh] m-auto align-top ${mainContext.config.innerWidth > 800 && "cursor-crosshair"} `}
           src={details.url}
         />
-        <ImgLens config={config} containerRef={lensContainerRef} />
+        {mainContext.config.innerWidth > 800 && (
+          <ImgLens config={config} containerRef={lensContainerRef} />
+        )}
       </li>
     </Draggable>
   );

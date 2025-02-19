@@ -6,7 +6,7 @@ export const getToolTipContent = (currentStep: number, id?: number) => {
   return (
     <>
       {isLastStep ? (
-        <p>Click below to {id ? "update" : "register"} on the platform</p>
+        <p>Click below to {id ? "update details" : "register"} on the platform</p>
       ) : (
         <div className="inline-block align-middle">
           Please click below to go to{" "}

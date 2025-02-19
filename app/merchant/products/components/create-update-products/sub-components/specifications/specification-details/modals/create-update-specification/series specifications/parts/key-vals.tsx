@@ -10,7 +10,7 @@ import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { setNestedPath } from "@/app/_utils";
 import { SiTicktick } from "react-icons/si";
-import { Tooltip } from "@nextui-org/react";
+import { Tooltip } from "@heroui/react";
 
 export const SpecificationKeyVal = ({
   keyVal,

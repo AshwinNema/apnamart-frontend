@@ -1,6 +1,6 @@
 import { loginConfig, modalTypes } from "../constants";
 import { PasswordInput, TextInput } from "@/app/_custom-components/inputs";
-import { Avatar, AvatarIcon } from "@nextui-org/react";
+import { Avatar, AvatarIcon } from "@heroui/react";
 import { z } from "zod";
 import { setKeyVal } from "@/app/_utils";
 import { IoIosMail } from "react-icons/io";

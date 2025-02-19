@@ -1,4 +1,4 @@
-import { Autocomplete, AutocompleteItem, Avatar } from "@nextui-org/react";
+import { Autocomplete, AutocompleteItem, Avatar } from "@heroui/react";
 import { useAsyncList } from "@react-stately/data";
 import * as _ from "lodash";
 import { useCallback, useRef, useState } from "react";

@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { ImageComponent, ImgPreviewInput } from "..";
 import { ImageViewerProps } from "./interfaces";
 import { infoToast } from "@/app/_utils";

@@ -1,17 +1,19 @@
 import { useAppDispatch, useAppSelector } from "@/lib/main/hooks";
-import { useDisclosure } from "@nextui-org/react";
+import { useDisclosure } from "@heroui/react";
 import { useEffect } from "react";
-import { Modal, ModalContent } from "@nextui-org/react";
+import { Modal, ModalContent } from "@heroui/react";
 import {
   notificationTypes,
   resetNotifications,
 } from "@/lib/main/slices/notification/notification.slice";
 import styles from "../../styles.module.css";
 import dynamic from "next/dynamic";
+import useConfigManager from "./useConfigManager";
 
 export default function NotificationModal() {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const { type, modalProps } = useAppSelector((state) => state.notifications);
+  const [config] = useConfigManager();
   const dispatch = useAppDispatch();
   const Logout = dynamic(() => import("./logout"));
   const NewUserNotification = dynamic(() => import("./new-user"));
@@ -51,7 +53,7 @@ export default function NotificationModal() {
       }}
       backdrop={`${modalProps?.backdrop}`}
       scrollBehavior={`${modalProps?.scrollBehavior}`}
-      placement={`${modalProps?.placement}`}
+      placement={config.placement}
       hideCloseButton={modalProps.hideCloseButton}
       isDismissable={modalProps.isDismissable}
       onOpenChange={() => {

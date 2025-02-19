@@ -3,7 +3,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import styles from "../../styles.module.css";
 import { useCallback, useContext } from "react";
 import { MainContext } from "../../helpers";
-import { Button, Spinner } from "@nextui-org/react";
+import { Button, Spinner } from "@heroui/react";
 import { useAppDispatch, useAppSelector } from "@/lib/main/hooks";
 import { setNestedPath } from "@/app/_utils";
 import useConfigManager from "./useConfigManager";
@@ -22,23 +22,27 @@ export const ProductBtns = () => {
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
 
   if (!mainContext) return null;
-
+  if (!mainContext.config.details) return null;
   return (
     <>
       <div
-        className={`mt-6 ${styles["cartBtns"]}`}
+        className={`mt-6 ${mainContext.config.innerWidth > 800 ? styles["cartBtns"] : "flex gap-10 justify-end"}`}
         style={{
-          marginLeft: `${mainContext.config.buttonLeftMargin}px`,
+          marginLeft:
+            mainContext.config.innerWidth > 800
+              ? `${mainContext.config.buttonLeftMargin}px`
+              : "0px",
         }}
       >
         <Button
           radius="none"
-          className={`text-white ${config.showAddCartLoader && "bg-gray-700"}`}
+          className={`text-white ${config.showAddCartLoader && "bg-gray-700"} w-[10rem]`}
           size="lg"
           color="warning"
           onPress={cartBtnPress}
+          isIconOnly={true}
         >
-          <FaCartShopping />
+          <FaCartShopping className="mr-3" />
           {config.showAddCartLoader ? (
             <Spinner />
           ) : (
@@ -72,7 +76,7 @@ export const ProductBtns = () => {
             router.push("/checkout");
           }}
           radius="none"
-          className={`text-white ${config.showBuyNowSpinner ? "bg-gray-700" : "bg-buyNowButton"}`}
+          className={`text-white ${config.showBuyNowSpinner ? "bg-gray-700" : "bg-buyNowButton"} w-[10rem]`}
           size="lg"
         >
           {config.showBuyNowSpinner && <Spinner />}

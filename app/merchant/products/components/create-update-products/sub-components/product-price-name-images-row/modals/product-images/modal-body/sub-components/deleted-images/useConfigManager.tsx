@@ -4,7 +4,7 @@ import {
   uploadedImgsConfig,
   deleteImgsHook,
 } from "@/app/merchant/products/helpers";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { produce } from "immer";
 
 const useConfigManager = (): deleteImgsHook => {
@@ -13,56 +13,30 @@ const useConfigManager = (): deleteImgsHook => {
     defaultUploadedImgsConfig(),
   );
 
-  useEffect(() => {
-    if (config.hasInteracted || !modalContext) return;
-    const { lastVisibleIndex } = config;
-    setConfig(
-      produce((draft) => {
-        if (draft.hasInteracted) return;
-        draft.itemWidth = config.itemLeft[1] - config.itemLeft[0];
-        draft.scrollWidth =
-          draft.itemLeft[lastVisibleIndex + 1] - draft.itemLeft[0];
-        draft.totalVisibleElements = lastVisibleIndex + 1;
-      }),
-    );
-    modalContext.setConfig(
-      produce((draft) => {
-        draft.lastVisibleDeletedIndex = lastVisibleIndex;
-      }),
-    );
-  }, [
-    config.hasInteracted,
-    config.itemLeft[0],
-    config.itemLeft[1],
-    modalContext,
-    config.lastVisibleIndex,
-  ]);
-
   const handleImageIntersection = useCallback(
     (isIntersecting: boolean, bounds: DOMRect, index: number) => {
       const lastIndex = (modalContext?.config?.deletedImgs?.length || 0) - 1;
+      const isLastOnScreen =
+        bounds.right <= window.innerWidth &&
+        bounds.right + bounds.width > window.innerWidth;
       setConfig(
         produce((draft) => {
-          draft.itemLeft[index] = bounds.left;
-          if (!draft.hasInteracted && isIntersecting) {
-            draft.lastVisibleIndex = Math.max(draft.lastVisibleIndex, index);
+          if (index === lastIndex) {
+            draft.showNextArrow = !isIntersecting;
+          }
+          if (index !== lastIndex && isLastOnScreen) {
+            draft.showNextArrow = true;
+          }
+          if (draft.hasInteracted) return;
+
+          if (index == 0) {
+            draft.itemLeft[0] = bounds.left;
+          }
+          if (index == 1) {
+            draft.itemLeft[1] = bounds.left;
           }
         }),
       );
-
-      index === 0 &&
-        setConfig(
-          produce((draft) => {
-            draft.showBackArrow = !isIntersecting;
-          }),
-        );
-
-      index === lastIndex &&
-        setConfig(
-          produce((draft) => {
-            draft.showNextArrow = !isIntersecting;
-          }),
-        );
     },
     [modalContext],
   );
@@ -74,27 +48,29 @@ const useConfigManager = (): deleteImgsHook => {
         draft.hasInteracted = true;
       }),
     );
-    const width = config.itemWidth;
+    const width = config.itemLeft[1] - config.itemLeft[0];
+    const totalVisibleElements = Math.floor(
+      (window.innerWidth - config.itemLeft[0]) / width,
+    );
     modalContext.setConfig(
       produce((draft) => {
         const lastIndex = draft.deletedImgs.length - 1;
-        if (draft.lastVisibleDeletedIndex === lastIndex) return;
-        let scrollWidth = config.scrollWidth;
-        const nextLast =
-          draft.lastVisibleDeletedIndex + config.totalVisibleElements;
-        let lastVisibleDeletedIndex = 0;
-        if (nextLast > lastIndex) {
-          scrollWidth = (lastIndex - draft.lastVisibleDeletedIndex) * width;
-          lastVisibleDeletedIndex = lastIndex;
-        } else {
-          lastVisibleDeletedIndex = nextLast;
+        let elementsToSkip = totalVisibleElements;
+        if (draft.firstVisibleDeletedIndex + totalVisibleElements > lastIndex)
+          return;
+        let firstVisibleIndex = draft.firstVisibleDeletedIndex;
+        firstVisibleIndex += elementsToSkip;
+        if (firstVisibleIndex > lastIndex) {
+          const extraElements = firstVisibleIndex - lastIndex;
+          elementsToSkip -= extraElements;
+          firstVisibleIndex -= extraElements;
         }
-
-        draft.translateDeletedImgsX += scrollWidth;
-        draft.lastVisibleDeletedIndex = lastVisibleDeletedIndex;
+        if (elementsToSkip === 0) return;
+        draft.firstVisibleDeletedIndex = firstVisibleIndex;
+        draft.translateDeletedImgsX = draft.firstVisibleDeletedIndex * width;
       }),
     );
-  }, [modalContext]);
+  }, [modalContext, config.itemLeft[0], config.itemLeft[1]]);
   return [config, setConfig, handleImageIntersection, goForward];
 };
 

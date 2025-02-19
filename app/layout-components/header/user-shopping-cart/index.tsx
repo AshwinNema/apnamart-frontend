@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Badge, NavbarItem } from "@nextui-org/react";
+import { Badge, NavbarItem } from "@heroui/react";
 import { useAppDispatch, useAppSelector } from "@/lib/main/hooks";
 import { FaCartShopping } from "react-icons/fa6";
 import { UserRole } from "@/lib/main/slices/user/user.slice";

@@ -13,10 +13,13 @@ import { FileUploadWithPreview } from "file-upload-with-preview";
 import { createContext } from "react";
 import { z } from "zod";
 import { passwordErrMsg, passwordRegex } from "@/app/_utils";
+
 export * from "./tabs";
+export * from "./state-handler";
 
 export interface mainProfileState {
   businessRegistrationFile: FileUploadWithPreview | null;
+  width: number;
 }
 
 export interface MainProfileStateContextInterface {

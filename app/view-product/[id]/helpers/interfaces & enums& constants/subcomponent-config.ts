@@ -6,6 +6,7 @@ export interface productImagesConfig {
   imgContainerLeft: number;
   imgContainerTop: number;
   productIsLiked: boolean;
+  containerDimensionSet: boolean;
 }
 
 export const getProductImagesDefaultConfig = (): productImagesConfig => ({
@@ -14,6 +15,7 @@ export const getProductImagesDefaultConfig = (): productImagesConfig => ({
   imgContainerLeft: 0,
   imgContainerTop: 0,
   productIsLiked: false,
+  containerDimensionSet: false,
 });
 
 export type setProductImagesConfig = Dispatch<

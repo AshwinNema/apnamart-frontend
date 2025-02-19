@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Modal, ModalContent, ModalHeader } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader } from "@heroui/react";
 import { Footer, MainFormBody } from "./sub-components";
 import { keyVals, setMultiplePaths, setNestedPath } from "@/app/_utils";
 import { defaultConfig, modalTypes, userRoles } from "./constants";
@@ -48,12 +48,12 @@ export default function LoginSignUpModal({
   return (
     <>
       <Modal
-        className="max-h-[90vh] max-w-[40vw]"
+        className="max-h-[90vh]"
         backdrop="blur"
         scrollBehavior="inside"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        placement="top-center"
+        placement="center"
         hideCloseButton={true}
         isDismissable={false}
       >

@@ -1,4 +1,4 @@
-import { Button, ButtonProps, Tooltip, TooltipProps } from "@nextui-org/react";
+import { Button, ButtonProps, Tooltip, TooltipProps } from "@heroui/react";
 import { ReactNode } from "react";
 
 export const ToolTipBtn = ({

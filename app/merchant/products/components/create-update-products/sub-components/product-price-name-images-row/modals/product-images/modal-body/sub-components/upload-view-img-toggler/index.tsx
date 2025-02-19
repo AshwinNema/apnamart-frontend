@@ -3,7 +3,7 @@ import {
   ProductImgsModalContext,
   setProductImgsModalState,
 } from "@/app/merchant/products/helpers";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button, Tooltip } from "@heroui/react";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { MdAutoDelete } from "react-icons/md";
 import { GrOverview } from "react-icons/gr";

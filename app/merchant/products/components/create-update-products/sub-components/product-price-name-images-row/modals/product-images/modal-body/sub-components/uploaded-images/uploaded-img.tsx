@@ -1,5 +1,5 @@
 import { uploadImgProps } from "@/app/merchant/products/helpers";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button, Tooltip } from "@heroui/react";
 import { useEffect, useRef } from "react";
 import { ImageComponent } from "@/app/_custom-components";
 import { RiDeleteBin6Fill } from "react-icons/ri";

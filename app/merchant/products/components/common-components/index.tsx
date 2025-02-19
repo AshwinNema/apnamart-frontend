@@ -1,6 +1,6 @@
 import { GiCancel } from "react-icons/gi";
 import { SiTicktick } from "react-icons/si";
-import { Tooltip } from "@nextui-org/react";
+import { Tooltip } from "@heroui/react";
 import { createUpdateKetValIconConfig } from "../../helpers";
 
 export const CancelUpdateKeyValIcons = ({
@@ -10,7 +10,7 @@ export const CancelUpdateKeyValIcons = ({
   entity = "feature",
 }: createUpdateKetValIconConfig) => {
   return (
-    <>
+    <div className="flex items-center gap-3">
       <Tooltip
         color="success"
         className="text-white"
@@ -45,7 +45,7 @@ export const CancelUpdateKeyValIcons = ({
           />
         </span>
       </Tooltip>
-    </>
+    </div>
   );
 };
 

@@ -10,6 +10,7 @@ export const queryProducts = (
     id?: number;
   },
   setConfig: setMainConfig,
+  onOperationComplete?: () => void,
 ) => {
   makeDataRequest(
     HTTP_METHODS.GET,
@@ -28,5 +29,8 @@ export const queryProducts = (
     })
     .catch((err) => {
       console.log(err, "this is the err");
+    })
+    .finally(() => {
+      onOperationComplete && onOperationComplete();
     });
 };

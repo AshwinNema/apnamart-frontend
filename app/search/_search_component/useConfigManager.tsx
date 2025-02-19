@@ -73,6 +73,21 @@ const useConfigManager = (
     });
   }, [id, type]);
 
+  useEffect(() => {
+    const checkResize = () => {
+      setConfig(
+        produce((draft) => {
+          draft.innerWidth = window.innerWidth;
+        }),
+      );
+    };
+    checkResize();
+    window.addEventListener("resize", checkResize);
+    return () => {
+      window.removeEventListener("resize", checkResize);
+    };
+  }, []);
+
   return [config, setConfig, queryData];
 };
 

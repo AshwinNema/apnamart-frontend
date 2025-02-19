@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { tabKeys, tabList, tabOption } from "./helper";
-import { Card, CardBody, Tab, Tabs } from "@nextui-org/react";
+import { Card, CardBody, Tab, Tabs } from "@heroui/react";
 import { setNestedPath } from "@/app/_utils";
 
 const AdminMerchantSection = () => {

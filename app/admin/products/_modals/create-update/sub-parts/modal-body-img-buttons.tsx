@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { infoToast } from "@/app/_utils/toast";
 import { Dispatch, SetStateAction } from "react";
 import { useProductSelector } from "@/lib/product/hooks";

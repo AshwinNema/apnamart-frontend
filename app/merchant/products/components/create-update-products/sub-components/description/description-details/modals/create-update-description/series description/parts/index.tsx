@@ -5,7 +5,7 @@ import {
 } from "@/app/merchant/products/helpers";
 import { produce } from "immer";
 import { useContext } from "react";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button, Tooltip } from "@heroui/react";
 import { ImageComponent } from "@/app/_custom-components";
 import { TiDelete } from "react-icons/ti";
 

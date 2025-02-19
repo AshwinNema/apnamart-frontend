@@ -12,6 +12,7 @@ import {
   productImgConfig,
 } from "../../../helpers";
 import { produce } from "immer";
+
 const useEventsManager = (details: {
   cloudinary_public_id: string;
   url: string;
@@ -51,7 +52,7 @@ const useEventsManager = (details: {
     return () => {
       window.removeEventListener("resize", setImgOffsets);
     };
-  }, [isLoaded]);
+  }, [isLoaded, mainContext?.config?.innerWidth]);
 
   useEffect(() => {
     if (!mainContext || !imgRef.current) return;
@@ -69,9 +70,8 @@ const useEventsManager = (details: {
     );
     return () => {
       removeEventListeners(imgRef.current);
-      if (!imgRef.current) return;
     };
-  }, [mainContext, details.url]);
+  }, [mainContext, details.url, mainContext?.config?.innerWidth]);
   const leansAndImgLoaded = !!lensContainerRef.current && !!imgRef.current;
 
   useEffect(() => {
@@ -88,7 +88,11 @@ const useEventsManager = (details: {
         lensOffsetHeight,
       },
     });
-  }, [leansAndImgLoaded, mainContext?.notifier]);
+  }, [
+    leansAndImgLoaded,
+    mainContext?.notifier,
+    mainContext?.config?.innerWidth,
+  ]);
   return [mainContainerRef, imgRef, config, lensContainerRef];
 };
 

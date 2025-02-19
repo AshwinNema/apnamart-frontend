@@ -36,6 +36,7 @@ export interface deletedMapArea extends newlyCreatedArea {
 export interface mapProps {
   saveMapState: boolean;
   setData: setKeyVal;
+  onLoadComplete: () => void;
 }
 
 export interface mapApiLayerInfo {

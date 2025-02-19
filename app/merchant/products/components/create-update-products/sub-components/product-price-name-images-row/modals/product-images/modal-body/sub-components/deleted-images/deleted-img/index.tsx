@@ -3,7 +3,7 @@ import {
   deletedImgProps,
   ProductImgsModalContext,
 } from "@/app/merchant/products/helpers";
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button, Tooltip } from "@heroui/react";
 import { MdSettingsBackupRestore } from "react-icons/md";
 import useConfigManager from "./useConfigManager";
 import { useRef, useContext } from "react";
@@ -38,6 +38,9 @@ export const DeletedImg = ({
                 draft.hasInteracted = true;
               }),
             );
+            const width = config.itemLeft[1] - config.itemLeft[0];
+            const totalVisibleElements =
+              Math.floor((window.innerWidth - config.itemLeft[0]) / width) - 1;
             const totalLength =
               (modalContext.uploadRef.current?.cachedFileArray?.length || 0) +
               modalContext.config.uploadedImgs.length +
@@ -51,27 +54,22 @@ export const DeletedImg = ({
             }
             modalContext.setConfig(
               produce((draft) => {
-                const lastIndex = draft.deletedImgs.length - 1;
                 draft.uploadedImgs.push(imageDetails);
                 draft.deletedImgs = draft.deletedImgs.filter(
                   (newDeletedImgDetails) =>
                     imageDetails.cloudinary_public_id !==
                     newDeletedImgDetails.cloudinary_public_id,
                 );
-                draft.lastVisibleDeletedIndex = Math.min(
-                  draft.lastVisibleDeletedIndex,
-                  lastIndex,
-                );
-                draft.lastVisibleDeletedIndex = Math.max(
-                  draft.lastVisibleDeletedIndex,
-                  0,
-                );
-                if (draft.lastVisibleDeletedIndex === lastIndex) {
-                  draft.translateDeletedImgsX = Math.max(
-                    draft.translateDeletedImgsX - config.itemWidth,
+                const lastIndex = draft.deletedImgs.length - 1;
+                const curLastVisibleIndex =
+                  draft.firstVisibleDeletedIndex + totalVisibleElements;
+                if (curLastVisibleIndex > lastIndex) {
+                  draft.firstVisibleDeletedIndex = Math.max(
+                    draft.firstVisibleDeletedIndex - 1,
                     0,
                   );
-                  draft.lastVisibleDeletedIndex -= 1;
+                  draft.translateDeletedImgsX =
+                    draft.firstVisibleDeletedIndex * width;
                 }
               }),
             );

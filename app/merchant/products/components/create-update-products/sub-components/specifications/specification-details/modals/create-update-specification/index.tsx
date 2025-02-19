@@ -16,7 +16,7 @@ import {
   ModalFooter,
   ModalHeader,
   Textarea,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useCallback, useEffect, useState } from "react";
 import { SeriesSpecification } from "./series specifications";
 
@@ -51,6 +51,7 @@ export const CreateUpdateSpecification = ({
         onOpenChange={onOpenChange}
         size="5xl"
         scrollBehavior="inside"
+        placement="center"
       >
         <ModalContent>
           {(onClose) => (

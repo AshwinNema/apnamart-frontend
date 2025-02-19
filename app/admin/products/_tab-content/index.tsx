@@ -1,6 +1,6 @@
-import { Button, useDisclosure } from "@nextui-org/react";
+import { Button, Skeleton, useDisclosure } from "@heroui/react";
 import { MdCategory } from "react-icons/md";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { queryTableData } from "../helper";
 import DataTable from "./table";
 import Autocomplete from "./autocomplete";
@@ -11,6 +11,7 @@ import {
   setIsOpen,
 } from "@/lib/product/slices/component-details.slice";
 import { clearModalDetails } from "@/lib/product/slices/modal-details.slice";
+import { produce } from "immer";
 import styles from "../../../styles.module.css";
 
 export default function TabContent() {
@@ -18,6 +19,9 @@ export default function TabContent() {
   const { tab, id, refreshData, closeModal } = useProductSelector(
     (state) => state.componentDetails,
   );
+  const [config, setConfig] = useState({
+    isLoaded: true,
+  });
   const table = useProductSelector((state) => state.table);
   const dispatch = useProductDispatch();
   const loadData = (page?: number, id?: number) => {
@@ -28,7 +32,18 @@ export default function TabContent() {
     if (id) {
       params.id = id;
     }
-    queryTableData(tab, params, dispatch);
+    setConfig(
+      produce((draft) => {
+        draft.isLoaded = false;
+      }),
+    );
+    queryTableData(tab, params, dispatch, () => {
+      setConfig(
+        produce((draft) => {
+          draft.isLoaded = true;
+        }),
+      );
+    });
   };
 
   useEffect(() => {
@@ -55,6 +70,7 @@ export default function TabContent() {
         <Button
           onPress={onOpen}
           startContent={<MdCategory />}
+          className="min-w-max"
           color="primary"
           fullWidth
         >
@@ -62,7 +78,9 @@ export default function TabContent() {
         </Button>
       </div>
       <CreateUpdateModal isOpen={isOpen} onOpenChange={onOpenChange} />
-      <DataTable loadData={loadData} onOpen={onOpen} />
+      <Skeleton className="h-[80svh]" isLoaded={config.isLoaded}>
+        <DataTable loadData={loadData} onOpen={onOpen} />
+      </Skeleton>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Divider, useDisclosure } from "@nextui-org/react";
+import { Divider, useDisclosure } from "@heroui/react";
 import { useContext } from "react";
 import {
   cartCheckoutItem,
@@ -30,12 +30,13 @@ export const OrderSummaryItem = ({
           src={item?.photos?.[0]?.url || ""}
           width={200}
           height={200}
+          className="min-w-[200px]"
           alt="Product Photo"
         />
         <div className="flex flex-col justify-between h-full min-h-[200px]">
-          <div className="text-base">{item?.name}</div>
+          <div className="text-base break-all">{item?.name}</div>
           <div className="text-lg font-medium">₹{item.price}</div>
-          <div className="flex gap-3 items-center">
+          <div className="flex mx475:flex-col gap-3 items-center">
             <CartItemBtns item={item} index={index} />
             <div
               onClick={() => {

@@ -3,7 +3,7 @@ import {
   MainCreateUpdateProductContext,
   openUpdateSpecificationModalWithDetails,
 } from "@/app/merchant/products/helpers";
-import { CardBody, Divider } from "@nextui-org/react";
+import { CardBody, Divider } from "@heroui/react";
 import { Fragment, useContext } from "react";
 import { produce } from "immer";
 import { successToast } from "@/app/_utils";

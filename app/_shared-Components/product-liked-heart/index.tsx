@@ -5,7 +5,7 @@ import {
   storageAttributes,
 } from "@/app/_services";
 import { modalTypes } from "@/app/layout-components/login-signup/constants";
-import { useDisclosure } from "@nextui-org/react";
+import { useDisclosure } from "@heroui/react";
 import React, { useCallback, useEffect, useState } from "react";
 import Heart from "react-animated-heart";
 import LoginSignUpModal from "@/app/layout-components/login-signup";

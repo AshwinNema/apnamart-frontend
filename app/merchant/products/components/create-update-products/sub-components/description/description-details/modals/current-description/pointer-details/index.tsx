@@ -12,7 +12,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { CreateUpdateIcons } from "./sub-components";
 
 export const PointerDescription = ({

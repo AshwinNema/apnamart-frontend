@@ -6,7 +6,7 @@ import {
   merchantTableProps,
 } from "../../helper";
 import { FaRegIdCard } from "react-icons/fa6";
-import { Tooltip } from "@nextui-org/react";
+import { Tooltip } from "@heroui/react";
 import { PiStopCircleDuotone } from "react-icons/pi";
 import { RenderTable } from "@/app/_custom-components";
 import { SiTicktick } from "react-icons/si";

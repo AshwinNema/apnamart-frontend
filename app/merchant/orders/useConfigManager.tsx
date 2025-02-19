@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { mainConfig, orderItem, queryMerchantOrders } from "./helpers";
 import { NameComponent } from "@/app/admin/products/_tab-content/table/render-helper";
 import { convertFirstLetterToUpperCase } from "@/app/_utils";
+import { produce } from "immer";
 
 const useConfigManager = (): [
   mainConfig,
@@ -14,6 +15,7 @@ const useConfigManager = (): [
     totalPages: 1,
     totalResults: 0,
     results: [],
+    isLoaded: false,
   });
 
   const renderCell = useCallback((data: orderItem, columnKey: React.Key) => {
@@ -54,14 +56,24 @@ const useConfigManager = (): [
 
   const getData = useCallback(
     (page: number) => {
-      queryMerchantOrders({ page, limit: config.limit }, (res) => {
-        setConfig((preConfig) => {
-          return {
-            ...preConfig,
-            ...res,
-          };
-        });
-      });
+      queryMerchantOrders(
+        { page, limit: config.limit },
+        (res) => {
+          setConfig((preConfig) => {
+            return {
+              ...preConfig,
+              ...res,
+            };
+          });
+        },
+        () => {
+          setConfig(
+            produce((draft) => {
+              draft.isLoaded = true;
+            }),
+          );
+        },
+      );
     },
     [setConfig],
   );

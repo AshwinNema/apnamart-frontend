@@ -2,7 +2,7 @@ import {
   MainCreateUpdateProductContext,
   ProductImgsModalContext,
 } from "@/app/merchant/products/helpers";
-import { ModalBody } from "@nextui-org/react";
+import { ModalBody } from "@heroui/react";
 import { useContext, useEffect, useState } from "react";
 import {
   DeletedImgViewer,

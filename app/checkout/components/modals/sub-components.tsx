@@ -2,7 +2,7 @@ import { eventEmitterSubject, loaderEvents } from "@/app/_custom-components";
 import {} from "@/app/_custom-components";
 import { commonRoleRoutes } from "@/app/_utils";
 import { tabKeys } from "@/lib/profile/slices/component-state.slice";
-import { Button, ModalBody, ModalFooter, ModalHeader } from "@nextui-org/react";
+import { Button, ModalBody, ModalFooter, ModalHeader } from "@heroui/react";
 import { Subject } from "rxjs";
 
 export const AddressModal = ({

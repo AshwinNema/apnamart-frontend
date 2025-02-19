@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback, useContext, useEffect } from "react";
-import { Input } from "@nextui-org/react";
+import { Input } from "@heroui/react";
 import { FaRegSmile } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 import { useHover } from "react-aria";

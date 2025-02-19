@@ -5,6 +5,8 @@ import {
   uploadedImgDetails,
 } from "@/app/merchant/products/helpers";
 import styles from "../../styles.module.css";
+import { MainContext } from "../../helpers";
+import { useContext } from "react";
 
 export const DescriptionDetails = ({
   details,
@@ -45,15 +47,17 @@ export const Description = ({
         <ImageComponent
           width={300}
           height={200}
+          className="min-w-[100px]"
           src={photo.url}
           alt="Description photo"
         />
       </div>
     );
   };
-
+  const context = useContext(MainContext);
+  if (!context) return null;
   return (
-    <div className="max-w-[90%]">
+    <div className={`${context.config.innerWidth > 800 && "max-w-[90%]"}`}>
       {typeof description === "string" ? (
         <div className="flex gap-10 mt-10">
           <div className="text-leadText">Description</div>

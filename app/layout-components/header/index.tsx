@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { useDisclosure } from "@nextui-org/react";
+import { useDisclosure } from "@heroui/react";
 import LoginSignUpModal from "@/app/layout-components/login-signup";
 import { modalTypes } from "@/app/layout-components/login-signup/constants";
 import { setNestedPath } from "@/app/_utils";

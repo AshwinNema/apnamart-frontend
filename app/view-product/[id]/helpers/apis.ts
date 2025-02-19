@@ -11,6 +11,7 @@ export const getProductData = (
   id: number,
   setData: setVal,
   onOperationComplete?: () => void,
+  onFailure?: () => void,
 ) => {
   const user = getLocalStorageKey(storageAttributes.user);
   makeDataRequest(
@@ -20,9 +21,14 @@ export const getProductData = (
       : `${appEndPoints.BY_PRODUCT_ID_NOT_LOGGED_IN}${id}`,
   )
     .then((res) => {
+      if (!res) {
+        onFailure && onFailure();
+        return;
+      }
       setData(res);
     })
     .catch((err) => {
+      onFailure && onFailure();
       console.log(err);
     })
     .finally(() => {

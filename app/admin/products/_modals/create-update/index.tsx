@@ -1,4 +1,4 @@
-import { Modal, ModalContent, ModalHeader } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader } from "@heroui/react";
 import { getModalTitle, MainModalContext } from "../../helper";
 import { setNestedPath } from "@/app/_utils";
 import { MainModalBody } from "./modal-body";
@@ -49,7 +49,7 @@ const CreateUpdateModal = ({
   return (
     <Modal
       isOpen={isOpen}
-      className=""
+      placement="center"
       hideCloseButton={true}
       isDismissable={false}
       onOpenChange={() => {

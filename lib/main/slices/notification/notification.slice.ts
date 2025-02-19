@@ -1,3 +1,4 @@
+import { ModalSlots, SlotsToClasses } from "@heroui/react";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import * as _ from "lodash";
 
@@ -20,6 +21,7 @@ export interface modalPropsInterface {
     | "bottom-center";
   hideCloseButton: boolean;
   isDismissable: boolean;
+  modalClasses: SlotsToClasses<ModalSlots>;
 }
 
 export interface notificationModal {
@@ -35,6 +37,7 @@ export const modalProps: modalPropsInterface = Object.freeze({
   placement: "top-center",
   hideCloseButton: false,
   isDismissable: true,
+  modalClasses: {},
 });
 
 const initialState: notificationModal = {

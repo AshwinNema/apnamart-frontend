@@ -5,7 +5,7 @@ import {
   productImgsModalState,
   setInitialProductImgModalState,
 } from "@/app/merchant/products/helpers";
-import { Button, Modal, ModalContent, ModalFooter } from "@nextui-org/react";
+import { Button, Modal, ModalContent, ModalFooter } from "@heroui/react";
 import { FileUploadWithPreview } from "file-upload-with-preview";
 import { useContext, useEffect, useRef, useState } from "react";
 import { produce } from "immer";
@@ -37,6 +37,7 @@ export const ProductImages = ({
         scrollBehavior="inside"
         hideCloseButton
         isOpen={isOpen}
+        placement="center"
         onOpenChange={onOpenChange}
       >
         <ModalContent>

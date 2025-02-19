@@ -1,4 +1,4 @@
-import { Autocomplete, AutocompleteItem, Avatar } from "@nextui-org/react";
+import { Autocomplete, AutocompleteItem, Avatar } from "@heroui/react";
 import React, { Key, useCallback, useEffect, useState } from "react";
 import { AutoCompleteProps, autoCompleteState } from "./interface";
 import { HTTP_METHODS } from "@/app/_services";

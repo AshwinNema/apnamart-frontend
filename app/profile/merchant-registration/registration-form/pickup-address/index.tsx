@@ -1,7 +1,7 @@
 import { MainMap } from "@/app/_custom-components/leaflet/map-component";
 import { useProfileSelector } from "@/lib/profile/hooks";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { CardBody } from "@nextui-org/react";
+import { CardBody } from "@heroui/react";
 import * as _ from "lodash";
 import { setMultiplePaths } from "@/app/_utils";
 import { merchantRegistrationStatus } from "@/lib/main/slices/user/user.slice";

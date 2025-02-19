@@ -1,5 +1,5 @@
 import { useProfileSelector } from "@/lib/profile/hooks";
-import { Tooltip } from "@nextui-org/react";
+import { Tooltip } from "@heroui/react";
 import { ReactNode, useContext, useState } from "react";
 import {
   forwardTooltipProps,

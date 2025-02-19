@@ -1,10 +1,10 @@
-import { ModalBody } from "@nextui-org/react";
+import { ModalBody } from "@heroui/react";
 import { modalTypes } from "../constants";
 import Roles from "./roles";
 import Form from "./form";
-import { Divider } from "@nextui-org/react";
+import { Divider } from "@heroui/react";
 import { useGoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { FcGoogle } from "react-icons/fc";
 import {
   googleSuccessResponse,

@@ -9,7 +9,7 @@ import {
 } from "./parts";
 import { v4 } from "uuid";
 import { setNestedPath } from "@/app/_utils";
-import { Textarea } from "@nextui-org/react";
+import { Textarea } from "@heroui/react";
 
 export const SeriesDescription = () => {
   const mainDescriptionContext = useContext(CreateUpdateDescriptionContext);

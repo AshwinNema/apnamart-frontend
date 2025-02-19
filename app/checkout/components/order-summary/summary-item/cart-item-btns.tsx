@@ -4,7 +4,7 @@ import {
   MainContext,
 } from "../../../helpers";
 import { useContext, useEffect, useState } from "react";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { produce } from "immer";
 import styles from "@/app/styles.module.css";
 import { TextInput } from "@/app/_custom-components";

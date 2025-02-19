@@ -1,4 +1,4 @@
-import { Button, CardFooter, useDisclosure } from "@nextui-org/react";
+import { Button, CardFooter, useDisclosure } from "@heroui/react";
 import * as _ from "lodash";
 import { BiSolidEditLocation } from "react-icons/bi";
 import { IoSaveSharp } from "react-icons/io5";

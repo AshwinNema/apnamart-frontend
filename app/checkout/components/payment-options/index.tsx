@@ -4,7 +4,7 @@ import {
   MainContext,
   paymentSelectOptions,
 } from "../../helpers";
-import { Accordion, AccordionItem, Checkbox } from "@nextui-org/react";
+import { Accordion, AccordionItem, Checkbox } from "@heroui/react";
 import { useTheme } from "next-themes";
 import { browserTheme } from "@/app/layout-components/theme-switch";
 import Script from "next/script";

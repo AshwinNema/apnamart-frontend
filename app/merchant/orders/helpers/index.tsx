@@ -9,6 +9,7 @@ export const queryMerchantOrders = (
     limit: number;
   },
   setData?: setVal,
+  onOperationComplete?: () => void,
 ) => {
   makeDataRequest(
     HTTP_METHODS.GET,
@@ -22,5 +23,8 @@ export const queryMerchantOrders = (
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      onOperationComplete && onOperationComplete();
     });
 };

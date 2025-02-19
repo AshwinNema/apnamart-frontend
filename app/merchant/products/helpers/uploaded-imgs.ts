@@ -6,21 +6,15 @@ import {
 } from "./interfaces & enums & constants";
 import { produce } from "immer";
 
-export const getLastIntersectingIndex = (list: boolean[]) => {
-  return list.reduce((intersectingIndex, isIntersecting, index) => {
-    if (isIntersecting) {
-      return index;
-    }
-    return intersectingIndex;
-  }, 0);
-};
-
 export const goForward = (
   config: uploadedImgsConfig,
   setModalConfig: setProductImgsModalState,
   setConfig: setUploadedImgsConfig,
 ) => {
-  const width = config.itemWidth;
+  const width = config.itemLeft[1] - config.itemLeft[0];
+  const totalVisibleElements = Math.floor(
+    (window.innerWidth - config.itemLeft[0]) / width,
+  );
   setConfig(
     produce((draft) => {
       draft.hasInteracted = true;
@@ -29,17 +23,19 @@ export const goForward = (
   setModalConfig(
     produce((draft) => {
       const lastIndex = draft.uploadedImgs.length - 1;
-
-      if (draft.lastVisibleUploadIndex === lastIndex) return;
-      let scrollWidth = config.scrollWidth;
-      let nextLast = draft.lastVisibleUploadIndex + config.totalVisibleElements;
-
-      if (nextLast > lastIndex) {
-        scrollWidth = (lastIndex - draft.lastVisibleUploadIndex) * width;
-        nextLast = lastIndex;
+      let elementsToSkip = totalVisibleElements;
+      if (draft.firstVisibleUploadIndex + totalVisibleElements > lastIndex)
+        return;
+      let firstVisibleIndex = draft.firstVisibleUploadIndex;
+      firstVisibleIndex += elementsToSkip;
+      if (firstVisibleIndex > lastIndex) {
+        const extraElements = firstVisibleIndex - lastIndex;
+        elementsToSkip -= extraElements;
+        firstVisibleIndex -= extraElements;
       }
-      draft.translateUploadImgsX += scrollWidth;
-      draft.lastVisibleUploadIndex = nextLast;
+      if (elementsToSkip === 0) return;
+      draft.firstVisibleUploadIndex = firstVisibleIndex;
+      draft.translateUploadImgsX = draft.firstVisibleUploadIndex * width;
     }),
   );
 };
@@ -48,16 +44,17 @@ export const goBackward = (
   config: uploadedImgsConfig,
   setModalConfig: setProductImgsModalState,
 ) => {
+  const width = config.itemLeft[1] - config.itemLeft[0];
+  const totalVisibleElements = Math.floor(
+    (window.innerWidth - config.itemLeft[0]) / width,
+  );
   setModalConfig(
     produce((draft) => {
-      draft.lastVisibleUploadIndex = Math.max(
-        draft.lastVisibleUploadIndex - config.totalVisibleElements,
-        config.totalVisibleElements - 1,
-      );
-      draft.translateUploadImgsX = Math.max(
+      draft.firstVisibleUploadIndex = Math.max(
+        draft.firstVisibleUploadIndex - totalVisibleElements,
         0,
-        draft.translateUploadImgsX - config.scrollWidth,
       );
+      draft.translateUploadImgsX = draft.firstVisibleUploadIndex * width;
     }),
   );
 };
@@ -65,35 +62,36 @@ export const goBackward = (
 export const deleteUploadedImg = (
   setConfig: setProductImgsModalState,
   imgDetails: uploadImgProps["imgDetails"],
-  width: number,
   setUploadConfig: setUploadedImgsConfig,
+  config: uploadedImgsConfig,
 ) => {
   setUploadConfig(
     produce((draft) => {
       draft.hasInteracted = true;
     }),
   );
+  const width = config.itemLeft[1] - config.itemLeft[0];
+  const totalVisibleElements =
+    Math.floor((window.innerWidth - config.itemLeft[0]) / width) - 1;
 
   setConfig(
     produce((draft) => {
-      const lastIndex = draft.uploadedImgs.length - 1;
       draft.deletedImgs.push(imgDetails);
       draft.uploadedImgs = draft.uploadedImgs.filter(
         (newUploadedImgDetails) =>
           imgDetails.cloudinary_public_id !==
           newUploadedImgDetails.cloudinary_public_id,
       );
-      draft.lastVisibleUploadIndex = Math.min(
-        draft.lastVisibleUploadIndex,
-        lastIndex,
-      );
-      draft.lastVisibleUploadIndex = Math.max(draft.lastVisibleUploadIndex, 0);
-      if (lastIndex === draft.lastVisibleUploadIndex) {
-        draft.translateUploadImgsX = Math.max(
-          draft.translateUploadImgsX - width,
+      const lastIndex = draft.uploadedImgs.length - 1;
+      const curLastVisibleIndex =
+        draft.firstVisibleUploadIndex + totalVisibleElements;
+
+      if (curLastVisibleIndex > lastIndex) {
+        draft.firstVisibleUploadIndex = Math.max(
+          draft.firstVisibleUploadIndex - 1,
           0,
         );
-        draft.lastVisibleUploadIndex -= 1;
+        draft.translateUploadImgsX = draft.firstVisibleUploadIndex * width;
       }
     }),
   );

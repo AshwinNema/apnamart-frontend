@@ -10,7 +10,7 @@ import {
   ModalBody,
   ModalContent,
   ModalHeader,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useContext } from "react";
 import { PointerDescription } from "./pointer-details";
 import { TableActions } from "@/app/_custom-components";
@@ -34,6 +34,7 @@ export const CurrentDescriptionDetailsModal = ({
       onOpenChange={onOpenChange}
       scrollBehavior="inside"
       size="5xl"
+      placement="center"
     >
       <ModalContent>
         <ModalHeader>Description details</ModalHeader>

@@ -5,7 +5,7 @@ import {
   cartProduct,
   MainContext,
 } from "../../helpers";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useContext, useEffect, useState } from "react";
 import { produce } from "immer";
 import styles from "@/app/styles.module.css";

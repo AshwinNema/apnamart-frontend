@@ -1,6 +1,6 @@
 import { ImageComponent } from "@/app/_custom-components";
 import { cartProduct, MainContext } from "../../helpers";
-import { CardBody, Divider, useDisclosure } from "@nextui-org/react";
+import { Button, CardBody, Divider, useDisclosure } from "@heroui/react";
 import { useContext } from "react";
 import { CartItemBtns } from "./item-buttons";
 import { useRouter } from "next/navigation";
@@ -32,7 +32,7 @@ export const CartItem = ({
           src={details.photos[0].url}
           width={200}
           height={200}
-          className="cursor-pointer"
+          className="cursor-pointer min-w-[200px]"
           alt="Product Photo"
           onImgClick={() => {
             router.push(`/view-product/${details.id}`);
@@ -48,13 +48,15 @@ export const CartItem = ({
             {details.name}
           </div>
           <div className="text-lg font-medium">₹{details.price}</div>
-          <div className="flex gap-3 items-center">
+          <div
+            className={`${config.innerWidth > 830 && "flex gap-3 items-center "}`}
+          >
             <CartItemBtns product={product} />
             <div
               onClick={() => {
                 onOpen();
               }}
-              className="hover:text-primary font-medium cursor-pointer"
+              className={`hover:text-primary font-medium cursor-pointer ${config.innerWidth <= 830 && "mt-5 flex ml-8"}`}
             >
               REMOVE
             </div>

@@ -5,7 +5,7 @@ import {
   DropdownMenu,
   DropdownItem,
   User,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { EventLoader } from "../../_custom-components";
 import { ImProfile } from "react-icons/im";
 import { IoIosLogOut } from "react-icons/io";
@@ -14,8 +14,8 @@ import { UserRole } from "@/lib/main/slices/user/user.slice";
 import useDataManager, { dropDownItemKeys } from "./useDataManager";
 
 export default function UserProfile() {
- const [user, optionSelect, emitter] = useDataManager()
- const description = `@${user?.email?.split?.("@")[0]}`;
+  const [user, optionSelect, emitter] = useDataManager();
+  const description = `@${user?.email?.split?.("@")[0]}`;
   return (
     <>
       <Dropdown placement="bottom-start">

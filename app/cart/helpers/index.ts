@@ -19,6 +19,7 @@ export interface cartProduct {
 export interface mainConfig {
   products: cartProduct[];
   isCartLoaded: boolean;
+  innerWidth: number;
 }
 
 export type setMainConfig = Dispatch<SetStateAction<mainConfig>>;
@@ -33,6 +34,7 @@ export type setCartItemBtnConfig = Dispatch<SetStateAction<cartItemBtnConfig>>;
 export const getDefaultMainConfig = (): mainConfig => ({
   products: [],
   isCartLoaded: false,
+  innerWidth: window.innerWidth,
 });
 
 export const MainContext = createContext<null | {

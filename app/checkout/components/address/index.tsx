@@ -1,5 +1,5 @@
 import { MainMap } from "@/app/_custom-components/leaflet/map-component";
-import { Accordion, AccordionItem, Button } from "@nextui-org/react";
+import { Accordion, AccordionItem, Button } from "@heroui/react";
 import { useContext, useMemo } from "react";
 import * as _ from "lodash";
 import { AddressContext, MainContext } from "../../helpers";

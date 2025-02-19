@@ -8,6 +8,7 @@ import {
 import { appEndPoints } from "@/app/_utils/endpoints";
 import { errorToast, successToast } from "@/app/_utils/toast";
 import { Dispatch, SetStateAction } from "react";
+import { produce } from "immer";
 import L from "leaflet";
 
 export const updateMapState = (
@@ -61,9 +62,10 @@ export const updateMapState = (
 export const getAllDeliveryAreas = (
   setFeatures: Dispatch<SetStateAction<featureGroupAreas>>,
   allLayers: MapLayerGroup,
+  onOperationComplete?: () => void,
 ) => {
-  makeDataRequest(HTTP_METHODS.GET, appEndPoints.GET_ALL_DELIVERY_AREAS).then(
-    (res) => {
+  makeDataRequest(HTTP_METHODS.GET, appEndPoints.GET_ALL_DELIVERY_AREAS)
+    .then((res) => {
       if (!res) return;
       allLayers.clearLayers();
       const currentMap = res.reduce(
@@ -85,12 +87,15 @@ export const getAllDeliveryAreas = (
         },
         {},
       );
-
-      setFeatures({
-        created: {},
-        deleted: [],
-        current: currentMap,
-      });
-    },
-  );
+      setFeatures(
+        produce((draft) => {
+          draft.current = currentMap;
+          draft.deleted = [];
+          draft.created = {};
+        }),
+      );
+    })
+    .finally(() => {
+      onOperationComplete && onOperationComplete();
+    });
 };

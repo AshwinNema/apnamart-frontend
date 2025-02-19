@@ -14,6 +14,7 @@ export const queryCustomerOrders = (
     limit: number;
   },
   setData?: setVal,
+  onOperationComplete?: () => void,
 ) => {
   makeDataRequest(
     HTTP_METHODS.GET,
@@ -27,16 +28,14 @@ export const queryCustomerOrders = (
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      onOperationComplete && onOperationComplete();
     });
 };
 
 export const getFormattedOrderDate = (date: Date) => {
-  if (
-    !date ||
-
-    new Date(date).toString() === "Invalid Date"
-  )
-    return "";
+  if (!date || new Date(date).toString() === "Invalid Date") return "";
   const convertedDate = new Date(date);
   const day = convertedDate.getDate();
   const month = getMonthName(convertedDate.getMonth());

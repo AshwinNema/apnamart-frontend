@@ -1,6 +1,6 @@
 import { setNestedPath } from "@/app/_utils";
 import { createUpdateSpecificationState } from "@/app/merchant/products/helpers";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { Dispatch, SetStateAction } from "react";
 import styles from "@/app/styles.module.css";
 export * from "./create-update-inputs";

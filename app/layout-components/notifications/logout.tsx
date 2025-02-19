@@ -5,8 +5,6 @@ import {
   clearUserStorage,
   getLocalStorageKey,
   storageAttributes,
-  removeSessionStorageKey,
-  sessionStorageAttributes,
 } from "@/app/_services";
 import { FcShop } from "react-icons/fc";
 import { appEndPoints } from "@/app/_utils/endpoints";
@@ -17,7 +15,7 @@ import {
   setNotificationType,
 } from "@/lib/main/slices/notification/notification.slice";
 import { setUser } from "@/lib/main/slices/user/user.slice";
-import { Button, ModalBody, ModalFooter, ModalHeader } from "@nextui-org/react";
+import { Button, ModalBody, ModalFooter, ModalHeader } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { TbLogout } from "react-icons/tb";
 
@@ -30,7 +28,7 @@ export const handleAction = () =>
       backdrop: "blur",
       hideCloseButton: true,
       isDismissable: false,
-      className: `${modalProps.className}`,
+      className: `${modalProps.className} max-w-max`,
     },
   });
 
@@ -54,8 +52,8 @@ export default function Logout({ onClose }: { onClose: () => void }) {
         showToast: false,
       },
     ).finally(() => {
-      clearUserStorage();
       dispatch(setUser(null));
+      clearUserStorage();
       !path.startsWith("/search") && router.push("/");
       onClose();
     });

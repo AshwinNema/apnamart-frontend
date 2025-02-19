@@ -5,7 +5,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useCallback, useEffect, useState } from "react";
 import { setMultiplePaths, setNestedPath } from "@/app/_utils";
 import {

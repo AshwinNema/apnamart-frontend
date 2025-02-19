@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, Button } from "@nextui-org/react";
+import { Accordion, AccordionItem, Button } from "@heroui/react";
 import { useContext } from "react";
 import { MainContext, orderSummaryConfig } from "../../helpers";
 import { useTheme } from "next-themes";

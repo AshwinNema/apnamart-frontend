@@ -9,7 +9,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useTheme } from "next-themes";
 import { ImageComponent } from "../_custom-components";
 import { browserTheme } from "../layout-components/theme-switch";
@@ -42,41 +42,44 @@ export default function NotFound() {
         </div>
         <Card
           shadow={`${theme === browserTheme.dark ? "lg" : "none"}`}
-          className={`${theme === browserTheme.dark && "border-none"} m-5`}
+          className={`${theme === browserTheme.dark && "border-none"} m-5 overflow-visible`}
+          classNames={{ footer: ["flex justify-center"] }}
         >
+          <CardHeader className="flex justify-center text-4xl font-bold">
+            Page Not Found!
+          </CardHeader>
           <CardBody>
-            <CardHeader className="flex justify-center text-4xl font-bold">
-              Page Not Found!
-            </CardHeader>
-            <CardBody>
-              <div className="text-2xl flex items-center justify-center"></div>
-              <p>
+            <div className="flex items-center justify-center">
+              <div>
                 It looks like the page you’re trying to reach doesn’t exist
-                anymore or may have moved.<Link href="/">Click here</Link> to go
-                back to home page. Don’t worry; we’re here to help you find what
-                you need!
-              </p>
-            </CardBody>
-
-            <CardFooter>
-              <Listbox aria-label="Documentation list" variant="flat">
-                <ListboxSection title="You can refer below for understanding this project better">
-                  {guideItems.map((item: guideItem) => {
-                    const { key, description, Icon, mainText } = item;
-                    return (
-                      <ListboxItem
-                        key={key}
-                        description={description}
-                        startContent={<Icon />}
-                      >
-                        {mainText}
-                      </ListboxItem>
-                    );
-                  })}
-                </ListboxSection>
-              </Listbox>
-            </CardFooter>
+                anymore or may have moved.
+                <span className="text-primary">Click </span>
+                <span className="text-primary">here</span> to go back to home
+                page. Don’t worry; we’re here to help you find what you need!
+              </div>
+            </div>
           </CardBody>
+          <CardFooter>
+            <Listbox aria-label="Documentation list" variant="flat">
+              <ListboxSection title="You can refer below for understanding this project better">
+                {guideItems.map((item: guideItem) => {
+                  const { key, description, Icon, mainText } = item;
+                  return (
+                    <ListboxItem
+                      key={key}
+                      classNames={{
+                        description: ["overflow-visible", "text-clip"],
+                      }}
+                      description={description}
+                      startContent={<Icon />}
+                    >
+                      {mainText}
+                    </ListboxItem>
+                  );
+                })}
+              </ListboxSection>
+            </Listbox>
+          </CardFooter>
         </Card>
       </div>
     </div>

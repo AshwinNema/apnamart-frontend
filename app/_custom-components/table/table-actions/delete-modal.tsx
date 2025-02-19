@@ -6,7 +6,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 export const DeleteModal = ({
   isOpen,
@@ -27,7 +27,7 @@ export const DeleteModal = ({
 }) => {
   return (
     <>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
         <ModalContent>
           {(onClose) => (
             <>

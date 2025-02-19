@@ -1,33 +1,38 @@
-import { Button, Card, CardBody } from "@nextui-org/react";
+import { Button, Card, CardBody, Avatar, AvatarIcon } from "@heroui/react";
 import { PasswordInput, TextInput } from "@/app/_custom-components/inputs";
-import { Avatar, AvatarIcon } from "@nextui-org/react";
 import { IoIosMail } from "react-icons/io";
 import { z } from "zod";
 import { IoSaveSharp } from "react-icons/io5";
 import * as _ from "lodash";
-import { updateUserDetails } from "./api";
+import { updateUserDetails } from "../api";
 import { useProfileDispatch, useProfileSelector } from "@/lib/profile/hooks";
 import { tabKeys } from "@/lib/profile/slices/component-state.slice";
 import { setUserDetails } from "@/lib/profile/slices/main-user-details.slice";
 import { useContext } from "react";
-import { MainProfileContext } from "./page";
+import { MainProfileContext } from "../page";
+import { ProfileImage } from "./sub-components";
+import { MainProfileStateContext } from "../utils";
 
 export default function BasicDetails({}: {}) {
   const mainUserUpdate = useContext(MainProfileContext);
-
+  const maincontext = useContext(MainProfileStateContext);
   const dispatch = useProfileDispatch();
   const tab = useProfileSelector((state) => state.componentState.tab);
   const userDetails = useProfileSelector((state) => state.mainUserDetails);
-  if (!mainUserUpdate) return null;
+  if (!mainUserUpdate || !maincontext) return null;
   const setDetails = (key: string) => (value: any) => {
     dispatch(setUserDetails({ [key]: value }));
   };
 
   return (
-    <Card>
+    <Card
+      radius={`${maincontext.config.width > 750 ? "lg" : "none"}`}
+      shadow={`${maincontext.config.width > 750 ? "md" : "none"}`}
+    >
       <CardBody>
         {tab === tabKeys.basicDetails ? (
           <>
+            <ProfileImage />
             <TextInput
               value={userDetails.name}
               setData={setDetails("name")}
@@ -57,6 +62,7 @@ export default function BasicDetails({}: {}) {
         {tab === tabKeys.settings ? (
           <>
             <PasswordInput
+              className="mbStart:mt-8 mb-4"
               password={userDetails.password}
               setData={setDetails("password")}
               placeholder="Enter your new password"

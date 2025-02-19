@@ -13,7 +13,7 @@ import {
   ModalFooter,
   ModalHeader,
   Textarea,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useContext } from "react";
 import { SeriesDescription } from "./series description";
 import useManageState from "./useManageState";
@@ -38,6 +38,7 @@ export const CreateUpdateDescription = ({
         onOpenChange={onOpenChange}
         size="5xl"
         scrollBehavior="inside"
+        placement="center"
       >
         <ModalContent>
           {(onClose) => (

@@ -2,7 +2,7 @@ import { MainContext } from "../../../helpers";
 import { useContext } from "react";
 import useConfigManager from "./useConfigManager";
 import { produce } from "immer";
-import { Slider } from "@nextui-org/react";
+import { Slider } from "@heroui/react";
 
 export const PriceFilter = () => {
   const [config, setSelectMinMaxPrice] = useConfigManager();

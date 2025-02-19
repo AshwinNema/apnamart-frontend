@@ -16,6 +16,7 @@ export interface mainConfig {
   totalPages: number;
   results: queriedProduct[];
   updateData: null | queriedProduct;
+  isLoaded: boolean;
 }
 
 export const getDefaultMainConfig = (): mainConfig => ({
@@ -26,6 +27,7 @@ export const getDefaultMainConfig = (): mainConfig => ({
   totalPages: 0,
   results: [],
   updateData: null,
+  isLoaded: false,
 });
 
 export type setMainConfig = Dispatch<SetStateAction<mainConfig>>;

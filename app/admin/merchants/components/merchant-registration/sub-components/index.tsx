@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { FcApproval } from "react-icons/fc";
 import {
   merchantRegistrationSubComponentProps,
@@ -6,6 +6,7 @@ import {
 } from "../../../helper/interfaces & enums & constants/merchant-registration";
 import { merchantRegistrationStatus } from "@/lib/main/slices/user/user.slice";
 import { approveMerchantRegistration } from "../apis";
+import styles from "@/app/styles.module.css";
 export * from "./main-table";
 export * from "./selected-registration";
 
@@ -32,6 +33,7 @@ export const ApproveRegistrationBtn = <
     <Button
       startContent={<FcApproval className="scale-[1.2]" />}
       variant="ghost"
+      className={`${styles["hover-text-white"]}`}
       color="warning"
       onPress={() =>
         approveMerchantRegistration(

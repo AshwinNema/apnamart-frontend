@@ -1,4 +1,4 @@
-import { CardHeader } from "@nextui-org/react";
+import { CardHeader } from "@heroui/react";
 import { componentTypes } from "../../interfaces & enums";
 import { IoLocation } from "react-icons/io5";
 import { LocationButton } from "./sub-components";

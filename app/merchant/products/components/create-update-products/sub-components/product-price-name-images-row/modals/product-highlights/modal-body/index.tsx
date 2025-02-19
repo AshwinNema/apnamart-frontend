@@ -2,7 +2,7 @@ import {
   addNewHighlightPointer,
   ProductHighlightModalContext,
 } from "@/app/merchant/products/helpers";
-import { Button, Card, ModalBody } from "@nextui-org/react";
+import { Button, Card, ModalBody } from "@heroui/react";
 import { setNestedPath } from "@/app/_utils";
 import { TextInput } from "@/app/_custom-components";
 import { CancelUpdateKeyValIcons } from "@/app/merchant/products/components/common-components";
@@ -33,7 +33,7 @@ export const MainModalBody = () => {
         </div>
 
         <div
-          className={`${config.showAddNewBtn && "invisible"} flex gap-3 items-center`}
+          className={`${config.showAddNewBtn && "invisible"} flex gap-3 items-center justify-between`}
         >
           <TextInput
             value={config.newHightlightPoint}

@@ -9,7 +9,7 @@ import {
   ModalBody,
   ModalContent,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useTheme } from "next-themes";
 import { browserTheme } from "@/app/layout-components/theme-switch";
 const stripePromise = loadStripe(
@@ -54,6 +54,7 @@ export const OtherPaymentOptions = () => {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         isDismissable={false}
+        placement="center"
       >
         <ModalContent>
           <>

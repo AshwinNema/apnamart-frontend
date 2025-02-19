@@ -1,4 +1,4 @@
-import { Input } from "@nextui-org/react";
+import { Input } from "@heroui/react";
 import { useCallback, useState } from "react";
 import { setNestedPath } from "@/app/_utils";
 import { ClearIcon } from "@/app/_utils/icons & logos";

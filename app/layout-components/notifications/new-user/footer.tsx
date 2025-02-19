@@ -1,5 +1,5 @@
 import { useAppSelector } from "@/lib/main/hooks";
-import { Link, ModalFooter } from "@nextui-org/react";
+import { Link, ModalFooter } from "@heroui/react";
 import { details } from ".";
 import { UserRole } from "@/lib/main/slices/user/user.slice";
 import { useEffect, useState } from "react";
@@ -38,7 +38,7 @@ const Footer = ({ onClose }: { onClose: () => void }) => {
   return (
     <>
       {count > 0 ? (
-        <ModalFooter>
+        <ModalFooter className="justify-start">
           <p className="italic">
             <span className="font-bold">Please note :</span>
             <FooterElementWrapper

@@ -8,7 +8,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { DivIcon } from "leaflet";
 import { useMemo } from "react";
 import { renderToString } from "react-dom/server";

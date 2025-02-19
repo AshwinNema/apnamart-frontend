@@ -1,4 +1,4 @@
-import { Button, ModalFooter } from "@nextui-org/react";
+import { Button, ModalFooter } from "@heroui/react";
 import { bodyState, createUpdateData, MainModalContext } from "../../helper";
 import { useProductDispatch, useProductSelector } from "@/lib/product/hooks";
 import {

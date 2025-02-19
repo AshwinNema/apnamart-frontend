@@ -45,6 +45,7 @@ export interface createUpdateProductConfig {
   uploadedImgs: uploadedImgDetails[];
   deletedImgs: uploadedImgDetails[];
   highlights: string[];
+  innerWidth: number;
 }
 
 export type setCreateUpdateProductConfig = Dispatch<
@@ -77,4 +78,5 @@ export const getDefaultCreateUpdateProductConfig =
     deletedImgs: [],
     subCategoryList: [],
     highlights: [],
+    innerWidth: 0,
   });

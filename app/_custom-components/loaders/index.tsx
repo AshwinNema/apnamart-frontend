@@ -6,7 +6,7 @@ import {
   useDisclosure,
   CircularProgress,
   Progress,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { ReactNode, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { FcShop } from "react-icons/fc";

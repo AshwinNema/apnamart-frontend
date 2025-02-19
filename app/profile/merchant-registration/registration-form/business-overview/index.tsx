@@ -4,7 +4,7 @@ import { setMerchantDetails } from "@/lib/profile/slices/merchant-details.slice"
 import MerchantLogo from "./merchant-logo";
 import { SiNamesilo } from "react-icons/si";
 import { textInputProps } from "../utils";
-import { Textarea } from "@nextui-org/react";
+import { Textarea } from "@heroui/react";
 import { merchantRegistrationStatus } from "@/lib/main/slices/user/user.slice";
 
 const BusinessOverview = () => {

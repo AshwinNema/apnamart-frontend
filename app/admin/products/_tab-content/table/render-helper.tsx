@@ -14,6 +14,7 @@ export const NameComponent = ({
     <div className="flex items-center gap-3 text-lg">
       {!!photo && (
         <ImageComponent
+          className="min-w-[100px] min-h-[100px]"
           width={100}
           height={100}
           src={photo}

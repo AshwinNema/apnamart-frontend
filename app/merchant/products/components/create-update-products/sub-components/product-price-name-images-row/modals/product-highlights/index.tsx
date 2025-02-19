@@ -12,7 +12,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { MainModalBody } from "./modal-body";
 import { errorToast } from "@/app/_utils";
 import { produce } from "immer";

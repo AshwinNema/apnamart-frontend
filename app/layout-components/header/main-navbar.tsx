@@ -5,7 +5,7 @@ import {
   NavbarContent,
   NavbarItem,
   Button,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import ThemeSwitch from "../theme-switch";
 import { modalTypes } from "@/app/layout-components/login-signup/constants";
 import { useAppSelector } from "@/lib/main/hooks";
