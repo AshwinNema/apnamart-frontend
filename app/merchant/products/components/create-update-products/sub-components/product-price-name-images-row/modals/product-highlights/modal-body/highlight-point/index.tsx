@@ -30,61 +30,64 @@ export const HighlightPoint = ({ id, data }: { id: string; data: string }) => {
         placeholder="Enter details"
         isReadOnly={pointStateDetails.isReadOnly}
       />
-      <Tooltip
-        classNames={{ content: ["text-white"] }}
-        color="warning"
-        content={`Update highlighlight pointer`}
-      >
-        <span>
-          {pointStateDetails.isReadOnly ? (
-            <FaEdit
-              onClick={() => setData("isReadOnly")(false)}
-              className="fill-warningTheme scale-[1.4] cursor-pointer"
-            />
-          ) : (
-            <SiTicktick
+
+      <div className="flex items-center gap-3">
+        <Tooltip
+          classNames={{ content: ["text-white"] }}
+          color="warning"
+          content={`Update highlighlight pointer`}
+        >
+          <span>
+            {pointStateDetails.isReadOnly ? (
+              <FaEdit
+                onClick={() => setData("isReadOnly")(false)}
+                className="fill-warningTheme scale-[1.4] cursor-pointer"
+              />
+            ) : (
+              <SiTicktick
+                onClick={() => {
+                  const { error, data } = validateZodSchema(
+                    pointStateDetails.details,
+                    requiredStringValidation("Highligh Pointer"),
+                    true,
+                  );
+                  if (error || !data) return;
+                  setData("isReadOnly")(true);
+                  setConfig(
+                    produce((draft) => {
+                      const pointerIndex = draft.data.findIndex(
+                        (item) => item.id === id,
+                      );
+                      if (pointerIndex != -1)
+                        draft.data[pointerIndex].data = data as string;
+                    }),
+                  );
+                }}
+                className="fill-successTheme scale-[1.2] cursor-pointer"
+              />
+            )}
+          </span>
+        </Tooltip>
+
+        <Tooltip
+          color="danger"
+          classNames={{ content: ["text-white"] }}
+          content={"Delete specification feature/value"}
+        >
+          <span>
+            <RiDeleteBin6Fill
               onClick={() => {
-                const { error, data } = validateZodSchema(
-                  pointStateDetails.details,
-                  requiredStringValidation("Highligh Pointer"),
-                  true,
-                );
-                if (error || !data) return;
-                setData("isReadOnly")(true);
                 setConfig(
                   produce((draft) => {
-                    const pointerIndex = draft.data.findIndex(
-                      (item) => item.id === id,
-                    );
-                    if (pointerIndex != -1)
-                      draft.data[pointerIndex].data = data as string;
+                    draft.data = draft.data.filter((item) => item.id !== id);
                   }),
                 );
               }}
-              className="fill-successTheme scale-[1.2] cursor-pointer"
+              className="fill-dangerTheme cursor-pointer scale-[1.2]"
             />
-          )}
-        </span>
-      </Tooltip>
-
-      <Tooltip
-        color="danger"
-        classNames={{ content: ["text-white"] }}
-        content={"Delete specification feature/value"}
-      >
-        <span>
-          <RiDeleteBin6Fill
-            onClick={() => {
-              setConfig(
-                produce((draft) => {
-                  draft.data = draft.data.filter((item) => item.id !== id);
-                }),
-              );
-            }}
-            className="fill-dangerTheme cursor-pointer scale-[1.2]"
-          />
-        </span>
-      </Tooltip>
+          </span>
+        </Tooltip>
+      </div>
     </div>
   );
 };

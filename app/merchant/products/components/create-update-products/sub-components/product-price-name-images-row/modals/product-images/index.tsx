@@ -37,6 +37,7 @@ export const ProductImages = ({
         scrollBehavior="inside"
         hideCloseButton
         isOpen={isOpen}
+        placement="center"
         onOpenChange={onOpenChange}
       >
         <ModalContent>

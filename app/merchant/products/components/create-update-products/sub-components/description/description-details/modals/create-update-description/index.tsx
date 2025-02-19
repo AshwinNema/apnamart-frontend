@@ -38,6 +38,7 @@ export const CreateUpdateDescription = ({
         onOpenChange={onOpenChange}
         size="5xl"
         scrollBehavior="inside"
+        placement="center"
       >
         <ModalContent>
           {(onClose) => (

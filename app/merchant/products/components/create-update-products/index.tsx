@@ -19,6 +19,7 @@ import {
 } from "./sub-components";
 import { Button, Tooltip } from "@heroui/react";
 import styles from "@/app/styles.module.css";
+import { produce } from "immer";
 
 export const CreateUpdateProducts = ({
   onSuccess,
@@ -32,7 +33,23 @@ export const CreateUpdateProducts = ({
     getDefaultCreateUpdateProductConfig(),
   );
   const setData = useCallback(setNestedPath(setConfig), [setConfig]);
+  useEffect(() => {
+    const resizeHandler = () => {
+      setConfig(
+        produce((draft) => {
+          draft.innerWidth = window.innerWidth;
+        }),
+      );
+    };
 
+    resizeHandler();
+
+    window.addEventListener("resize", resizeHandler);
+
+    return () => {
+      window.removeEventListener("resize", resizeHandler);
+    };
+  }, []);
   useEffect(() => {
     getItemEntityList(setData("categoryList"));
   }, []);

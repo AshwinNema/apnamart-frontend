@@ -77,6 +77,7 @@ const config: Config = {
         mbEnd: { min: "751px" },
         mx625: { max: "625px" },
         mn625: { min: "625px" },
+        mx500: { max: "500px" },
         mx475: { max: "475px" },
       },
     },

@@ -54,6 +54,7 @@ export const OtherPaymentOptions = () => {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         isDismissable={false}
+        placement="center"
       >
         <ModalContent>
           <>

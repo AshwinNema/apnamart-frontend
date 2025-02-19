@@ -34,6 +34,7 @@ export const CurrentDescriptionDetailsModal = ({
       onOpenChange={onOpenChange}
       scrollBehavior="inside"
       size="5xl"
+      placement="center"
     >
       <ModalContent>
         <ModalHeader>Description details</ModalHeader>

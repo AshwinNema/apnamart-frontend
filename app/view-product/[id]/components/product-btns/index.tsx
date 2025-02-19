@@ -26,7 +26,7 @@ export const ProductBtns = () => {
   return (
     <>
       <div
-        className={`mt-6 ${mainContext.config.innerWidth > 800 ? styles["cartBtns"] : "flex gap-10"}`}
+        className={`mt-6 ${mainContext.config.innerWidth > 800 ? styles["cartBtns"] : "flex gap-10 justify-end"}`}
         style={{
           marginLeft:
             mainContext.config.innerWidth > 800

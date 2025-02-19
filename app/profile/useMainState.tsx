@@ -36,14 +36,14 @@ const useMainState = (): [
   const params = useSearchParams();
   const selectedTab = params.get("selectedTab");
   const isSelectedTabLoaded = useRef(false);
-  const tabOptions = useMemo(() => getTabOptions(user), [user]);
+  const tabOptions = useMemo(() => getTabOptions(user), [user?.role]);
 
   useEffect(() => {
     const localStorageUser = getLocalStorageKey(storageAttributes.user);
-    if (!user && localStorageUser) {
+    if (localStorageUser) {
       dispatch(setProfileUser(localStorageUser));
     }
-  }, [user, dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     const details = _.pick(user || {}, ["name", "email"]);

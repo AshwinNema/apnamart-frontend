@@ -8,6 +8,7 @@ import {
 } from "./helpers";
 import { MainLandingPage, CreateUpdateProducts } from "./components";
 import { setNestedPath } from "@/app/_utils";
+import { Skeleton } from "@heroui/react";
 
 const MerchantProductSection = () => {
   const [config, setConfig] = useState<mainConfig>(getDefaultMainConfig());
@@ -19,6 +20,9 @@ const MerchantProductSection = () => {
         page,
       },
       setConfig,
+      () => {
+        setData("isLoaded")(true);
+      },
     );
   }, []);
 
@@ -32,26 +36,29 @@ const MerchantProductSection = () => {
 
   const isCreatingUpdatingProduct =
     config.currentState === "create" || config.currentState === "update";
+
   return (
-    <div className="mt-5">
-      <MainContext.Provider value={{ config, setConfig }}>
-        {isCreatingUpdatingProduct ? (
-          <CreateUpdateProducts
-            updateData={config.updateData}
-            onSuccess={() => {
-              setData("currentState")("main screen");
-              queryData(config.page);
-            }}
-          />
-        ) : (
-          <MainLandingPage
-            queryCurData={(page) => {
-              queryData(page ? page : config.page);
-            }}
-          />
-        )}
-      </MainContext.Provider>{" "}
-    </div>
+    <Skeleton isLoaded={config.isLoaded} className="h-[100svh]">
+      <div className="mt-5">
+        <MainContext.Provider value={{ config, setConfig }}>
+          {isCreatingUpdatingProduct ? (
+            <CreateUpdateProducts
+              updateData={config.updateData}
+              onSuccess={() => {
+                setData("currentState")("main screen");
+                queryData(config.page);
+              }}
+            />
+          ) : (
+            <MainLandingPage
+              queryCurData={(page) => {
+                queryData(page ? page : config.page);
+              }}
+            />
+          )}
+        </MainContext.Provider>{" "}
+      </div>
+    </Skeleton>
   );
 };
 

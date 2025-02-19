@@ -26,18 +26,20 @@ export const DeletedImgViewer = ({
   return (
     <div className="relative overflow-hidden">
       <BackArrow
-        showArrow={config.showBackArrow}
+        showArrow={modalContext.config.firstVisibleDeletedIndex > 0}
         goBackward={() => {
+          const width = config.itemLeft[1] - config.itemLeft[0];
+          const totalVisibleElements = Math.floor(
+            (window.innerWidth - config.itemLeft[0]) / width,
+          );
           modalContext.setConfig(
             produce((draft) => {
-              draft.lastVisibleDeletedIndex = Math.max(
-                draft.lastVisibleDeletedIndex - config.totalVisibleElements,
-                config.totalVisibleElements - 1,
-              );
-              draft.translateDeletedImgsX = Math.max(
-                draft.translateDeletedImgsX - config.scrollWidth,
+              draft.firstVisibleDeletedIndex = Math.max(
+                draft.firstVisibleDeletedIndex - totalVisibleElements,
                 0,
               );
+              draft.translateDeletedImgsX =
+                draft.firstVisibleDeletedIndex * width;
             }),
           );
         }}

@@ -22,7 +22,7 @@ export const UploadedImages = ({
     <>
       <div className="relative overflow-hidden">
         <BackArrow
-          showArrow={config.showBackArrow}
+          showArrow={modalContext.config.firstVisibleUploadIndex > 0}
           goBackward={() => {
             goBackward(config, modalContext.setConfig);
           }}
@@ -46,8 +46,8 @@ export const UploadedImages = ({
                     deleteUploadedImg(
                       modalContext.setConfig,
                       imgDetails,
-                      config.itemWidth,
                       setConfig,
+                      config,
                     );
                   }}
                   imgDetails={imgDetails}

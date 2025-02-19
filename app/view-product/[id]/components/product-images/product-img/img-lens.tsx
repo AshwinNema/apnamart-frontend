@@ -45,6 +45,7 @@ export const ImgLens = ({
                 y: top - imgContainerConfig.imgTopOffSet,
               },
             });
+    
             setConfig(
               produce((draft) => {
                 draft.hovered = true;
@@ -71,7 +72,11 @@ export const ImgLens = ({
     return () => {
       subscription.unsubscribe();
     };
-  }, [context?.notifier, imgContainerContext?.config?.imgContainerLeft]);
+  }, [
+    context?.notifier,
+    imgContainerContext?.config?.imgContainerLeft,
+    context?.config?.innerWidth,
+  ]);
   return (
     <div
       ref={containerRef}

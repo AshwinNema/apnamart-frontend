@@ -52,8 +52,8 @@ export default function Logout({ onClose }: { onClose: () => void }) {
         showToast: false,
       },
     ).finally(() => {
-      clearUserStorage();
       dispatch(setUser(null));
+      clearUserStorage();
       !path.startsWith("/search") && router.push("/");
       onClose();
     });

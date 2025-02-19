@@ -32,6 +32,7 @@ export interface mainConfig {
   totalPages: number;
   totalResults: number;
   results: orderItem[];
+  isLoaded: boolean;
 }
 
 export type setMainConfig = Dispatch<SetStateAction<mainConfig>>;

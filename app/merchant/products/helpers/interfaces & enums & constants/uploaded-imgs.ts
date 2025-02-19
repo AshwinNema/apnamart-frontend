@@ -7,9 +7,9 @@ export interface productImgsModalState {
   uploadedImgs: uploadedImgDetails[];
   cachedFiles: File[];
   productImages: File[];
-  lastVisibleUploadIndex: number;
+  firstVisibleUploadIndex: number;
+  firstVisibleDeletedIndex: number;
   translateUploadImgsX: number;
-  lastVisibleDeletedIndex: number;
   translateDeletedImgsX: number;
 }
 
@@ -23,21 +23,16 @@ export const getDefaultProductImgsModalState = (): productImgsModalState => ({
   uploadedImgs: [],
   cachedFiles: [],
   productImages: [],
-  lastVisibleUploadIndex: 0,
+  firstVisibleUploadIndex: 0,
   translateUploadImgsX: 0,
-  lastVisibleDeletedIndex: 0,
   translateDeletedImgsX: 0,
+  firstVisibleDeletedIndex: 0,
 });
 
 export interface uploadedImgsConfig {
   showNextArrow: boolean;
-  showBackArrow: boolean;
-  itemLeft: number[];
-  scrollWidth: number;
+  itemLeft: [number, number];
   hasInteracted: boolean;
-  totalVisibleElements: number;
-  lastVisibleIndex: number;
-  itemWidth: number;
 }
 
 export type setUploadedImgsConfig = Dispatch<
@@ -46,13 +41,8 @@ export type setUploadedImgsConfig = Dispatch<
 
 export const defaultUploadedImgsConfig = (): uploadedImgsConfig => ({
   showNextArrow: false,
-  showBackArrow: false,
-  itemLeft: new Array(25).fill(0),
-  scrollWidth: 0,
+  itemLeft: [0, 0],
   hasInteracted: false,
-  totalVisibleElements: 1,
-  lastVisibleIndex: -1,
-  itemWidth: 0,
 });
 
 export type uploadImgActions = {

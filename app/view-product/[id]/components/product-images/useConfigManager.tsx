@@ -29,8 +29,11 @@ const useConfigManager = (): [
     const setLeftOffset = () => {
       if (!containerRef.current) return;
       const { left, top } = containerRef.current.getBoundingClientRect();
+
       setConfig(
         produce((draft) => {
+          if (draft.containerDimensionSet) return
+          draft.containerDimensionSet = true
           draft.imgContainerLeft = left;
           draft.imgContainerTop = top;
         }),

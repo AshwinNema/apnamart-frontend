@@ -33,7 +33,7 @@ export const MainModalBody = () => {
         </div>
 
         <div
-          className={`${config.showAddNewBtn && "invisible"} flex gap-3 items-center`}
+          className={`${config.showAddNewBtn && "invisible"} flex gap-3 items-center justify-between`}
         >
           <TextInput
             value={config.newHightlightPoint}

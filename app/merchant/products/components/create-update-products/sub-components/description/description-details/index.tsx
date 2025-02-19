@@ -55,7 +55,7 @@ export const DescriptionDetails = () => {
               isIconOnly
               className="bg-transparent"
             >
-              <PiPlusCircleDuotone className="scale-[3] fill-mainTheme" />
+              <PiPlusCircleDuotone className="scale-[3] mx500:scale-[2] fill-mainTheme" />
             </Button>
           </Tooltip>
         ) : null}
@@ -80,7 +80,7 @@ export const DescriptionDetails = () => {
               openCurrentDescriptionModal();
             }}
           >
-            <MdOutlinePreview className="scale-[3] fill-warningTheme" />
+            <MdOutlinePreview className="scale-[3] mx500:scale-[2] fill-warningTheme" />
           </Button>
         </Tooltip>
       </div>

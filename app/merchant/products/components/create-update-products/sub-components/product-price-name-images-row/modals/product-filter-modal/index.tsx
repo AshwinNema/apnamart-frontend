@@ -43,6 +43,7 @@ export const CreateUpdateProductFilterModal = ({
         scrollBehavior="inside"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
+        placement="center"
       >
         <ModalContent>
           {(onClose) => (

@@ -53,7 +53,7 @@ export default function LoginSignUpModal({
         scrollBehavior="inside"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        placement="top-center"
+        placement="center"
         hideCloseButton={true}
         isDismissable={false}
       >

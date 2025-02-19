@@ -39,16 +39,30 @@
 
 .create-product-name-price-photo-row {
   display: grid;
-  grid-template-columns: 8fr 2fr 2fr;
+  grid-template-columns: 2fr 1fr;
   align-items: center;
   gap: 2rem;
 }
 
+@media (max-width: 750px) {
+  .create-product-name-price-photo-row {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .product-specification-description-grid {
   display: grid;
-  grid-template-columns: 1fr 10fr 1fr;
+  grid-template-columns: 11fr 1fr;
   align-items: center;
   gap: 20px;
+}
+
+@media (max-width: 500px) {
+  .product-specification-description-grid {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .hover-text-white:hover {

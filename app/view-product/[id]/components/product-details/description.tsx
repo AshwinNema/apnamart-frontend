@@ -47,6 +47,7 @@ export const Description = ({
         <ImageComponent
           width={300}
           height={200}
+          className="min-w-[100px]"
           src={photo.url}
           alt="Description photo"
         />

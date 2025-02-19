@@ -14,7 +14,7 @@ export const Autocompletes = () => {
   if (!mainContext) return null;
   const { config, setConfig } = mainContext;
   return (
-    <div className="flex justify-between gap-3 mb-10">
+    <div className="flex justify-between gap-3 mb-10 mbStart:flex-col">
       <CategoryAutoComplete />
       <AutoComplete
         label="Sub Category"

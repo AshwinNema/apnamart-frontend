@@ -30,6 +30,7 @@ export const CurrentSpecificationDetailsModal = ({
         header: ["flex justify-center"],
         footer: ["flex justify-end"],
       }}
+      placement="center"
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       scrollBehavior="inside"

@@ -1,4 +1,4 @@
-import { SiGooglemybusiness } from "react-icons/si";
+import { MdOutlineBusiness } from "react-icons/md";
 import { ForwardToolTip } from "./forward-tooltip";
 import { useContext } from "react";
 import { createUpdateRegistration } from "../utils";
@@ -19,7 +19,7 @@ export const SaveDetailsIcon = () => {
   return (
     <ForwardToolTip>
       <span>
-        <SiGooglemybusiness
+        <MdOutlineBusiness
           onClick={() => {
             createUpdateRegistration(
               merchantDetails,

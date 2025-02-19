@@ -63,6 +63,7 @@ export const Modals = () => {
         hideCloseButton={config.hideCloseButton}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
+        placement="center"
       >
         <ModalContent>
           {() => {

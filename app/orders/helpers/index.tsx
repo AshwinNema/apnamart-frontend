@@ -14,6 +14,7 @@ export const queryCustomerOrders = (
     limit: number;
   },
   setData?: setVal,
+  onOperationComplete?: () => void,
 ) => {
   makeDataRequest(
     HTTP_METHODS.GET,
@@ -27,6 +28,9 @@ export const queryCustomerOrders = (
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      onOperationComplete && onOperationComplete();
     });
 };
 

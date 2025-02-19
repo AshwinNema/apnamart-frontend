@@ -10,7 +10,7 @@ export const CancelUpdateKeyValIcons = ({
   entity = "feature",
 }: createUpdateKetValIconConfig) => {
   return (
-    <>
+    <div className="flex items-center gap-3">
       <Tooltip
         color="success"
         className="text-white"
@@ -45,7 +45,7 @@ export const CancelUpdateKeyValIcons = ({
           />
         </span>
       </Tooltip>
-    </>
+    </div>
   );
 };
 
